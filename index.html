@@ -208,12 +208,13 @@
         
         /* Hero */
         .hero {
-            height: 90vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             background: linear-gradient(135deg, var(--gray) 0%, #ffffff 100%);
+            padding: 6rem 0 4rem;
         }
         
         .hero-content {
@@ -234,6 +235,8 @@
             animation: fadeInUp 0.8s forwards;
             animation-delay: 1.2s;
             opacity: 0;
+            position: relative;
+            z-index: 2;
         }
         
         .stat-item {
@@ -316,6 +319,8 @@
             left: 50%;
             transform: translateX(-50%);
             animation: bounce 2s infinite;
+            z-index: 3;
+            color: var(--dark);
         }
         
         .hero .scroll-down i {
@@ -754,23 +759,35 @@
                 border-radius: 8px;
             }
             
-            .hero-stats {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            
-            .hero-background .shape {
-                transform: scale(0.7);
-            }
-            
             .hero {
-                align-items: flex-start;
-                padding-top: 6rem;
+                padding-top: 5rem;
+                padding-bottom: 4rem;
+                min-height: 100vh;
+                height: auto;
             }
             
             .hero-content {
                 text-align: center;
-                padding-top: 2rem;
+                padding: 2rem 0;
+                width: 100%;
+            }
+            
+            .hero-stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+                margin-bottom: 3rem;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+            
+            .hero-background .shape {
+                transform: scale(0.7);
             }
             
             .hero h1 {
@@ -802,6 +819,10 @@
             
             .experience-card {
                 padding: 20px;
+            }
+            
+            .hero-stats {
+                grid-template-columns: 1fr;
             }
         }
 
