@@ -325,6 +325,28 @@
             max-width: 32rem;
             margin-bottom: 2rem;
         }
+        .hero-highlights {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        .hero-highlights li {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--slate-700);
+            padding: 0.75rem 1rem;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+        .hero-highlights li:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
 
         .hero-buttons {
             display: flex;
@@ -954,6 +976,9 @@
             .fakeout-cta {
                 justify-content: center;
             }
+            .hero-highlights {
+                grid-template-columns: 1fr;
+            }
 
             .scroll-down {
                 display: none;
@@ -1093,15 +1118,12 @@
                         <i class="fab fa-instagram"></i>
                     </a>
                 </div>
-                <p class="hero-description">
-                    I’m a Senior Engineering Analyst working at Google (Dublin, Ireland) on AI & ML systems, with 10+ years of experience.
-                </p>
-                <p class="hero-description">
-                    I help build, monitor and analyze data and ML systems in production and contribute to LLM governance. I love learning outside my job and using tech in my daily life so I also maintain a homelab running Ubuntu Server, along with experimenting with local AI. 
-                    <p> I also built FakeOut: an app for fact checks + AI image detection in one tap. <p><strong>Check it out below!</strong></p>
-                    <p> I also create simple, no‑jargon videos about tech, the Internet, and AI on YouTube and Instagram as @techwithvatsal. </p>
-                    </p> 
-                </p>
+                <ul class="hero-highlights">
+                    <li>🤖 Production ML systems</li>
+                    <li>🏠 Homelab enthusiast</li>
+                    <li>📱 Mobile app developer</li>
+                    <li>🎥 Tech content creator</li>
+                </ul>
 
                 <div class="fakeout-cta">
                     <span class="tagline">FakeOut</span>
