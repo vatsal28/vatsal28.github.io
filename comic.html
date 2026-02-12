@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VATSAL MISHRA | The Code Crusader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --comic-red: #E63946;
+            --comic-blue: #1D3557;
+            --comic-yellow: #FFD60A;
+            --comic-black: #000000;
+            --comic-white: #FFFFFF;
+            --comic-orange: #F77F00;
+            --panel-border: 4px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Neue', cursive;
+            background: var(--comic-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Halftone pattern overlay */
+        .halftone {
+            position: relative;
+        }
+
+        .halftone::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle, rgba(0,0,0,0.15) 1px, transparent 1px);
+            background-size: 4px 4px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Page container */
+        .comic-page {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: var(--comic-white);
+            position: relative;
+        }
+
+        /* Page number */
+        .page-number {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-family: 'Bangers', cursive;
+            font-size: 24px;
+            color: var(--comic-black);
+            background: var(--comic-yellow);
+            padding: 5px 15px;
+            border: 3px solid var(--comic-black);
+            z-index: 100;
+        }
+
+        /* Comic grid layout */
+        .comic-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 15px;
+            grid-auto-rows: minmax(150px, auto);
+        }
+
+        /* Panel base styles */
+        .panel {
+            border: var(--panel-border) solid var(--comic-black);
+            position: relative;
+            overflow: hidden;
+            background: var(--comic-white);
+            transition: transform 0.3s ease;
+        }
+
+        .panel:hover {
+            transform: scale(1.02);
+            z-index: 10;
+        }
+
+        .panel-content {
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Title panel - spans full width */
+        .title-panel {
+            grid-column: span 12;
+            min-height: 300px;
+            background: linear-gradient(135deg, var(--comic-yellow) 0%, var(--comic-orange) 100%);
+            position: relative;
+        }
+
+        .title-panel::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, var(--comic-red) 0%, transparent 30%),
+                radial-gradient(circle at 80% 20%, var(--comic-blue) 0%, transparent 30%);
+            opacity: 0.3;
+        }
+
+        .hero-title {
+            font-family: 'Bangers', cursive;
+            font-size: clamp(3rem, 10vw, 8rem);
+            color: var(--comic-black);
+            text-shadow: 
+                4px 4px 0 var(--comic-white),
+                8px 8px 0 var(--comic-red);
+            text-align: center;
+            letter-spacing: 0.05em;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-family: 'Bangers', cursive;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--comic-blue);
+            text-align: center;
+            margin-top: 10px;
+            z-index: 2;
+            position: relative;
+        }
+
+        /* Action lines radiating background */
+        .action-lines {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            transform: translate(-50%, -50%);
+            background: repeating-conic-gradient(
+                from 0deg,
+                transparent 0deg 5deg,
+                rgba(255,255,255,0.3) 5deg 10deg
+            );
+            z-index: 0;
+        }
+
+        /* Origin story panel */
+        .origin-panel {
+            grid-column: span 8;
+            grid-row: span 2;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            color: var(--comic-white);
+        }
+
+        .origin-panel .panel-content {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .hero-portrait {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid var(--comic-yellow);
+            object-fit: cover;
+            box-shadow: 0 0 30px rgba(255, 214, 10, 0.5);
+        }
+
+        .origin-text h2 {
+            font-family: 'Bangers', cursive;
+            font-size: 2rem;
+            color: var(--comic-yellow);
+            margin-bottom: 15px;
+        }
+
+        .origin-text p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        /* Secret identity panel */
+        .secret-panel {
+            grid-column: span 4;
+            grid-row: span 2;
+            background: var(--comic-blue);
+        }
+
+        .secret-badge {
+            background: var(--comic-red);
+            color: var(--comic-white);
+            padding: 10px 20px;
+            font-family: 'Bangers', cursive;
+            font-size: 1rem;
+            transform: rotate(-5deg);
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 2px solid var(--comic-black);
+        }
+
+        .secret-panel h3 {
+            font-family: 'Bangers', cursive;
+            font-size: 1.5rem;
+            color: var(--comic-yellow);
+            margin-bottom: 10px;
+        }
+
+        .secret-panel p {
+            color: var(--comic-white);
+            font-size: 1rem;
+        }
+
+        .google-logo {
+            font-size: 2rem;
+            margin-top: 15px;
+        }
+
+        /* Speech bubble */
+        .speech-bubble {
+            background: var(--comic-white);
+            border: 3px solid var(--comic-black);
+            border-radius: 20px;
+            padding: 15px 20px;
+            position: relative;
+            font-family: 'Comic Neue', cursive;
+            font-weight: 700;
+            font-size: 1rem;
+            max-width: 300px;
+            margin: 10px 0;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 30px;
+            border: 10px solid transparent;
+            border-top-color: var(--comic-black);
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -14px;
+            left: 33px;
+            border: 7px solid transparent;
+            border-top-color: var(--comic-white);
+            z-index: 1;
+        }
+
+        /* Thought bubble variation */
+        .thought-bubble {
+            background: var(--comic-white);
+            border: 3px solid var(--comic-black);
+            border-radius: 50%;
+            padding: 20px;
+            position: relative;
+            font-family: 'Comic Neue', cursive;
+            font-style: italic;
+        }
+
+        .thought-bubble::after {
+            content: '○ ○ ○';
+            position: absolute;
+            bottom: -25px;
+            left: 20px;
+            font-size: 10px;
+            letter-spacing: 3px;
+        }
+
+        /* Sound effect styles */
+        .sound-effect {
+            font-family: 'Bangers', cursive;
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: var(--comic-yellow);
+            text-shadow: 
+                3px 3px 0 var(--comic-red),
+                -1px -1px 0 var(--comic-black),
+                1px -1px 0 var(--comic-black),
+                -1px 1px 0 var(--comic-black),
+                1px 1px 0 var(--comic-black);
+            transform: rotate(-10deg);
+            position: absolute;
+            z-index: 10;
+        }
+
+        /* Project panels */
+        .project-panel {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            filter: brightness(0.7);
+            transition: transform 0.3s ease;
+        }
+
+        .project-panel:hover img {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: relative;
+            z-index: 2;
+            padding: 25px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background: linear-gradient(transparent 30%, rgba(0,0,0,0.8) 100%);
+        }
+
+        .project-title {
+            font-family: 'Bangers', cursive;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: var(--comic-yellow);
+            text-shadow: 2px 2px 0 var(--comic-black);
+        }
+
+        .project-subtitle {
+            font-family: 'Comic Neue', cursive;
+            font-size: 1rem;
+            color: var(--comic-white);
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .project-stat {
+            display: inline-block;
+            background: var(--comic-red);
+            color: var(--comic-white);
+            padding: 5px 15px;
+            font-family: 'Bangers', cursive;
+            font-size: 1rem;
+            margin-top: 10px;
+            border: 2px solid var(--comic-black);
+            transform: rotate(-2deg);
+        }
+
+        /* FakeOut panel */
+        .fakeout-panel {
+            grid-column: span 7;
+            grid-row: span 2;
+            min-height: 350px;
+        }
+
+        .fakeout-panel .sound-effect {
+            top: 20px;
+            right: 20px;
+        }
+
+        /* MealMate panel */
+        .mealmate-panel {
+            grid-column: span 5;
+            grid-row: span 2;
+            min-height: 350px;
+        }
+
+        .mealmate-panel .sound-effect {
+            top: 15px;
+            left: 15px;
+            color: var(--comic-orange);
+        }
+
+        /* Redo panel */
+        .redo-panel {
+            grid-column: span 6;
+            grid-row: span 2;
+            min-height: 300px;
+        }
+
+        .redo-panel .sound-effect {
+            bottom: 100px;
+            right: 20px;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+        }
+
+        /* Connect panel */
+        .connect-panel {
+            grid-column: span 6;
+            grid-row: span 2;
+            background: linear-gradient(135deg, var(--comic-blue) 0%, #0a1628 100%);
+            min-height: 300px;
+        }
+
+        .connect-panel h2 {
+            font-family: 'Bangers', cursive;
+            font-size: 2.5rem;
+            color: var(--comic-yellow);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--comic-yellow);
+            color: var(--comic-black);
+            padding: 12px 20px;
+            font-family: 'Bangers', cursive;
+            font-size: 1.1rem;
+            text-decoration: none;
+            border: 3px solid var(--comic-black);
+            transition: all 0.2s ease;
+            transform: rotate(-1deg);
+        }
+
+        .social-link:nth-child(2) { transform: rotate(1deg); }
+        .social-link:nth-child(3) { transform: rotate(-2deg); }
+        .social-link:nth-child(4) { transform: rotate(1.5deg); }
+        .social-link:nth-child(5) { transform: rotate(-0.5deg); }
+
+        .social-link:hover {
+            background: var(--comic-red);
+            color: var(--comic-white);
+            transform: scale(1.1) rotate(0deg);
+        }
+
+        .social-link svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* To be continued panel */
+        .tbc-panel {
+            grid-column: span 12;
+            background: var(--comic-black);
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .tbc-text {
+            font-family: 'Bangers', cursive;
+            font-size: clamp(2rem, 6vw, 5rem);
+            color: var(--comic-yellow);
+            text-shadow: 
+                4px 4px 0 var(--comic-red),
+                -2px -2px 0 var(--comic-blue);
+            letter-spacing: 0.1em;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .tbc-panel::before,
+        .tbc-panel::after {
+            content: '★';
+            font-size: 3rem;
+            color: var(--comic-yellow);
+            position: absolute;
+        }
+
+        .tbc-panel::before { left: 30px; }
+        .tbc-panel::after { right: 30px; }
+
+        /* Impact burst effect */
+        .impact-burst {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: var(--comic-yellow);
+            clip-path: polygon(
+                50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 
+                50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .impact-burst span {
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            color: var(--comic-black);
+        }
+
+        /* Caption boxes */
+        .caption-box {
+            background: var(--comic-yellow);
+            border: 2px solid var(--comic-black);
+            padding: 10px 15px;
+            font-family: 'Comic Neue', cursive;
+            font-weight: 700;
+            font-size: 0.9rem;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            max-width: 200px;
+            z-index: 10;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .origin-panel { grid-column: span 12; }
+            .secret-panel { grid-column: span 12; grid-row: span 1; }
+            .origin-panel .panel-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-portrait {
+                margin: 0 auto;
+            }
+            .fakeout-panel { grid-column: span 12; }
+            .mealmate-panel { grid-column: span 12; }
+            .redo-panel { grid-column: span 12; }
+            .connect-panel { grid-column: span 12; }
+        }
+
+        @media (max-width: 600px) {
+            .comic-page { padding: 10px; }
+            .comic-grid { gap: 10px; }
+            .panel-content { padding: 15px; }
+            .hero-portrait {
+                width: 150px;
+                height: 150px;
+            }
+            .speech-bubble {
+                font-size: 0.9rem;
+                padding: 10px 15px;
+            }
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            .social-link {
+                width: 100%;
+                justify-content: center;
+                transform: none !important;
+            }
+        }
+
+        /* Dramatic entrance animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .panel {
+            animation: slideIn 0.6s ease-out forwards;
+        }
+
+        .panel:nth-child(1) { animation-delay: 0.1s; }
+        .panel:nth-child(2) { animation-delay: 0.2s; }
+        .panel:nth-child(3) { animation-delay: 0.3s; }
+        .panel:nth-child(4) { animation-delay: 0.4s; }
+        .panel:nth-child(5) { animation-delay: 0.5s; }
+        .panel:nth-child(6) { animation-delay: 0.6s; }
+        .panel:nth-child(7) { animation-delay: 0.7s; }
+    </style>
+</head>
+<body>
+    <div class="comic-page">
+        <div class="page-number">PAGE 1</div>
+        
+        <div class="comic-grid">
+            <!-- TITLE PANEL -->
+            <div class="panel title-panel halftone">
+                <div class="action-lines"></div>
+                <div class="panel-content" style="align-items: center;">
+                    <h1 class="hero-title">VATSAL MISHRA</h1>
+                    <p class="hero-subtitle">⚡ THE CODE CRUSADER ⚡</p>
+                </div>
+            </div>
+
+            <!-- ORIGIN STORY PANEL -->
+            <div class="panel origin-panel">
+                <div class="caption-box">THE ORIGIN STORY...</div>
+                <div class="panel-content">
+                    <img src="Vatsal.jpg" alt="Vatsal Mishra" class="hero-portrait">
+                    <div class="origin-text">
+                        <h2>FROM HUMBLE BEGINNINGS...</h2>
+                        <p>A developer driven by the power of creation. Armed with nothing but a keyboard and an insatiable curiosity, our hero embarks on a journey to build tools that make the digital world a better place!</p>
+                        <div class="speech-bubble" style="margin-top: 20px;">
+                            "With great code comes great responsibility!"
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECRET IDENTITY PANEL -->
+            <div class="panel secret-panel halftone">
+                <div class="panel-content" style="text-align: center;">
+                    <span class="secret-badge">🔒 SECRET IDENTITY</span>
+                    <h3>BY DAY...</h3>
+                    <p>Senior Engineering Analyst</p>
+                    <p style="font-weight: bold; margin-top: 10px;">@ Google Dublin</p>
+                    <div class="google-logo">🏢</div>
+                    <p style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Where enterprise meets innovation</p>
+                </div>
+            </div>
+
+            <!-- FAKEOUT PROJECT PANEL -->
+            <div class="panel project-panel fakeout-panel">
+                <img src="fakeout-screenshot.png" alt="FakeOut App">
+                <span class="sound-effect">KAPOW!</span>
+                <div class="impact-burst" style="top: 10px; right: 120px;">
+                    <span>14K+</span>
+                </div>
+                <div class="project-overlay">
+                    <div class="caption-box" style="position: relative; top: 0; left: 0; display: inline-block; margin-bottom: 15px;">CHAPTER 1</div>
+                    <h3 class="project-title">FAKEOUT</h3>
+                    <p class="project-subtitle">"The Battle Against Misinformation!"</p>
+                    <span class="project-stat">⬇️ 14,000+ DOWNLOADS</span>
+                    <div class="speech-bubble" style="margin-top: 15px; background: rgba(255,255,255,0.95);">
+                        Fighting fake news, one fact-check at a time!
+                    </div>
+                </div>
+            </div>
+
+            <!-- MEALMATE PROJECT PANEL -->
+            <div class="panel project-panel mealmate-panel">
+                <img src="mealmate-screenshot.png" alt="MealMate App">
+                <span class="sound-effect">SIZZLE!</span>
+                <div class="project-overlay">
+                    <div class="caption-box" style="position: relative; top: 0; left: 0; display: inline-block; margin-bottom: 15px;">CHAPTER 2</div>
+                    <h3 class="project-title">MEALMATE</h3>
+                    <p class="project-subtitle">"Conquering the Kitchen Chaos!"</p>
+                    <div class="speech-bubble" style="margin-top: 15px; background: rgba(255,255,255,0.95);">
+                        Turning refrigerator chaos into culinary masterpieces!
+                    </div>
+                </div>
+            </div>
+
+            <!-- REDO AI PROJECT PANEL -->
+            <div class="panel project-panel redo-panel">
+                <img src="redo-screenshot.png" alt="Redo AI App">
+                <span class="sound-effect">WHOOSH!</span>
+                <div class="project-overlay">
+                    <div class="caption-box" style="position: relative; top: 0; left: 0; display: inline-block; margin-bottom: 15px;">CHAPTER 3</div>
+                    <h3 class="project-title">REDO AI</h3>
+                    <p class="project-subtitle">"Transforming Reality!"</p>
+                    <div class="speech-bubble" style="margin-top: 15px; background: rgba(255,255,255,0.95);">
+                        Bending pixels to my will with the power of AI!
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONNECT PANEL -->
+            <div class="panel connect-panel">
+                <div class="panel-content">
+                    <h2>📡 SIGNAL THE HERO!</h2>
+                    <div class="social-links">
+                        <a href="https://github.com/vatsal28" target="_blank" class="social-link">
+                            <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            GITHUB
+                        </a>
+                        <a href="https://linkedin.com/in/vatsalmishra28" target="_blank" class="social-link">
+                            <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            LINKEDIN
+                        </a>
+                        <a href="https://twitter.com/AeroVatsal" target="_blank" class="social-link">
+                            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            TWITTER
+                        </a>
+                        <a href="https://youtube.com/@vatsalmishra" target="_blank" class="social-link">
+                            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            YOUTUBE
+                        </a>
+                        <a href="https://instagram.com/vatsalmishra28" target="_blank" class="social-link">
+                            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                            INSTAGRAM
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TO BE CONTINUED PANEL -->
+            <div class="panel tbc-panel">
+                <span class="tbc-text">TO BE CONTINUED...</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
