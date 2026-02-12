@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VATSAL MISHRA — ANTI-PORTFOLIO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --white: #fafafa;
+            --highlight: #facc15;
+            --off-white: #e5e5e5;
+        }
+
+        html {
+            cursor: crosshair;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Anton', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Deliberate chaos */
+        a {
+            color: var(--highlight);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        a:hover {
+            text-decoration: line-through;
+        }
+
+        /* Navigation - minimal, off-kilter */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            mix-blend-mode: difference;
+        }
+
+        .nav-logo {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            transform: rotate(-3deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--white);
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--highlight);
+            transform: skewX(-5deg);
+            display: inline-block;
+        }
+
+        /* HERO - Maximum chaos */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .hero-name {
+            font-size: clamp(15vw, 25vw, 40rem);
+            line-height: 0.85;
+            text-transform: uppercase;
+            transform: rotate(-7deg) translateX(-5%);
+            color: var(--white);
+            position: relative;
+            z-index: 2;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-name span {
+            display: block;
+        }
+
+        .hero-name .first {
+            margin-left: 8%;
+        }
+
+        .hero-name .last {
+            color: transparent;
+            -webkit-text-stroke: 2px var(--white);
+            margin-left: -3%;
+        }
+
+        .hero-location {
+            position: absolute;
+            bottom: 15%;
+            right: 5%;
+            font-family: 'Caveat', cursive;
+            font-size: clamp(1.2rem, 3vw, 2.5rem);
+            color: var(--highlight);
+            transform: rotate(12deg);
+            z-index: 3;
+        }
+
+        .hero-role {
+            position: absolute;
+            top: 20%;
+            right: 8%;
+            font-size: 0.6rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            writing-mode: vertical-rl;
+            color: var(--off-white);
+            opacity: 0.7;
+        }
+
+        .hero-tagline {
+            position: absolute;
+            bottom: 25%;
+            left: 5%;
+            font-family: 'Caveat', cursive;
+            font-size: clamp(1rem, 2.5vw, 2rem);
+            color: var(--white);
+            max-width: 300px;
+            transform: rotate(-5deg);
+        }
+
+        .hero-arrow {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: var(--highlight);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-15px); }
+        }
+
+        /* Section styles */
+        section {
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(3rem, 12vw, 10rem);
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin-bottom: 4rem;
+        }
+
+        .section-title.outline {
+            color: transparent;
+            -webkit-text-stroke: 1px var(--white);
+        }
+
+        /* Projects - Polaroid chaos */
+        .projects-section {
+            background: var(--white);
+            color: var(--black);
+            min-height: 100vh;
+            overflow: visible;
+        }
+
+        .projects-section .section-title {
+            color: var(--black);
+            transform: rotate(2deg);
+            margin-left: -2%;
+        }
+
+        .projects-section .section-title.outline {
+            -webkit-text-stroke-color: var(--black);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .polaroid {
+            background: var(--white);
+            padding: 1rem 1rem 3rem;
+            box-shadow: 4px 8px 25px rgba(0,0,0,0.3);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: grab;
+        }
+
+        .polaroid:hover {
+            z-index: 10;
+            transform: scale(1.1) rotate(0deg) !important;
+            box-shadow: 8px 16px 40px rgba(0,0,0,0.4);
+        }
+
+        .polaroid:nth-child(1) { transform: rotate(-8deg) translateY(20px); }
+        .polaroid:nth-child(2) { transform: rotate(4deg) translateY(-30px) translateX(-20px); z-index: 2; }
+        .polaroid:nth-child(3) { transform: rotate(-3deg) translateY(40px); }
+
+        .polaroid-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            filter: contrast(1.1) saturate(0.9);
+        }
+
+        .polaroid-caption {
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            color: var(--black);
+            margin-top: 0.75rem;
+            text-align: center;
+        }
+
+        .polaroid-note {
+            position: absolute;
+            font-family: 'Caveat', cursive;
+            font-size: 1rem;
+            color: var(--highlight);
+            background: var(--black);
+            padding: 0.3rem 0.6rem;
+            transform: rotate(5deg);
+            top: -10px;
+            right: -10px;
+        }
+
+        .polaroid-links {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .polaroid-link {
+            font-family: 'Anton', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: var(--black);
+            color: var(--white);
+            padding: 0.4rem 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .polaroid-link:hover {
+            background: var(--highlight);
+            color: var(--black);
+            text-decoration: none;
+        }
+
+        /* About - Asymmetric */
+        .about-section {
+            background: var(--black);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-left {
+            position: sticky;
+            top: 8rem;
+        }
+
+        .about-right {
+            padding-top: 20vh;
+        }
+
+        .about-text {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            font-weight: 300;
+            color: var(--off-white);
+            max-width: 500px;
+        }
+
+        .about-text strong {
+            color: var(--highlight);
+            font-weight: 600;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .tiny-text {
+            font-size: 0.55rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0.5;
+            margin-top: 3rem;
+        }
+
+        /* Socials strip */
+        .socials-strip {
+            background: var(--highlight);
+            color: var(--black);
+            padding: 3rem 2rem;
+            overflow: hidden;
+        }
+
+        .socials-marquee {
+            display: flex;
+            gap: 4rem;
+            animation: marquee 20s linear infinite;
+            width: max-content;
+        }
+
+        .socials-marquee a {
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: var(--black);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .socials-marquee a:hover {
+            transform: skewX(-10deg);
+            display: inline-block;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Contact */
+        .contact-section {
+            background: var(--black);
+            text-align: center;
+            padding: 12rem 2rem;
+            position: relative;
+        }
+
+        .contact-email {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            color: var(--white);
+            border: 2px solid var(--white);
+            display: inline-block;
+            padding: 1.5rem 3rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .contact-email:hover {
+            background: var(--highlight);
+            color: var(--black);
+            border-color: var(--highlight);
+            transform: rotate(-2deg) scale(1.05);
+            text-decoration: none;
+        }
+
+        .contact-note {
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem;
+            color: var(--highlight);
+            position: absolute;
+            top: -40px;
+            right: -30px;
+            transform: rotate(8deg);
+        }
+
+        /* Footer - minimal */
+        footer {
+            background: var(--black);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+
+        .back-link {
+            color: var(--white);
+            font-size: 0.6rem;
+        }
+
+        /* Glitch effect on hover for name */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch:hover::before,
+        .glitch:hover::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch:hover::before {
+            color: var(--highlight);
+            animation: glitch-1 0.2s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        }
+
+        .glitch:hover::after {
+            color: #ec4899;
+            animation: glitch-2 0.3s infinite;
+            clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+        }
+
+        @keyframes glitch-1 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(3px, -3px); }
+            60% { transform: translate(-3px, -3px); }
+            80% { transform: translate(3px, 3px); }
+        }
+
+        @keyframes glitch-2 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(3px, -3px); }
+            40% { transform: translate(-3px, 3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(-3px, -3px); }
+        }
+
+        /* Random cursor changes */
+        .polaroid:active { cursor: grabbing; }
+        .contact-email { cursor: cell; }
+        footer { cursor: not-allowed; }
+        footer a { cursor: pointer; }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .about-section {
+                grid-template-columns: 1fr;
+            }
+
+            .about-left {
+                position: relative;
+                top: 0;
+            }
+
+            .about-right {
+                padding-top: 4rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+                padding: 2rem;
+            }
+
+            .polaroid:nth-child(1) { transform: rotate(-5deg); }
+            .polaroid:nth-child(2) { transform: rotate(3deg); }
+            .polaroid:nth-child(3) { transform: rotate(-2deg); grid-column: span 2; max-width: 350px; margin: 0 auto; }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero-name {
+                transform: rotate(-5deg);
+            }
+
+            .hero-location {
+                right: 2%;
+                bottom: 20%;
+            }
+
+            .hero-role {
+                display: none;
+            }
+
+            .hero-tagline {
+                bottom: 30%;
+                left: 2%;
+                max-width: 200px;
+            }
+
+            .section-title {
+                margin-bottom: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .polaroid {
+                max-width: 320px;
+                margin: 0 auto;
+            }
+
+            .polaroid:nth-child(1),
+            .polaroid:nth-child(2),
+            .polaroid:nth-child(3) {
+                transform: rotate(var(--rot, -3deg));
+                grid-column: auto;
+            }
+
+            .polaroid:nth-child(1) { --rot: -4deg; }
+            .polaroid:nth-child(2) { --rot: 3deg; }
+            .polaroid:nth-child(3) { --rot: -2deg; }
+
+            .about-text {
+                font-size: 1rem;
+            }
+
+            .contact-section {
+                padding: 8rem 2rem;
+            }
+
+            .contact-email {
+                padding: 1rem 2rem;
+            }
+
+            .contact-note {
+                position: static;
+                display: block;
+                transform: none;
+                margin-bottom: 1rem;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-name {
+                font-size: 20vw;
+            }
+
+            .nav-logo {
+                font-size: 0.6rem;
+            }
+
+            .nav-links a {
+                font-size: 0.55rem;
+            }
+
+            .polaroid-caption {
+                font-size: 1.2rem;
+            }
+
+            .socials-marquee a {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Easter egg: konami code ready */
+        .secret-mode body {
+            filter: invert(1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-logo">ANTI—PORTFOLIO</div>
+        <ul class="nav-links">
+            <li><a href="#projects">WORK</a></li>
+            <li><a href="#about">WHO?</a></li>
+            <li><a href="#contact">SAY HI</a></li>
+            <li><a href="index.html">← NORMAL</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="top">
+        <div class="hero-content">
+            <h1 class="hero-name glitch" data-text="VATSAL MISHRA">
+                <span class="first">VATSAL</span>
+                <span class="last">MISHRA</span>
+            </h1>
+            <div class="hero-location">↳ Dublin, Ireland</div>
+            <div class="hero-role">SENIOR ENGINEERING ANALYST @ GOOGLE</div>
+            <div class="hero-tagline">"I break grids & build ML systems that actually ship"</div>
+        </div>
+        <div class="hero-arrow">↓</div>
+    </section>
+
+    <!-- Socials Marquee -->
+    <div class="socials-strip">
+        <div class="socials-marquee">
+            <a href="https://github.com/vatsal28" target="_blank"><i class="fab fa-github"></i> GITHUB</a>
+            <a href="https://www.linkedin.com/in/vatsal-mishra-549481119/" target="_blank"><i class="fab fa-linkedin"></i> LINKEDIN</a>
+            <a href="https://twitter.com/techwithvatsal" target="_blank"><i class="fab fa-twitter"></i> TWITTER</a>
+            <a href="https://youtube.com/@techwithvatsal" target="_blank"><i class="fab fa-youtube"></i> YOUTUBE</a>
+            <a href="https://instagram.com/techwithvatsal" target="_blank"><i class="fab fa-instagram"></i> INSTAGRAM</a>
+            <!-- Duplicate for seamless loop -->
+            <a href="https://github.com/vatsal28" target="_blank"><i class="fab fa-github"></i> GITHUB</a>
+            <a href="https://www.linkedin.com/in/vatsal-mishra-549481119/" target="_blank"><i class="fab fa-linkedin"></i> LINKEDIN</a>
+            <a href="https://twitter.com/techwithvatsal" target="_blank"><i class="fab fa-twitter"></i> TWITTER</a>
+            <a href="https://youtube.com/@techwithvatsal" target="_blank"><i class="fab fa-youtube"></i> YOUTUBE</a>
+            <a href="https://instagram.com/techwithvatsal" target="_blank"><i class="fab fa-instagram"></i> INSTAGRAM</a>
+        </div>
+    </div>
+
+    <!-- Projects -->
+    <section class="projects-section" id="projects">
+        <h2 class="section-title">STUFF</h2>
+        <h2 class="section-title outline" style="margin-top: -2rem; margin-left: 10%;">I MADE</h2>
+
+        <div class="projects-grid">
+            <div class="polaroid">
+                <div class="polaroid-note">11k+ downloads!</div>
+                <img src="fakeout.png" alt="FakeOut" class="polaroid-image">
+                <div class="polaroid-caption">FakeOut — fight the fakes</div>
+                <div class="polaroid-links">
+                    <a href="https://play.google.com/store/apps/details?id=com.misinfo.bustr" target="_blank" class="polaroid-link"><i class="fab fa-google-play"></i> Android</a>
+                    <a href="https://apps.apple.com/ie/app/fakeout-misinfo-detector/id6748231739" target="_blank" class="polaroid-link"><i class="fab fa-apple"></i> iOS</a>
+                    <a href="https://fakeout.io" target="_blank" class="polaroid-link"><i class="fas fa-globe"></i> Web</a>
+                </div>
+            </div>
+
+            <div class="polaroid">
+                <div class="polaroid-note">meal prep = solved</div>
+                <img src="nas.png" alt="MealMate" class="polaroid-image">
+                <div class="polaroid-caption">MealMate — AI meal plans</div>
+                <div class="polaroid-links">
+                    <a href="#" class="polaroid-link">Coming Soon</a>
+                </div>
+            </div>
+
+            <div class="polaroid">
+                <div class="polaroid-note">redo everything</div>
+                <img src="media.png" alt="Redo AI" class="polaroid-image">
+                <div class="polaroid-caption">Redo AI — second chances</div>
+                <div class="polaroid-links">
+                    <a href="#" class="polaroid-link">In Progress</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about-section" id="about">
+        <div class="about-left">
+            <h2 class="section-title" style="color: var(--highlight);">WHO</h2>
+            <h2 class="section-title outline" style="margin-top: -1.5rem;">AM I?</h2>
+        </div>
+        <div class="about-right">
+            <div class="about-text">
+                <p><strong>Senior Engineering Analyst at Google.</strong> I build production ML & AI systems. Analytics, data pipelines, feature engineering, deployment, LLM governance — the full stack of making AI actually work.</p>
+                
+                <p>Outside work? I run a homelab that would make most sysadmins jealous. <strong>Pi-hole + WireGuard</strong> on a Raspberry Pi. A mini-PC running <strong>Plex, Nextcloud, Transmission</strong>. And a <strong>4070 Ti Super</strong> rig for local AI experiments with Ollama.</p>
+                
+                <p>Currently obsessed with <strong>FakeOut</strong> — fact-checks + AI image detection in one tap. 11k+ downloads. 4.2+ stars. Featured on YouTube. iOS launched. This is the anti-misinformation weapon I wished existed.</p>
+
+                <p class="tiny-text">Dublin, Ireland • Building things that matter • Homelab enthusiast • Content creator</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact-section" id="contact">
+        <div style="position: relative; display: inline-block;">
+            <span class="contact-note">↓ let's talk!</span>
+            <a href="mailto:vatsal@example.com" class="contact-email">GET IN TOUCH</a>
+        </div>
+        <p style="margin-top: 3rem; font-family: 'Caveat', cursive; font-size: 1.3rem; opacity: 0.6;">Or find me on the scrolling bar above ↑</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <span>© 2024 VATSAL MISHRA — THIS IS THE WEIRD VERSION</span>
+        <a href="index.html" class="back-link">← TAKE ME BACK TO NORMAL</a>
+    </footer>
+
+    <script>
+        // Parallax-ish effect on hero
+        document.addEventListener('mousemove', (e) => {
+            const hero = document.querySelector('.hero-name');
+            const x = (e.clientX / window.innerWidth - 0.5) * 10;
+            const y = (e.clientY / window.innerHeight - 0.5) * 5;
+            hero.style.transform = `rotate(-7deg) translateX(-5%) translate(${x}px, ${y}px)`;
+        });
+
+        // Random rotation on polaroids
+        document.querySelectorAll('.polaroid').forEach((p, i) => {
+            p.addEventListener('mouseenter', () => {
+                p.style.setProperty('--rot', '0deg');
+            });
+        });
+
+        // Console easter egg
+        console.log('%c👋 Hey, you found the console!', 'font-size: 20px; font-weight: bold;');
+        console.log('%cThis is the ANTI-portfolio. Rules? Broken. Grid? Chaotic. Design? Intentional.', 'font-size: 14px; color: #facc15;');
+        console.log('%c— Jony (the design purist)', 'font-style: italic; color: #888;');
+    </script>
+</body>
+</html>
