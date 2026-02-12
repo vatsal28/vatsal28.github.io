@@ -173,12 +173,18 @@
             --surface: #1f2937;
         }
 
+        html {
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
             color: var(--slate-700);
             background: linear-gradient(to bottom right, var(--bg-start), var(--bg-mid), var(--bg-end));
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         /* Typography */
@@ -232,6 +238,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 1rem;
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .logo {
@@ -273,6 +286,9 @@
             font-size: 1.5rem;
             color: var(--slate-700);
             cursor: pointer;
+            padding: 0.5rem;
+            min-width: 44px;
+            min-height: 44px;
         }
 
         /* Container */
@@ -431,11 +447,28 @@
             color: var(--slate-700);
             cursor: pointer;
             transition: var(--transition);
-            margin-left: 0.5rem;
+            padding: 0.5rem;
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .theme-toggle:hover {
             color: var(--orange-600);
             transform: translateY(-2px);
+        }
+        
+        /* Mobile hero avatar - shown only on mobile when main visual is hidden */
+        .hero-mobile-avatar {
+            display: none;
+            width: 120px;
+            height: 120px;
+            border-radius: var(--radius-full);
+            object-fit: cover;
+            box-shadow: var(--shadow-lg);
+            margin: 0 auto 1.5rem;
+            border: 4px solid var(--surface);
         }
 
         /* Hero Visual */
@@ -619,7 +652,7 @@
         }
 
         .feature-card:hover {
-            transform: translateX(10px) scale(1.02);
+            transform: translateY(-4px);
             box-shadow: var(--shadow-xl);
         }
 
@@ -904,7 +937,27 @@
             }
         }
 
-        /* Responsive */
+        /* Responsive - Tablet */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                gap: 2rem;
+            }
+            
+            .hero-card {
+                max-width: 380px;
+                margin: 0 auto;
+            }
+            
+            .projects-grid {
+                gap: 1.5rem;
+            }
+            
+            .about-grid {
+                gap: 2rem;
+            }
+        }
+
+        /* Responsive - Mobile */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -936,7 +989,9 @@
             }
 
             .mobile-toggle {
-                display: block;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 z-index: 1002;
             }
 
@@ -954,6 +1009,10 @@
             .hero-visual {
                 display: none;
             }
+            
+            .hero-mobile-avatar {
+                display: block;
+            }
 
             .hero-badge {
                 display: inline-block;
@@ -962,7 +1021,7 @@
 
             .hero-title {
                 font-size: 2.5rem;
-                margin-bottom: 1.5rem;
+                margin-bottom: 1rem;
             }
 
             .hero-description {
@@ -978,6 +1037,12 @@
             }
             .hero-highlights {
                 grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            
+            .hero-highlights li {
+                font-size: 1rem;
+                padding: 0.6rem 0.875rem;
             }
 
             .scroll-down {
@@ -987,6 +1052,10 @@
             .about-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+            }
+            
+            .profile-card {
+                padding: 0.875rem 1rem;
             }
 
             .feature-card {
@@ -1006,9 +1075,27 @@
             .project-content {
                 padding: 1.25rem;
             }
+            
+            .project-actions {
+                flex-direction: column;
+            }
+            
+            .project-actions .btn {
+                width: 100%;
+                text-align: center;
+            }
 
             .contact-form {
                 padding: 2rem;
+            }
+            
+            .footer-social {
+                gap: 0.75rem;
+            }
+            
+            .footer-social a {
+                width: 2.75rem;
+                height: 2.75rem;
             }
         }
 
@@ -1016,9 +1103,23 @@
             h1 {
                 font-size: 2rem;
             }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3 {
+                font-size: 1.25rem;
+            }
 
             .hero {
                 padding: 5rem 1rem 3rem;
+            }
+            
+            .hero-mobile-avatar {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 1.25rem;
             }
 
             .hero-badge {
@@ -1047,12 +1148,23 @@
             }
 
             .social-links {
-                gap: 0.75rem;
+                gap: 0.5rem;
+                flex-wrap: wrap;
             }
 
             .social-link {
-                width: 2.75rem;
-                height: 2.75rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+            
+            .fakeout-cta {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            
+            .store-pills {
+                justify-content: center;
             }
 
             section {
@@ -1062,6 +1174,29 @@
             .section-header {
                 margin-bottom: 2.5rem;
             }
+            
+            .profile-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.25rem;
+            }
+            
+            .feature-card-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .feature-icon {
+                margin: 0 auto 0.75rem;
+            }
+            
+            .project-image {
+                height: 10rem;
+            }
+            
+            .project-tags {
+                justify-content: center;
+            }
 
             .contact-form {
                 padding: 1.5rem;
@@ -1069,6 +1204,27 @@
 
             .form-group {
                 margin-bottom: 1.25rem;
+            }
+            
+            footer {
+                padding: 2rem 1rem;
+            }
+        }
+        
+        /* Landscape phones */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero {
+                min-height: auto;
+                padding: 5rem 1.5rem 2rem;
+            }
+            
+            .hero-mobile-avatar {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .hero-highlights {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -1078,18 +1234,20 @@
     <nav id="navbar">
         <div class="nav-container">
             <a href="#home" class="logo">Vatsal</a>
-            <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
-                <i class="fas fa-desktop" aria-hidden="true"></i>
-            </button>
-            <button class="mobile-toggle" onclick="toggleMobileMenu()">
-                <i class="fas fa-bars"></i>
-            </button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
                 <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
                 <li><a href="#projects" onclick="closeMobileMenu()">Projects</a></li>
                 <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
             </ul>
+            <div class="nav-right">
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+                    <i class="fas fa-desktop" aria-hidden="true"></i>
+                </button>
+                <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -1097,6 +1255,7 @@
     <section id="home" class="hero">
         <div class="hero-grid">
             <div>
+                <img src="Vatsal.jpg" alt="Vatsal Mishra" class="hero-mobile-avatar">
                 <div class="hero-badge">
                     👋 Hey there, I'm
                 </div>
