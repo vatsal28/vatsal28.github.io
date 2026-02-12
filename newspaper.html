@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE DAILY BUILD | Vatsal Mishra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=UnifrakturMaguntia&family=Oswald:wght@400;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #1a1a1a;
+            --paper: #f5f0e8;
+            --paper-dark: #e8e0d0;
+            --red: #c41e3a;
+            --rule: #2a2a2a;
+        }
+
+        body {
+            background: var(--paper);
+            color: var(--black);
+            font-family: 'Libre Baskerville', 'Times New Roman', Georgia, serif;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .newspaper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: var(--paper);
+            background-image: 
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent,
+                    transparent 28px,
+                    rgba(0,0,0,0.02) 28px,
+                    rgba(0,0,0,0.02) 29px
+                );
+        }
+
+        /* MASTHEAD */
+        .masthead {
+            text-align: center;
+            border-bottom: 4px double var(--black);
+            padding-bottom: 15px;
+            margin-bottom: 10px;
+        }
+
+        .top-line {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            padding: 0 20px;
+        }
+
+        .newspaper-name {
+            font-family: 'UnifrakturMaguntia', 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 400;
+            letter-spacing: 2px;
+            line-height: 1;
+            margin: 10px 0;
+        }
+
+        .tagline {
+            font-style: italic;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .date-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-top: 1px solid var(--black);
+            border-bottom: 1px solid var(--black);
+            padding: 8px 0;
+            margin-top: 10px;
+        }
+
+        .edition {
+            font-weight: bold;
+        }
+
+        /* TICKER */
+        .ticker {
+            background: var(--black);
+            color: var(--paper);
+            padding: 8px 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            overflow: hidden;
+        }
+
+        .ticker-label {
+            background: var(--red);
+            color: white;
+            padding: 3px 10px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        .ticker-content {
+            font-size: 0.8rem;
+            white-space: nowrap;
+            animation: scroll 20s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* MAIN GRID */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        /* HEADLINES */
+        .headline {
+            font-family: 'Oswald', 'Impact', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        .main-headline {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 15px;
+            border-bottom: 3px solid var(--black);
+            padding-bottom: 10px;
+        }
+
+        .sub-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .breaking {
+            display: inline-block;
+            background: var(--red);
+            color: white;
+            padding: 3px 12px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* ARTICLES */
+        .article {
+            margin-bottom: 25px;
+        }
+
+        .article-text {
+            font-size: 0.95rem;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        .article-text::first-letter {
+            font-size: 3.5rem;
+            float: left;
+            line-height: 0.8;
+            padding-right: 8px;
+            padding-top: 4px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+        }
+
+        .byline {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .continued {
+            font-style: italic;
+            font-size: 0.8rem;
+            color: var(--red);
+            margin-top: 10px;
+        }
+
+        /* PHOTOS */
+        .photo-container {
+            margin: 15px 0;
+            border: 1px solid var(--black);
+            padding: 5px;
+            background: white;
+        }
+
+        .photo-container img {
+            width: 100%;
+            display: block;
+            filter: grayscale(30%) contrast(1.1);
+        }
+
+        .photo-container:hover img {
+            filter: grayscale(0%) contrast(1);
+        }
+
+        .photo-caption {
+            font-size: 0.75rem;
+            font-style: italic;
+            padding: 8px 5px 3px;
+            border-top: 1px solid var(--rule);
+            margin-top: 5px;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            border-left: 2px solid var(--black);
+            padding-left: 20px;
+        }
+
+        .sidebar-headline {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--black);
+        }
+
+        .sidebar-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--rule);
+        }
+
+        .sidebar-item:last-child {
+            border-bottom: none;
+        }
+
+        .small-headline {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .small-text {
+            font-size: 0.85rem;
+        }
+
+        /* PULL QUOTE */
+        .pull-quote {
+            border-left: 4px solid var(--black);
+            border-right: 4px solid var(--black);
+            padding: 15px 20px;
+            margin: 20px 0;
+            text-align: center;
+            background: var(--paper-dark);
+        }
+
+        .pull-quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .pull-quote-attr {
+            font-size: 0.8rem;
+            margin-top: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* WEATHER BOX */
+        .weather-box {
+            background: var(--black);
+            color: var(--paper);
+            padding: 15px;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .weather-title {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .weather-icon {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .weather-temp {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .weather-loc {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        /* BOTTOM SECTION */
+        .bottom-stories {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 4px double var(--black);
+        }
+
+        .bottom-story {
+            padding: 0 10px;
+            border-right: 1px solid var(--rule);
+        }
+
+        .bottom-story:last-child {
+            border-right: none;
+        }
+
+        .bottom-headline {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .bottom-text {
+            font-size: 0.8rem;
+        }
+
+        /* CLASSIFIEDS / FOOTER */
+        .classifieds {
+            background: var(--paper-dark);
+            border: 2px solid var(--black);
+            padding: 15px;
+            margin-top: 25px;
+        }
+
+        .classifieds-title {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--black);
+        }
+
+        .classifieds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .classified-item {
+            text-align: center;
+        }
+
+        .classified-item a {
+            color: var(--black);
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: block;
+            padding: 10px;
+            border: 1px dashed var(--rule);
+            transition: all 0.2s;
+        }
+
+        .classified-item a:hover {
+            background: var(--black);
+            color: var(--paper);
+        }
+
+        .classified-icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        /* FOOTER */
+        .paper-footer {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 2px solid var(--black);
+            font-size: 0.75rem;
+        }
+
+        .other-editions {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .other-editions a {
+            color: var(--black);
+            text-decoration: none;
+            padding: 5px 15px;
+            border: 1px solid var(--black);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+
+        .other-editions a:hover {
+            background: var(--black);
+            color: var(--paper);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .newspaper {
+                padding: 10px;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-left: none;
+                border-top: 2px solid var(--black);
+                padding-left: 0;
+                padding-top: 20px;
+            }
+
+            .bottom-stories {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-story {
+                border-right: none;
+                border-bottom: 1px dashed var(--rule);
+                padding-bottom: 15px;
+            }
+
+            .top-line {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .date-line {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .ticker-content {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            .ticker {
+                display: none;
+            }
+            
+            body {
+                background: white;
+            }
+
+            .newspaper {
+                background: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper">
+        <!-- MASTHEAD -->
+        <header class="masthead">
+            <div class="top-line">
+                <span>Est. 2024 • Vol. MMXXVI No. 43</span>
+                <span>Price: Your Attention</span>
+            </div>
+            <h1 class="newspaper-name">The Daily Build</h1>
+            <p class="tagline">"All The Code That's Fit To Ship"</p>
+            <div class="date-line">
+                <span>Thursday, February 12, 2026</span>
+                <span class="edition">FINAL EDITION</span>
+                <span>Dublin, Ireland • Silicon Valley • The Internet</span>
+            </div>
+        </header>
+
+        <!-- TICKER -->
+        <div class="ticker">
+            <span class="ticker-label">BREAKING</span>
+            <span class="ticker-content">
+                📈 FAKEOUT downloads surge past 14,000 • 🍽️ MealMate users report "actually cooking now" • 🏠 Redo AI transforms rooms faster than IKEA instructions • 💼 Google Dublin office confirms: "Yes, he does have side projects" • 🎬 YouTube channel gains mysterious following • ☕ Local engineer reportedly runs on coffee and ambition
+            </span>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <div class="main-column">
+                <article class="article">
+                    <span class="breaking">EXCLUSIVE</span>
+                    <h2 class="headline main-headline">LOCAL MAN SHIPS APP WITH 14,000 DOWNLOADS — PLAY STORE IN SHOCK</h2>
+                    <p class="sub-headline">"I just wanted to help people spot fake news," claims Dublin-based engineer in explosive interview</p>
+                    <p class="byline">By Our Tech Correspondent</p>
+                    
+                    <div class="photo-container">
+                        <img src="fakeout-screenshot.png" alt="FakeOut App Screenshot">
+                        <p class="photo-caption"><strong>EVIDENCE:</strong> The controversial app that's changing how people consume news. Sources say it "actually works."</p>
+                    </div>
+                    
+                    <p class="article-text">Dublin was rocked this week by revelations that local resident Vatsal Mishra, a Senior Engineering Analyst at Google's European headquarters, has been secretly building apps in his spare time — and people are actually downloading them.</p>
+                    
+                    <p class="article-text" style="margin-top: 12px;">FakeOut, the engineer's flagship creation, has now surpassed 14,000 downloads on the Google Play Store, leaving industry analysts scrambling to understand how a side project could gain such traction. "We've never seen anything like it," said one anonymous source. "He just... shipped it. And it works."</p>
+                    
+                    <div class="pull-quote">
+                        <p class="pull-quote-text">"I build things because I want them to exist. The downloads are just proof that others wanted them too."</p>
+                        <p class="pull-quote-attr">— Vatsal Mishra, in rare public statement</p>
+                    </div>
+                    
+                    <p class="article-text">The app, which helps users identify potentially misleading news articles using artificial intelligence, has garnered praise from users worldwide. "Finally, something that doesn't make me feel stupid for asking if something's real," wrote one reviewer, awarding the app five stars.</p>
+                    
+                    <p class="continued">→ Continued on Page 2: "The Vibe Coder Methodology"</p>
+                </article>
+
+                <article class="article">
+                    <h3 class="headline" style="font-size: 1.8rem; border-top: 2px solid var(--black); padding-top: 15px;">MEALMATE SCANDAL: "I HAVEN'T ORDERED TAKEAWAY IN WEEKS"</h3>
+                    <p class="byline">Exclusive: App allegedly causing users to eat home-cooked meals</p>
+                    
+                    <div class="photo-container">
+                        <img src="mealmate-screenshot.png" alt="MealMate App Screenshot">
+                        <p class="photo-caption"><strong>THE CULPRIT:</strong> MealMate's sleek interface has been linked to decreased Deliveroo usage across multiple households.</p>
+                    </div>
+                    
+                    <p class="article-text">Reports are flooding in from concerned takeaway restaurants as Mishra's meal planning application, MealMate, continues to spread through health-conscious communities. The app generates personalized weekly meal plans, complete with shopping lists and recipes, effectively removing the age-old excuse of "I don't know what to cook."</p>
+                    
+                    <p class="article-text" style="margin-top: 12px;">"My fridge has vegetables in it now," confessed one user, speaking on condition of anonymity. "Actual vegetables. I don't recognize my own kitchen anymore."</p>
+                    
+                    <p class="continued">→ Full investigation on Page 4</p>
+                </article>
+            </div>
+
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+                <div class="weather-box">
+                    <p class="weather-title">Dublin Weather</p>
+                    <p class="weather-icon">🌧️</p>
+                    <p class="weather-temp">12°C</p>
+                    <p class="weather-loc">Perfect coding weather</p>
+                </div>
+
+                <div class="sidebar-item">
+                    <h4 class="headline sidebar-headline">INSIDE THIS EDITION</h4>
+                    <ul style="font-size: 0.85rem; padding-left: 20px;">
+                        <li>The Google Dublin Connection — p.2</li>
+                        <li>Redo AI: Rooms Transformed — p.3</li>
+                        <li>Opinion: Is Vibe Coding Real? — p.5</li>
+                        <li>Social Media Empire Review — p.6</li>
+                        <li>Classifieds & Contact — p.8</li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-item">
+                    <span class="breaking" style="font-size: 0.7rem;">DEVELOPING</span>
+                    <h4 class="small-headline">REDO AI TRANSFORMS ROOMS "LIKE MAGIC"</h4>
+                    <p class="small-text">Sources confirm the AI-powered room transformation app can visualize furniture changes before you buy. IKEA reportedly "concerned."</p>
+                </div>
+
+                <div class="sidebar-item">
+                    <h4 class="small-headline">PROFILE: WHO IS VATSAL MISHRA?</h4>
+                    <p class="small-text"><strong>Title:</strong> Senior Engineering Analyst</p>
+                    <p class="small-text"><strong>Location:</strong> Google Dublin</p>
+                    <p class="small-text"><strong>Known For:</strong> Shipping things that work</p>
+                    <p class="small-text"><strong>Approach:</strong> "Vibe Coding" methodology</p>
+                    <p class="small-text"><strong>Coffee Consumption:</strong> Classified</p>
+                </div>
+
+                <div class="sidebar-item">
+                    <div class="photo-container">
+                        <img src="redo-screenshot.png" alt="Redo AI Screenshot">
+                        <p class="photo-caption"><strong>TRANSFORMATION:</strong> Redo AI in action. Before and after, powered by artificial intelligence.</p>
+                    </div>
+                </div>
+
+                <div class="sidebar-item">
+                    <h4 class="small-headline">STOCKS & DOWNLOADS</h4>
+                    <p class="small-text" style="font-family: monospace;">
+                        FAKEOUT..... 14,247 ▲<br>
+                        MEALMATE.... Rising ▲<br>
+                        REDO.AI..... Active ▲<br>
+                        MOTIVATION.. High ▲<br>
+                        SLEEP....... Low ▼
+                    </p>
+                </div>
+            </aside>
+        </main>
+
+        <!-- BOTTOM STORIES -->
+        <section class="bottom-stories">
+            <article class="bottom-story">
+                <h4 class="bottom-headline">YOUTUBE CHANNEL GAINS CULT FOLLOWING</h4>
+                <p class="bottom-text">Mishra's video content has attracted viewers interested in tech, coding, and the occasional existential crisis about software architecture. "His tutorials actually make sense," reports confused viewer.</p>
+            </article>
+            <article class="bottom-story">
+                <h4 class="bottom-headline">GITHUB PROFILE REVEALS "PROLIFIC OUTPUT"</h4>
+                <p class="bottom-text">Investigators examining the engineer's GitHub discovered multiple repositories, commit histories spanning years, and evidence of "actually finishing projects." Experts are baffled.</p>
+            </article>
+            <article class="bottom-story">
+                <h4 class="bottom-headline">OPINION: THE FUTURE OF INDIE APPS</h4>
+                <p class="bottom-text">As major tech companies debate AI ethics, one engineer quietly builds useful tools. Is this the return of software craftsmanship? Our editorial board investigates.</p>
+            </article>
+        </section>
+
+        <!-- CLASSIFIEDS -->
+        <section class="classifieds">
+            <h3 class="classifieds-title">📰 Connect With The Source</h3>
+            <div class="classifieds-grid">
+                <div class="classified-item">
+                    <a href="https://github.com/vatsal28" target="_blank">
+                        <div class="classified-icon">💻</div>
+                        <strong>GitHub</strong><br>
+                        <small>View the code</small>
+                    </a>
+                </div>
+                <div class="classified-item">
+                    <a href="https://linkedin.com/in/vatsalmishra" target="_blank">
+                        <div class="classified-icon">💼</div>
+                        <strong>LinkedIn</strong><br>
+                        <small>Professional inquiries</small>
+                    </a>
+                </div>
+                <div class="classified-item">
+                    <a href="https://twitter.com/cryptikcell" target="_blank">
+                        <div class="classified-icon">🐦</div>
+                        <strong>Twitter/X</strong><br>
+                        <small>Hot takes & updates</small>
+                    </a>
+                </div>
+                <div class="classified-item">
+                    <a href="https://youtube.com/@vatsalmishra" target="_blank">
+                        <div class="classified-icon">🎬</div>
+                        <strong>YouTube</strong><br>
+                        <small>Video content</small>
+                    </a>
+                </div>
+                <div class="classified-item">
+                    <a href="https://instagram.com/vatsal.mishra" target="_blank">
+                        <div class="classified-icon">📸</div>
+                        <strong>Instagram</strong><br>
+                        <small>Life & moments</small>
+                    </a>
+                </div>
+                <div class="classified-item">
+                    <a href="https://play.google.com/store/apps/developer?id=Vatsal+Mishra" target="_blank">
+                        <div class="classified-icon">📱</div>
+                        <strong>Play Store</strong><br>
+                        <small>Download the apps</small>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="paper-footer">
+            <p><strong>THE DAILY BUILD</strong> is a satirical portfolio piece. No actual newspapers were harmed in its creation.</p>
+            <p style="margin-top: 5px;">© 2026 Vatsal Mishra • Built with caffeine and CSS Grid</p>
+            
+            <div class="other-editions">
+                <a href="index.html">📄 Standard Portfolio</a>
+                <a href="editorial.html">📰 Editorial Edition</a>
+                <a href="anti.html">🔥 Anti-Design</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Dynamic date
+        const dateEl = document.querySelector('.date-line span:first-child');
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateEl.textContent = now.toLocaleDateString('en-US', options);
+    </script>
+</body>
+</html>
