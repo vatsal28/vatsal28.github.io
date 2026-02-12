@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vatsal Mishra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000;
+            --white: #fff;
+            --accent: #f97316;
+            --gray-light: #f5f5f5;
+            --gray-mid: #888;
+            --gray-dark: #333;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: var(--black);
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 500;
+            line-height: 1.1;
+        }
+
+        p {
+            color: var(--gray-dark);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 8rem 0;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        nav.scrolled {
+            border-bottom-color: var(--gray-light);
+        }
+
+        .nav-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray-mid);
+        }
+
+        .nav-links a:hover {
+            color: var(--black);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 6rem;
+        }
+
+        .hero-name {
+            font-size: clamp(4rem, 15vw, 10rem);
+            font-weight: 400;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            line-height: 0.9;
+        }
+
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--gray-mid);
+            font-weight: 400;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--gray-mid);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .hero-scroll::after {
+            content: '';
+            width: 1px;
+            height: 3rem;
+            background: var(--gray-mid);
+        }
+
+        /* About */
+        .about {
+            background: var(--white);
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            margin-bottom: 3rem;
+            display: block;
+        }
+
+        .about-content {
+            display: grid;
+            gap: 3rem;
+        }
+
+        .about-text {
+            font-size: 1.125rem;
+            line-height: 1.9;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .pull-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-style: italic;
+            line-height: 1.5;
+            padding: 2rem 0;
+            border-top: 1px solid var(--black);
+            border-bottom: 1px solid var(--black);
+            margin: 3rem 0;
+            color: var(--black);
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--gray-mid);
+            margin-top: 2rem;
+        }
+
+        .location::before {
+            content: '';
+            width: 0.5rem;
+            height: 0.5rem;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        /* Projects */
+        .projects {
+            background: var(--gray-light);
+        }
+
+        .project {
+            margin-bottom: 6rem;
+        }
+
+        .project:last-child {
+            margin-bottom: 0;
+        }
+
+        .project-image {
+            width: 100%;
+            aspect-ratio: 16/10;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            background: var(--white);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .project:hover .project-image img {
+            transform: scale(1.03);
+        }
+
+        .project-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .project-description {
+            font-size: 1rem;
+            color: var(--gray-dark);
+            max-width: 600px;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--accent);
+            transition: gap 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 0.75rem;
+            color: var(--accent);
+        }
+
+        .project-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        /* Contact */
+        .contact {
+            text-align: center;
+        }
+
+        .contact-title {
+            font-size: clamp(2rem, 8vw, 4rem);
+            margin-bottom: 2rem;
+        }
+
+        .contact-email {
+            font-size: 1.125rem;
+            color: var(--gray-dark);
+            margin-bottom: 3rem;
+        }
+
+        .contact-email a {
+            color: var(--accent);
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 2px;
+        }
+
+        .contact-email a:hover {
+            border-bottom-color: transparent;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .social-link {
+            font-size: 1.25rem;
+            color: var(--gray-mid);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--gray-mid);
+            border-top: 1px solid var(--gray-light);
+        }
+
+        /* Mobile Menu */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                padding: 5rem 0;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.25rem;
+            }
+
+            .mobile-toggle {
+                display: block;
+                z-index: 101;
+            }
+
+            .hero-name {
+                font-size: clamp(3rem, 18vw, 6rem);
+            }
+
+            .hero-scroll {
+                display: none;
+            }
+
+            .pull-quote {
+                font-size: 1.375rem;
+            }
+
+            .project-title {
+                font-size: 1.5rem;
+            }
+
+            .project {
+                margin-bottom: 4rem;
+            }
+
+            .social-links {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1.25rem;
+            }
+
+            .hero {
+                min-height: 90vh;
+            }
+
+            .about-text {
+                font-size: 1rem;
+            }
+
+            .project-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">VM</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about" onclick="closeMenu()">About</a></li>
+                <li><a href="#projects" onclick="closeMenu()">Work</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+            </ul>
+            <button class="mobile-toggle" onclick="toggleMenu()" aria-label="Menu">
+                <i class="fas fa-bars" id="menuIcon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-name">Vatsal Mishra</h1>
+            <p class="hero-subtitle">Building ML systems at Google. Crafting apps that matter.</p>
+        </div>
+        <div class="hero-scroll">Scroll</div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <span class="section-label">About</span>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I'm a Senior Engineering Analyst at Google, working on production ML and AI systems. My work spans analytics, data pipelines, feature engineering, deployment, and LLM governance, including launch readiness, safety reviews, and post-launch monitoring.</p>
+
+                    <p>Outside of work, I maintain a hands-on homelab: Pi-hole and WireGuard on a Raspberry Pi for network security; a mini-PC running Ubuntu Server with Plex, Nextcloud, Transmission, and Webmin; and a 4070 Ti Super build for local AI experiments with Ollama and OpenWebUI.</p>
+                </div>
+
+                <blockquote class="pull-quote">
+                    Currently building FakeOut: fact checks and AI image detection in a single tap. 11,000+ downloads and counting.
+                </blockquote>
+
+                <div class="about-text">
+                    <p>With over a decade of experience in Python and SQL, I focus on building ML systems that actually work in production. I believe in practical solutions, clean implementations, and technology that serves real human needs.</p>
+                </div>
+
+                <div class="location">Dublin, Ireland</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <div class="container">
+            <span class="section-label">Selected Work</span>
+
+            <article class="project">
+                <div class="project-image">
+                    <img src="fakeout.png" alt="FakeOut App">
+                </div>
+                <h3 class="project-title">FakeOut</h3>
+                <p class="project-description">Fact-checking and AI image detection in one tap. My first mobile app, built with AI-assisted development. Featured in multiple YouTube videos with 11K+ downloads and 4.2+ stars.</p>
+                <div class="project-links">
+                    <a href="https://play.google.com/store/apps/details?id=com.misinfo.bustr" target="_blank" rel="noopener" class="project-link">
+                        Play Store <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="https://apps.apple.com/ie/app/fakeout-misinfo-detector/id6748231739" target="_blank" rel="noopener" class="project-link">
+                        App Store <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="https://fakeout.io" target="_blank" rel="noopener" class="project-link">
+                        Web App <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="project">
+                <div class="project-image">
+                    <img src="vpn.png" alt="Home VPN Setup">
+                </div>
+                <h3 class="project-title">Home VPN</h3>
+                <p class="project-description">WireGuard on Raspberry Pi for secure remote access to my home network, paired with Pi-hole for network-wide ad blocking and privacy.</p>
+            </article>
+
+            <article class="project">
+                <div class="project-image">
+                    <img src="nas.png" alt="NAS with Nextcloud">
+                </div>
+                <h3 class="project-title">NAS with Nextcloud</h3>
+                <p class="project-description">Self-hosted cloud storage using Nextcloud on Ubuntu Server. Multi-device sync, automated backups, and secure file sharing via Docker.</p>
+            </article>
+
+            <article class="project">
+                <div class="project-image">
+                    <img src="media.png" alt="Media Server">
+                </div>
+                <h3 class="project-title">Home Media Server</h3>
+                <p class="project-description">Plex on Ubuntu mini-PC for centralized media streaming with hardware transcoding. One library, every device.</p>
+            </article>
+
+            <article class="project">
+                <div class="project-image">
+                    <img src="monitoring.png" alt="Homelab Monitoring">
+                </div>
+                <h3 class="project-title">Homelab Monitoring</h3>
+                <p class="project-description">System administration with Webmin. Managing services, users, packages, and system health from a unified web interface.</p>
+            </article>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="contact-title">Let's connect</h2>
+            <p class="contact-email">
+                Working on something interesting?<br>
+                <a href="mailto:vatsal@example.com">Get in touch</a>
+            </p>
+            <div class="social-links">
+                <a href="https://github.com/vatsal28" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/vatsal-mishra-549481119/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://twitter.com/techwithvatsal" target="_blank" rel="noopener" class="social-link" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://youtube.com/@techwithvatsal" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://instagram.com/techwithvatsal" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Vatsal Mishra</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        const navLinks = document.getElementById('navLinks');
+        const menuIcon = document.getElementById('menuIcon');
+        
+        function toggleMenu() {
+            navLinks.classList.toggle('active');
+            menuIcon.classList.toggle('fa-bars');
+            menuIcon.classList.toggle('fa-times');
+        }
+
+        function closeMenu() {
+            navLinks.classList.remove('active');
+            menuIcon.classList.add('fa-bars');
+            menuIcon.classList.remove('fa-times');
+        }
+    </script>
+</body>
+</html>
