@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vatsal Mishra — Digital Garden</title>
+    <meta name="description" content="A digital garden of thoughts, projects, and experiments by Vatsal Mishra.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #faf8f5;
+            --cream-dark: #f5f2ed;
+            --stone: #78716c;
+            --stone-light: #a8a29e;
+            --forest: #166534;
+            --forest-light: #22c55e;
+            --ink: #1c1917;
+            --ink-soft: #44403c;
+            --ink-muted: #57534e;
+            
+            --font-serif: 'Crimson Text', Georgia, serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            --measure: 65ch;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2.5rem;
+            --spacing-xl: 4rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-serif);
+            font-size: 1.125rem;
+            line-height: 1.75;
+            color: var(--ink);
+            background: var(--cream);
+            min-height: 100vh;
+        }
+
+        ::selection {
+            background: rgba(22, 101, 52, 0.15);
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: var(--cream);
+            border-bottom: 1px solid rgba(120, 113, 108, 0.15);
+            padding: 1rem 0;
+            z-index: 100;
+        }
+
+        .nav-inner {
+            max-width: var(--measure);
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .nav-brand {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--ink);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+
+        .nav-brand:hover {
+            color: var(--forest);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+        }
+
+        .nav-links a {
+            color: var(--stone);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--forest);
+        }
+
+        /* Main Content */
+        main {
+            max-width: var(--measure);
+            margin: 0 auto;
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        /* Welcome / Hero */
+        .welcome {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .welcome-greeting {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.3;
+        }
+
+        .welcome-intro {
+            font-size: 1.25rem;
+            color: var(--ink-soft);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .welcome-meta {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--stone);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .welcome-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        /* Social Links */
+        .social-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: var(--spacing-md);
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.25rem;
+            height: 2.25rem;
+            border: 1px solid rgba(120, 113, 108, 0.3);
+            border-radius: 50%;
+            color: var(--stone);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .social-link:hover {
+            color: var(--forest);
+            border-color: var(--forest);
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .section-title {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--stone);
+            margin-bottom: var(--spacing-md);
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(120, 113, 108, 0.2);
+        }
+
+        /* About Section - Letter style */
+        .letter {
+            background: var(--cream-dark);
+            padding: var(--spacing-lg);
+            border-radius: 4px;
+            border-left: 3px solid var(--forest);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .letter p {
+            margin-bottom: 1rem;
+        }
+
+        .letter p:last-child {
+            margin-bottom: 0;
+        }
+
+        .letter-signature {
+            font-style: italic;
+            color: var(--ink-soft);
+            margin-top: var(--spacing-md);
+        }
+
+        /* Projects as Stories */
+        .project-story {
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 1px dashed rgba(120, 113, 108, 0.25);
+        }
+
+        .project-story:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin: 0;
+        }
+
+        .project-title a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 2px solid var(--forest-light);
+            transition: border-color 0.2s;
+        }
+
+        .project-title a:hover {
+            border-color: var(--forest);
+        }
+
+        .project-tended {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            color: var(--stone-light);
+            background: rgba(120, 113, 108, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+        }
+
+        .project-story p {
+            margin-bottom: 1rem;
+            color: var(--ink-soft);
+        }
+
+        .project-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: var(--spacing-sm);
+        }
+
+        .project-link {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--forest);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.4rem 0.75rem;
+            border: 1px solid var(--forest);
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+
+        .project-link:hover {
+            background: var(--forest);
+            color: white;
+        }
+
+        /* Sidenotes */
+        .sidenote {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--stone);
+            background: rgba(120, 113, 108, 0.08);
+            padding: 0.75rem 1rem;
+            border-radius: 3px;
+            margin: var(--spacing-sm) 0;
+            line-height: 1.5;
+        }
+
+        .sidenote::before {
+            content: "✦ ";
+            color: var(--forest);
+        }
+
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .tag {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            color: var(--stone);
+            background: rgba(120, 113, 108, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 2px;
+            text-transform: lowercase;
+        }
+
+        /* Colophon / Footer */
+        footer {
+            max-width: var(--measure);
+            margin: 0 auto;
+            padding: var(--spacing-lg) var(--spacing-md);
+            border-top: 1px solid rgba(120, 113, 108, 0.2);
+            text-align: center;
+        }
+
+        .colophon {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--stone);
+        }
+
+        .colophon a {
+            color: var(--forest);
+            text-decoration: none;
+        }
+
+        .colophon a:hover {
+            text-decoration: underline;
+        }
+
+        .garden-note {
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--stone-light);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            body {
+                font-size: 1rem;
+            }
+
+            .welcome-greeting {
+                font-size: 1.75rem;
+            }
+
+            .welcome-intro {
+                font-size: 1.1rem;
+            }
+
+            .letter {
+                padding: var(--spacing-md);
+            }
+
+            .project-title {
+                font-size: 1.25rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            main {
+                padding: var(--spacing-lg) var(--spacing-md);
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            nav, .social-row, .project-links {
+                display: none;
+            }
+            
+            body {
+                background: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a href="#" class="nav-brand">Vatsal's Garden</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#connect">Connect</a></li>
+                <li><a href="index.html">Main Site</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Welcome -->
+        <header class="welcome">
+            <h1 class="welcome-greeting">Hi, I'm Vatsal.</h1>
+            <p class="welcome-intro">
+                I build things that help people make sense of the world. Currently tending this garden from Dublin, Ireland, where I work at Google on production ML systems.
+            </p>
+            <div class="welcome-meta">
+                <span><i class="fas fa-map-marker-alt"></i> Dublin, Ireland</span>
+                <span><i class="fas fa-briefcase"></i> Google</span>
+                <span><i class="fas fa-seedling"></i> Last tended: February 2026</span>
+            </div>
+
+            <div class="social-row">
+                <a href="https://github.com/vatsal28" target="_blank" rel="noopener" class="social-link" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/vatsal-mishra-549481119/" target="_blank" rel="noopener" class="social-link" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://twitter.com/techwithvatsal" target="_blank" rel="noopener" class="social-link" title="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://youtube.com/@techwithvatsal" target="_blank" rel="noopener" class="social-link" title="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://instagram.com/techwithvatsal" target="_blank" rel="noopener" class="social-link" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </header>
+
+        <!-- About -->
+        <section id="about">
+            <h2 class="section-title">A bit about me</h2>
+            
+            <div class="letter">
+                <p>
+                    Welcome to my corner of the internet. This isn't a polished portfolio or a carefully curated LinkedIn presence. Think of it more like a garden: things grow here, some ideas bloom, others get pruned.
+                </p>
+                <p>
+                    By day, I'm a Senior Engineering Analyst at Google, working on production ML and AI systems. I spend my time thinking about analytics, data pipelines, LLM governance, and making sure things don't break when they go live. It's the kind of work where you celebrate when nothing happens, because nothing happening means everything is working.
+                </p>
+                <p>
+                    By night (and weekends), I tinker. I've got a homelab running on a Raspberry Pi and a mini-PC: Pi-hole blocks the ads, WireGuard lets me tunnel home from anywhere, Nextcloud keeps my files synced, and Plex serves up movies to every screen in the house. There's also a 4070 Ti Super rig for running local AI experiments with Ollama.
+                </p>
+                <p>
+                    The common thread? I like building systems that work quietly in the background, making life a little easier without demanding attention.
+                </p>
+                <p class="letter-signature">
+                    — Vatsal
+                </p>
+            </div>
+
+            <div class="sidenote">
+                I'm also a tech content creator on YouTube, sharing what I learn along the way. Teaching is the best way to solidify understanding.
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects">
+            <h2 class="section-title">Things I've built</h2>
+
+            <article class="project-story">
+                <div class="project-header">
+                    <h3 class="project-title">
+                        <a href="https://fakeout.io" target="_blank" rel="noopener">FakeOut</a>
+                    </h3>
+                    <span class="project-tended">🌱 Actively growing</span>
+                </div>
+                <p>
+                    This one started from a simple frustration: it's genuinely hard to know what's real online anymore. AI-generated images are everywhere, and misinformation spreads faster than corrections.
+                </p>
+                <p>
+                    FakeOut is my answer. One tap gives you fact-checks from trusted sources and AI image detection. No PhD required. It started as an Android app, built mostly with AI-assisted coding (I'm not a mobile developer by trade), and has grown to 11,000+ downloads with 4.2+ stars on Google Play. Recently launched on iOS too.
+                </p>
+                <div class="sidenote">
+                    The app has been featured in multiple YouTube videos. Turns out people really want tools to navigate information chaos.
+                </div>
+                <div class="project-links">
+                    <a href="https://play.google.com/store/apps/details?id=com.misinfo.bustr" target="_blank" rel="noopener" class="project-link">
+                        <i class="fab fa-google-play"></i> Android
+                    </a>
+                    <a href="https://apps.apple.com/ie/app/fakeout-misinfo-detector/id6748231739" target="_blank" rel="noopener" class="project-link">
+                        <i class="fab fa-apple"></i> iOS
+                    </a>
+                    <a href="https://fakeout.io" target="_blank" rel="noopener" class="project-link">
+                        <i class="fas fa-globe"></i> Web
+                    </a>
+                </div>
+                <div class="tags">
+                    <span class="tag">mobile</span>
+                    <span class="tag">ai</span>
+                    <span class="tag">misinformation</span>
+                    <span class="tag">flutter</span>
+                </div>
+            </article>
+
+            <article class="project-story">
+                <div class="project-header">
+                    <h3 class="project-title">MealMate</h3>
+                    <span class="project-tended">🌿 Planted</span>
+                </div>
+                <p>
+                    Meal planning is one of those problems that seems simple until you actually try to solve it. MealMate was my attempt: an AI-powered meal planning assistant that considers what you have, what you like, and what's realistic for a Tuesday night when you're tired.
+                </p>
+                <p>
+                    It generates recipes, creates shopping lists, and tries to minimize food waste. Still experimenting with the right balance between intelligent suggestions and not being annoying about your eating habits.
+                </p>
+                <div class="tags">
+                    <span class="tag">ai</span>
+                    <span class="tag">productivity</span>
+                    <span class="tag">llm</span>
+                </div>
+            </article>
+
+            <article class="project-story">
+                <div class="project-header">
+                    <h3 class="project-title">Redo AI</h3>
+                    <span class="project-tended">🌱 Seedling</span>
+                </div>
+                <p>
+                    An exploration into what AI-assisted iteration could look like. The core idea: instead of starting from scratch, what if you could feed an AI your existing work and get meaningful variations? Useful for design, writing, coding... anything where you're stuck in a local optimum.
+                </p>
+                <p>
+                    Still early days, but the premise is compelling. Sometimes the best way forward is to see your work through different eyes.
+                </p>
+                <div class="tags">
+                    <span class="tag">ai</span>
+                    <span class="tag">creative tools</span>
+                    <span class="tag">experimental</span>
+                </div>
+            </article>
+
+            <article class="project-story">
+                <div class="project-header">
+                    <h3 class="project-title">The Homelab</h3>
+                    <span class="project-tended">🌳 Evergreen</span>
+                </div>
+                <p>
+                    This isn't one project—it's an ecosystem. A Raspberry Pi runs Pi-hole (network-wide ad blocking) and WireGuard (VPN home from anywhere). A mini-PC on Ubuntu Server hosts Nextcloud, Plex, and various automation tools. And there's the local AI rig for experiments.
+                </p>
+                <p>
+                    Why self-host? Control, privacy, and the satisfaction of understanding how your digital life actually works. Also, it's fun. Most of the time.
+                </p>
+                <div class="sidenote">
+                    "It's working perfectly" is always followed by three hours of debugging. This is the way.
+                </div>
+                <div class="tags">
+                    <span class="tag">linux</span>
+                    <span class="tag">self-hosting</span>
+                    <span class="tag">docker</span>
+                    <span class="tag">raspberry pi</span>
+                </div>
+            </article>
+        </section>
+
+        <!-- Connect -->
+        <section id="connect">
+            <h2 class="section-title">Let's connect</h2>
+            <p>
+                Working on something interesting? Have questions about any of these projects? Just want to talk about homelabs, AI, or why self-hosting is both a blessing and a curse?
+            </p>
+            <p>
+                Find me on <a href="https://twitter.com/techwithvatsal" style="color: var(--forest);">Twitter</a>, 
+                <a href="https://www.linkedin.com/in/vatsal-mishra-549481119/" style="color: var(--forest);">LinkedIn</a>, or 
+                watch my experiments on <a href="https://youtube.com/@techwithvatsal" style="color: var(--forest);">YouTube</a>.
+            </p>
+            <p>
+                Or just <a href="index.html#contact" style="color: var(--forest);">send me a message</a>.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p class="garden-note">
+            "A digital garden is a collection of evolving ideas that aren't strictly organised by their publication date."
+        </p>
+        <p class="colophon">
+            Built with care by <a href="https://github.com/vatsal28">Vatsal Mishra</a> · 
+            View the <a href="index.html">main site</a>
+        </p>
+    </footer>
+</body>
+</html>
