@@ -547,16 +547,86 @@
       color: var(--accent);
     }
 
-    /* Image */
+    /* Embedded site preview (marketing pages) */
     .project-image-wrap {
       position: relative;
     }
 
-    .project-img {
-      width: 100%;
-      display: block;
+    .site-preview {
+      margin: 0;
       border: 1px solid var(--rule);
-      transition: opacity 0.3s;
+      background: var(--paper-cool);
+      overflow: hidden;
+    }
+
+    .site-preview-chrome {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.42rem 0.65rem;
+      border-bottom: 1px solid var(--rule);
+      background: var(--paper-warm);
+    }
+
+    .site-preview-traffic {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+      align-items: center;
+    }
+
+    .site-preview-traffic i {
+      display: block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--rule-heavy);
+      opacity: 0.22;
+    }
+
+    .site-preview-url {
+      flex: 1;
+      min-width: 0;
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+      padding: 0.26rem 0.55rem;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .site-preview-open {
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+      font-size: 0.54rem;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .site-preview-open:hover {
+      text-decoration: underline;
+    }
+
+    .site-preview-frame {
+      position: relative;
+      width: 100%;
+      height: clamp(260px, 42vw, 480px);
+      background: var(--paper);
+    }
+
+    .site-preview-frame iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: white;
     }
 
     .project-img-caption {
@@ -566,6 +636,15 @@
       color: var(--ink-faint);
       margin-top: 0.4rem;
       text-align: right;
+    }
+
+    .project-img-caption a {
+      color: var(--ink-muted);
+      text-underline-offset: 2px;
+    }
+
+    .project-img-caption a:hover {
+      color: var(--accent);
     }
 
     /* ── SECONDARY GRID ──────────────── */
@@ -951,16 +1030,86 @@
       color: var(--accent);
     }
 
-    /* Image */
+    /* Embedded site preview (marketing pages) */
     .project-image-wrap {
       position: relative;
     }
 
-    .project-img {
-      width: 100%;
-      display: block;
+    .site-preview {
+      margin: 0;
       border: 1px solid var(--rule);
-      transition: opacity 0.3s;
+      background: var(--paper-cool);
+      overflow: hidden;
+    }
+
+    .site-preview-chrome {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.42rem 0.65rem;
+      border-bottom: 1px solid var(--rule);
+      background: var(--paper-warm);
+    }
+
+    .site-preview-traffic {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+      align-items: center;
+    }
+
+    .site-preview-traffic i {
+      display: block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--rule-heavy);
+      opacity: 0.22;
+    }
+
+    .site-preview-url {
+      flex: 1;
+      min-width: 0;
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+      padding: 0.26rem 0.55rem;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .site-preview-open {
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+      font-size: 0.54rem;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .site-preview-open:hover {
+      text-decoration: underline;
+    }
+
+    .site-preview-frame {
+      position: relative;
+      width: 100%;
+      height: clamp(260px, 42vw, 480px);
+      background: var(--paper);
+    }
+
+    .site-preview-frame iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: white;
     }
 
     .project-img-caption {
@@ -970,6 +1119,15 @@
       color: var(--ink-faint);
       margin-top: 0.4rem;
       text-align: right;
+    }
+
+    .project-img-caption a {
+      color: var(--ink-muted);
+      text-underline-offset: 2px;
+    }
+
+    .project-img-caption a:hover {
+      color: var(--accent);
     }
 
     /* ── SECONDARY GRID ──────────────── */
@@ -1315,6 +1473,7 @@
       .project-num { display: none; }
       .masthead-metrics { grid-template-columns: 1fr 1fr; }
       .metric:nth-child(3) { grid-column: span 2; border-left: none; border-top: 1px solid var(--rule); padding-top: 1rem; margin-top: 1rem; padding-left: 0; }
+      .site-preview-frame { height: clamp(220px, 52vh, 420px); }
     }
   </style>
 </head>
@@ -1469,8 +1628,17 @@
           </div>
 
           <div class="project-image-wrap">
-            <img src="fakeout-screenshot.png" alt="FakeOut app interface" class="project-img">
-            <p class="project-img-caption">FakeOut · Android &amp; iOS · 2024</p>
+            <figure class="site-preview">
+              <div class="site-preview-chrome">
+                <span class="site-preview-traffic" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="site-preview-url">www.fakeout.io</span>
+                <a class="site-preview-open" href="https://www.fakeout.io/" target="_blank" rel="noopener">Open →</a>
+              </div>
+              <div class="site-preview-frame">
+                <iframe title="fakeout.io marketing site" src="https://www.fakeout.io/" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </figure>
+            <p class="project-img-caption">Embedded live site · Apps on <a href="https://play.google.com/store/apps/details?id=com.misinfo.bustr" target="_blank" rel="noopener">Play Store</a> &amp; <a href="https://apps.apple.com/ie/app/fakeout-misinfo-detector/id6748231739" target="_blank" rel="noopener">App Store</a></p>
           </div>
         </div>
       </div>
@@ -1495,8 +1663,17 @@
             </div>
           </div>
           <div class="project-image-wrap">
-            <img src="redo-screenshot.png" alt="Redo AI interface" class="project-img">
-            <p class="project-img-caption">Redo AI · Web · 2024</p>
+            <figure class="site-preview">
+              <div class="site-preview-chrome">
+                <span class="site-preview-traffic" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="site-preview-url">www.re-do.ai</span>
+                <a class="site-preview-open" href="https://www.re-do.ai/" target="_blank" rel="noopener">Open →</a>
+              </div>
+              <div class="site-preview-frame">
+                <iframe title="re-do.ai web app" src="https://www.re-do.ai/" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </figure>
+            <p class="project-img-caption">Embedded live site · <a href="https://www.re-do.ai/" target="_blank" rel="noopener">re-do.ai</a></p>
           </div>
         </div>
       </div>
