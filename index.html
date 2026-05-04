@@ -159,6 +159,7 @@
     .byline-text {
       font-family: var(--font-mono);
       font-size: 0.68rem;
+      font-weight: 700;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--accent);
@@ -253,15 +254,6 @@
 
     .masthead-photo-wrap:hover .masthead-photo {
       transform: scale(1.02);
-    }
-
-    .photo-caption {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.08em;
-      color: var(--ink-faint);
-      padding: 0.6rem 0.4rem 0;
-      text-align: right;
     }
 
     .masthead-profile {
@@ -449,6 +441,7 @@
     .project-kicker {
       font-family: var(--font-mono);
       font-size: 0.65rem;
+      font-weight: 700;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--accent);
@@ -723,15 +716,6 @@
       transform: scale(1.02);
     }
 
-    .photo-caption {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.08em;
-      color: var(--ink-faint);
-      padding: 0.6rem 0.4rem 0;
-      text-align: right;
-    }
-
     .masthead-profile {
       margin-top: 1.5rem;
       border-top: 1px solid var(--rule);
@@ -917,6 +901,7 @@
     .project-kicker {
       font-family: var(--font-mono);
       font-size: 0.65rem;
+      font-weight: 700;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--accent);
@@ -1172,6 +1157,7 @@
     .about-section-label {
       font-family: var(--font-sc);
       font-size: 0.68rem;
+      font-weight: 700;
       letter-spacing: 0.18em;
       color: var(--ink-faint);
       text-transform: uppercase;
@@ -1266,21 +1252,11 @@
     .contact-eyebrow {
       font-family: var(--font-mono);
       font-size: 0.65rem;
+      font-weight: 700;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .contact-eyebrow::before {
-      content: '';
-      display: block;
-      width: 1.5rem;
-      height: 1px;
-      background: var(--accent);
     }
 
     .contact-headline {
@@ -1389,14 +1365,6 @@
       color: rgba(255,255,255,0.3);
     }
 
-    .footer-tag {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
-    }
-
     /* ── RESPONSIVE ──────────────────── */
     @media (max-width: 960px) {
       .masthead {
@@ -1503,24 +1471,18 @@
         <div class="masthead-photo-wrap">
           <img src="Vatsal.jpg" alt="Vatsal Mishra" class="masthead-photo">
         </div>
-        <p class="photo-caption">Dublin, Ireland. 2025.</p>
         <div class="masthead-profile" aria-label="Profile details">
           <div>
             <div class="profile-name">Vatsal Mishra</div>
-            <div class="profile-role">Engineering Analyst · Google Dublin</div>
           </div>
           <div class="profile-facts">
             <div class="profile-fact">
-              <strong>Team</strong>
-              Trust &amp; Safety, Ads
+              <strong>Role</strong>
+              Senior Engineering Analyst, Google
             </div>
             <div class="profile-fact">
               <strong>Background</strong>
               Analytics · ML · Data Eng · 10+ years
-            </div>
-            <div class="profile-fact">
-              <strong>Side projects</strong>
-              Mobile · Homelab · Content
             </div>
             <div class="profile-fact">
               <strong>Based in</strong>
@@ -1819,7 +1781,6 @@
     <div class="footer-inner">
       <span class="footer-name">Vatsal Mishra</span>
       <span class="footer-meta">© 2026 · Dublin, Ireland</span>
-      <span class="footer-tag">Version A+ / Editorial</span>
     </div>
   </footer>
 
