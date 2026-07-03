@@ -862,6 +862,9 @@
     .start img { width: 24px; height: 24px; }
     .task-links { display: flex; gap: 4px; }
     .task-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       padding: 7px 10px;
       border: 2px solid transparent;
       border-radius: 7px;
@@ -869,6 +872,11 @@
       font-family: var(--mono);
       font-size: 12px;
       text-decoration: none;
+    }
+    .task-links img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
     }
     .task-links a:hover { background: var(--panel); box-shadow: inset 0 0 0 1.5px var(--ink); }
     .task-links a.is-active,
@@ -880,12 +888,6 @@
       border-color: var(--ink);
       box-shadow: inset 0 -4px 0 rgba(40, 36, 28, .22), var(--shadow-soft);
       transform: translate(1px, 1px);
-    }
-    .task-links a.is-active::before,
-    .task-links a[aria-current="page"]::before {
-      content: "▸ ";
-      color: var(--red);
-      font-weight: 800;
     }
     .task-socials {
       display: flex;
@@ -1017,14 +1019,9 @@
         font-size: 10px;
         text-align: center;
       }
-      .task-links a.is-active::before,
-      .task-links a[aria-current="page"]::before {
-        content: "";
-        width: 18px;
-        height: 3px;
-        margin-bottom: 2px;
-        background: var(--red);
-        border: 1px solid var(--ink);
+      .task-links img {
+        width: 21px;
+        height: 21px;
       }
       .task-socials {
         position: fixed;
@@ -1488,10 +1485,10 @@ Homelab + PKMS: owned infrastructure, Markdown knowledge maps, and automation lo
   <div class="taskbar" aria-label="VatsalOS taskbar">
     <a class="start" href="#home" data-route-link="home"><img src="assets/icons/start-button.png" alt=""><span>Start</span></a>
     <nav class="task-links" aria-label="Taskbar navigation">
-      <a href="#work" data-route-link="work">work</a>
-      <a href="#systems" data-route-link="systems">systems</a>
-      <a href="#about" data-route-link="about">about</a>
-      <a href="#contact" data-route-link="contact">contact</a>
+      <a href="#work" data-route-link="work"><img src="assets/icons/fakeout-feed.png" alt="">work</a>
+      <a href="#systems" data-route-link="systems"><img src="assets/icons/homelab-rack.png" alt="">systems</a>
+      <a href="#about" data-route-link="about"><img src="assets/icons/trust-lens.png" alt="">about</a>
+      <a href="#contact" data-route-link="contact"><img src="assets/icons/social-email.png" alt="">contact</a>
     </nav>
     <nav class="task-socials" aria-label="Pinned social links">
       <a href="https://github.com/vatsal28" target="_blank" rel="noopener" aria-label="GitHub"><img src="assets/icons/social-github.png" alt=""></a>
