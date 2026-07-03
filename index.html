@@ -302,8 +302,7 @@
       display: none;
     }
     .app-ready .welcome,
-    .app-ready .social-dock,
-    .app-ready .proofline {
+    .app-ready .social-dock {
       max-width: 760px;
     }
     .app-ready .ticker {
@@ -429,15 +428,6 @@
       border-top: 2px solid var(--ink);
       background: var(--panel);
     }
-    .proofline {
-      max-width: 660px;
-      margin: 15px auto 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-    }
-
     .social-dock {
       max-width: 660px;
       margin: 17px auto 0;
@@ -928,8 +918,7 @@
     .rv { opacity: 1; transform: none; transition: opacity .48s ease, transform .48s ease; }
     .rv.on { opacity: 1; transform: none; }
     .welcome.rv,
-    .social-dock.rv,
-    .proofline.rv {
+    .social-dock.rv {
       opacity: 1;
       transform: none;
     }
@@ -1186,13 +1175,6 @@
               <span>Email</span>
             </a>
           </nav>
-
-          <div class="proofline rv">
-            <span class="chip">Engineering Analyst, Google T&S Ads</span>
-            <span class="chip">FakeOut: 16K+ downloads</span>
-            <span class="chip">OpenClaw on self-hosted hardware</span>
-            <span class="chip">PKMS, agents, automations</span>
-          </div>
         </div>
 
         <div class="icon-rail right">
