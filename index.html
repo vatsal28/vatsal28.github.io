@@ -251,6 +251,90 @@
       position: relative;
       padding: 38px 0 18px;
     }
+    .app-shortcuts {
+      display: none;
+    }
+    .app-ready {
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .app-ready main {
+      height: calc(100vh - 104px);
+      min-height: calc(100vh - 104px);
+      overflow: hidden;
+    }
+    .app-ready .app-shortcuts {
+      position: fixed;
+      top: 68px;
+      left: 18px;
+      z-index: 60;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .app-ready .app-shortcuts.secondary {
+      left: auto;
+      right: 18px;
+      align-items: flex-end;
+    }
+    .app-ready .app-shortcuts .desktop-icon {
+      background: rgba(255, 248, 234, .58);
+      border: 2px solid transparent;
+    }
+    .app-ready .app-shortcuts .desktop-icon.is-active,
+    .app-ready .app-shortcuts .desktop-icon[aria-current="page"] {
+      background: var(--yellow);
+      border-color: var(--ink);
+      box-shadow: var(--shadow-soft);
+      transform: translate(1px, 1px);
+    }
+    .app-ready .desktop {
+      min-height: calc(100vh - 104px);
+      display: grid;
+      align-items: center;
+      padding: 22px 0 28px;
+    }
+    .app-ready .hero-grid {
+      grid-template-columns: 1fr;
+      align-items: center;
+    }
+    .app-ready .hero-grid > .icon-rail {
+      display: none;
+    }
+    .app-ready .welcome,
+    .app-ready .social-dock,
+    .app-ready .proofline {
+      max-width: 760px;
+    }
+    .app-ready .ticker {
+      display: none;
+    }
+    .app-ready main > .wrap:last-of-type {
+      width: min(1040px, calc(100% - 300px));
+      max-height: calc(100vh - 104px);
+      overflow: auto;
+      padding: 20px 0 84px;
+      scrollbar-color: var(--olive) var(--panel);
+    }
+    .app-ready.route-home main > .wrap:last-of-type {
+      display: none;
+    }
+    .app-ready:not(.route-home) .desktop {
+      display: none;
+    }
+    .app-ready .app-view {
+      display: none;
+      margin: 0;
+    }
+    .app-ready .app-view.is-active {
+      display: block;
+    }
+    .app-ready .section-head {
+      margin-top: 0;
+    }
+    .app-ready .footer {
+      display: none;
+    }
     .hero-grid {
       display: grid;
       grid-template-columns: 128px minmax(0, 1fr) 128px;
@@ -789,6 +873,7 @@
     .task-links { display: flex; gap: 4px; }
     .task-links a {
       padding: 7px 10px;
+      border: 2px solid transparent;
       border-radius: 7px;
       color: var(--muted);
       font-family: var(--mono);
@@ -796,6 +881,22 @@
       text-decoration: none;
     }
     .task-links a:hover { background: var(--panel); box-shadow: inset 0 0 0 1.5px var(--ink); }
+    .task-links a.is-active,
+    .task-links a[aria-current="page"],
+    .start.is-active,
+    .start[aria-current="page"] {
+      color: var(--ink);
+      background: var(--yellow);
+      border-color: var(--ink);
+      box-shadow: inset 0 -4px 0 rgba(40, 36, 28, .22), var(--shadow-soft);
+      transform: translate(1px, 1px);
+    }
+    .task-links a.is-active::before,
+    .task-links a[aria-current="page"]::before {
+      content: "▸ ";
+      color: var(--red);
+      font-weight: 800;
+    }
     .task-socials {
       display: flex;
       gap: 6px;
@@ -834,6 +935,12 @@
     }
 
     @media (max-width: 920px) {
+      .app-ready .app-shortcuts {
+        display: none;
+      }
+      .app-ready main > .wrap:last-of-type {
+        width: min(100% - 28px, 760px);
+      }
       .hero-grid { grid-template-columns: 1fr; }
       .icon-rail {
         order: 2;
@@ -855,8 +962,27 @@
 
     @media (max-width: 680px) {
       body { padding-bottom: 58px; }
+      .app-ready {
+        overflow: hidden;
+      }
+      .app-ready main {
+        height: calc(100dvh - 106px);
+        min-height: calc(100dvh - 106px);
+      }
+      .app-ready .desktop {
+        max-height: calc(100dvh - 106px);
+        min-height: calc(100dvh - 106px);
+        align-items: start;
+        overflow: auto;
+        padding: 14px 0 76px;
+      }
+      .app-ready main > .wrap:last-of-type {
+        width: calc(100% - 22px);
+        max-height: calc(100dvh - 106px);
+        padding: 12px 0 78px;
+      }
       .topbar { gap: 8px; }
-      .topnav, .top-status .where { display: none; }
+      .topnav, .top-status { display: none; }
       .desktop { padding-top: 24px; }
       .welcome-body { grid-template-columns: 1fr; text-align: center; justify-items: center; padding: 22px 20px; }
       .welcome-actions { justify-content: center; padding: 14px 18px 17px; }
@@ -870,9 +996,66 @@
       .stats.two { grid-template-columns: 1fr; }
       .stat { border-right: 0; border-bottom: 2px solid var(--ink); }
       .stat:last-child { border-bottom: 0; }
-      .task-links, .clock, .start span { display: none; }
-      .task-socials { margin-left: auto; }
-      .task-socials a { width: 35px; }
+      .taskbar {
+        height: 58px;
+        justify-content: center;
+        gap: 4px;
+        padding: 5px 7px;
+      }
+      .start {
+        width: 20%;
+        min-width: 0;
+        justify-content: center;
+        padding: 5px 3px;
+        border-radius: 8px;
+      }
+      .start span,
+      .clock {
+        display: none;
+      }
+      .task-links {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        width: 80%;
+        gap: 4px;
+      }
+      .task-links a {
+        display: grid;
+        place-items: center;
+        min-height: 42px;
+        padding: 4px 2px;
+        border-radius: 8px;
+        font-size: 10px;
+        text-align: center;
+      }
+      .task-links a.is-active::before,
+      .task-links a[aria-current="page"]::before {
+        content: "";
+        width: 18px;
+        height: 3px;
+        margin-bottom: 2px;
+        background: var(--red);
+        border: 1px solid var(--ink);
+      }
+      .task-socials {
+        position: fixed;
+        top: 5px;
+        right: 8px;
+        z-index: 96;
+        margin-left: 0;
+        padding: 4px;
+        border: 2px solid var(--ink);
+        border-radius: 10px;
+        background: var(--window);
+        box-shadow: var(--shadow-soft);
+      }
+      .task-socials a {
+        width: 28px;
+        height: 28px;
+        border-width: 1.5px;
+        border-radius: 7px;
+      }
+      .task-socials img { width: 18px; height: 18px; }
       .handle { display: none; }
     }
 
@@ -902,6 +1085,7 @@
       <span>VatsalOS</span>
     </a>
     <nav class="topnav" aria-label="Primary navigation">
+      <a href="#home">Home</a>
       <a href="#work">Work</a>
       <a href="#systems">Systems</a>
       <a href="#about">About</a>
@@ -910,15 +1094,41 @@
     <div class="top-status"><span class="status-dot"></span><span>online</span><span class="where">Dublin, Ireland</span></div>
   </header>
 
+  <nav class="app-shortcuts" aria-label="Desktop shortcuts">
+    <a class="desktop-icon" href="#home" data-route-link="home">
+      <img src="assets/icons/start-button.png" alt="">
+      <span>home.app</span>
+    </a>
+    <a class="desktop-icon" href="#work" data-route-link="work">
+      <img src="assets/icons/fakeout-feed.png" alt="">
+      <span>work/</span>
+    </a>
+    <a class="desktop-icon" href="#systems" data-route-link="systems">
+      <img src="assets/icons/homelab-rack.png" alt="">
+      <span>systems/</span>
+    </a>
+  </nav>
+
+  <nav class="app-shortcuts secondary" aria-label="Secondary desktop shortcuts">
+    <a class="desktop-icon" href="#about" data-route-link="about">
+      <img src="assets/icons/trust-lens.png" alt="">
+      <span>about.txt</span>
+    </a>
+    <a class="desktop-icon" href="#contact" data-route-link="contact">
+      <img src="assets/icons/social-email.png" alt="">
+      <span>contact.exe</span>
+    </a>
+  </nav>
+
   <main id="home">
     <div class="wrap desktop">
       <section class="hero-grid" aria-label="VatsalOS desktop">
         <div class="icon-rail">
-          <a class="desktop-icon" href="#fakeout">
+          <a class="desktop-icon" href="#work">
             <img src="assets/icons/fakeout-feed.png" alt="">
             <span>fakeout.feed</span>
           </a>
-          <a class="desktop-icon" href="#cloidberg">
+          <a class="desktop-icon" href="#work">
             <img src="assets/icons/cloidberg-agent.png" alt="">
             <span>cloidberg.sh</span>
           </a>
@@ -986,11 +1196,11 @@
         </div>
 
         <div class="icon-rail right">
-          <a class="desktop-icon" href="#pkms">
+          <a class="desktop-icon" href="#work">
             <img src="assets/icons/pkms-folder.png" alt="">
             <span>pkms.md</span>
           </a>
-          <a class="desktop-icon" href="#content">
+          <a class="desktop-icon" href="#systems">
             <img src="assets/icons/content-lab.png" alt="">
             <span>content.lab</span>
           </a>
@@ -1010,7 +1220,7 @@
     </div>
 
     <div class="wrap">
-      <section id="work">
+      <section id="work" class="app-view">
         <div class="section-head rv">
           <span class="path"><img src="assets/icons/fakeout-feed.png" alt=""> C:\VATSAL\work</span>
           <span class="rule"></span>
@@ -1116,7 +1326,7 @@
         </div>
       </section>
 
-      <section id="systems">
+      <section id="systems" class="app-view">
         <div class="section-head rv">
           <span class="path"><img src="assets/icons/homelab-rack.png" alt=""> C:\VATSAL\systems</span>
           <span class="rule"></span>
@@ -1185,7 +1395,7 @@
         </aside>
       </section>
 
-      <section id="about">
+      <section id="about" class="app-view">
         <div class="section-head rv">
           <span class="path"><img src="assets/icons/trust-lens.png" alt=""> C:\VATSAL\about</span>
           <span class="rule"></span>
@@ -1218,7 +1428,7 @@ Homelab + PKMS: owned infrastructure, Markdown knowledge maps, and automation lo
         </div>
       </section>
 
-      <section id="contact">
+      <section id="contact" class="app-view">
         <div class="section-head rv">
           <span class="path"><img src="assets/icons/social-email.png" alt=""> C:\VATSAL\contact</span>
           <span class="rule"></span>
@@ -1294,12 +1504,12 @@ Homelab + PKMS: owned infrastructure, Markdown knowledge maps, and automation lo
   </main>
 
   <div class="taskbar" aria-label="VatsalOS taskbar">
-    <a class="start" href="#home"><img src="assets/icons/start-button.png" alt=""><span>Start</span></a>
+    <a class="start" href="#home" data-route-link="home"><img src="assets/icons/start-button.png" alt=""><span>Start</span></a>
     <nav class="task-links" aria-label="Taskbar navigation">
-      <a href="#work">work</a>
-      <a href="#systems">systems</a>
-      <a href="#about">about</a>
-      <a href="#contact">contact</a>
+      <a href="#work" data-route-link="work">work</a>
+      <a href="#systems" data-route-link="systems">systems</a>
+      <a href="#about" data-route-link="about">about</a>
+      <a href="#contact" data-route-link="contact">contact</a>
     </nav>
     <nav class="task-socials" aria-label="Pinned social links">
       <a href="https://github.com/vatsal28" target="_blank" rel="noopener" aria-label="GitHub"><img src="assets/icons/social-github.png" alt=""></a>
@@ -1343,6 +1553,54 @@ Homelab + PKMS: owned infrastructure, Markdown knowledge maps, and automation lo
       var start = new Date('2023-06-01T00:00:00Z').getTime();
       var days = Math.max(0, Math.floor((Date.now() - start) / 86400000));
       uptime.textContent = days + ' days';
+    })();
+
+    (function () {
+      var routes = ['home', 'work', 'systems', 'about', 'contact'];
+      var aliases = {
+        fakeout: 'work',
+        cloidberg: 'work',
+        pkms: 'work',
+        content: 'systems'
+      };
+      var views = Array.prototype.slice.call(document.querySelectorAll('.app-view'));
+      var links = Array.prototype.slice.call(document.querySelectorAll('a[href^="#"]'));
+
+      function routeFromHash() {
+        var raw = (window.location.hash || '#home').replace('#', '').toLowerCase();
+        return aliases[raw] || (routes.indexOf(raw) > -1 ? raw : 'home');
+      }
+
+      function setActive(route) {
+        document.body.classList.add('app-ready');
+        routes.forEach(function (name) {
+          document.body.classList.toggle('route-' + name, name === route);
+        });
+        views.forEach(function (view) {
+          var isActive = view.id === route;
+          view.classList.toggle('is-active', isActive);
+          view.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+        });
+        links.forEach(function (link) {
+          var linkRoute = link.getAttribute('data-route-link') || (link.getAttribute('href') || '').replace('#', '');
+          linkRoute = aliases[linkRoute] || linkRoute;
+          var current = linkRoute === route;
+          link.classList.toggle('is-active', current);
+          if (current) {
+            link.setAttribute('aria-current', 'page');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+        if (route === 'home') {
+          window.scrollTo(0, 0);
+        }
+      }
+
+      window.addEventListener('hashchange', function () {
+        setActive(routeFromHash());
+      });
+      setActive(routeFromHash());
     })();
 
     (function () {
