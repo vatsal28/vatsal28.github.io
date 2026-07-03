@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VatsalOS | Vatsal Mishra</title>
+  <title>VatsalOS Workbench | Vatsal Mishra</title>
   <meta name="description" content="Vatsal Mishra is a generalist tech builder and Engineering Analyst at Google Dublin, shipping FakeOut, self-hosted agents, automation, and thoughtful AI systems.">
   <link rel="icon" type="image/png" href="assets/icons/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,12 +11,13 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #28241c;
-      --muted: #675f4c;
-      --faint: #918873;
+      --ink: #27231c;
+      --muted: #645d4d;
+      --faint: #8c826f;
       --paper: #efe7d0;
-      --window: #fff8ea;
-      --panel: #f7efd9;
+      --surface: #fff8ea;
+      --panel: #f8efd8;
+      --line: #2f2a21;
       --olive: #5f6b3c;
       --green: #7ba05b;
       --orange: #dd7736;
@@ -25,10 +26,9 @@
       --pink: #d96c8e;
       --red: #cf4f38;
       --dark: #1d1c15;
-      --grid: rgba(95, 107, 60, .15);
-      --shadow: 5px 5px 0 rgba(40, 36, 28, .95);
-      --shadow-soft: 3px 3px 0 rgba(40, 36, 28, .9);
-      --radius: 10px;
+      --grid: rgba(95, 107, 60, .14);
+      --shadow: 4px 4px 0 rgba(39, 35, 28, .95);
+      --soft-shadow: 2px 2px 0 rgba(39, 35, 28, .88);
       --body: "Space Grotesk", system-ui, sans-serif;
       --mono: "JetBrains Mono", ui-monospace, monospace;
       --crt: "VT323", ui-monospace, monospace;
@@ -37,176 +37,346 @@
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
+      min-height: 100vh;
       margin: 0;
       color: var(--ink);
       font-family: var(--body);
       background:
-        radial-gradient(circle at 14% 11%, rgba(239, 201, 76, .22), transparent 23rem),
-        radial-gradient(circle at 92% 16%, rgba(91, 132, 177, .18), transparent 26rem),
         linear-gradient(var(--grid) 1px, transparent 1px),
         linear-gradient(90deg, var(--grid) 1px, transparent 1px),
         var(--paper);
-      background-size: auto, auto, 28px 28px, 28px 28px, auto;
-      padding-bottom: 60px;
+      background-size: 28px 28px, 28px 28px, auto;
       -webkit-font-smoothing: antialiased;
     }
 
     a { color: inherit; }
-    img { max-width: 100%; display: block; }
+    img { display: block; max-width: 100%; }
     ::selection { background: var(--yellow); color: var(--ink); }
 
     .skip-link {
-      position: absolute;
+      position: fixed;
       left: 12px;
       top: -60px;
-      z-index: 1000;
-      background: var(--yellow);
-      border: 2px solid var(--ink);
-      border-radius: 8px;
+      z-index: 200;
       padding: 8px 12px;
-      font-family: var(--mono);
-      font-size: 13px;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      background: var(--yellow);
+      font: 700 13px var(--mono);
     }
     .skip-link:focus { top: 12px; }
 
-    .boot {
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      background: var(--dark);
-      color: #b6e388;
-      padding: min(9vh, 72px) clamp(22px, 8vw, 100px);
-      font-family: var(--crt);
-      font-size: clamp(18px, 2.6vw, 26px);
-      line-height: 1.4;
-      cursor: pointer;
+    .shell {
+      display: grid;
+      grid-template-columns: 248px minmax(0, 1fr);
+      min-height: 100vh;
     }
-    .boot-line { opacity: 0; animation: show .01s linear forwards; }
-    .boot-line:nth-child(1) { animation-delay: .05s; }
-    .boot-line:nth-child(2) { animation-delay: .22s; }
-    .boot-line:nth-child(3) { animation-delay: .39s; }
-    .boot-line:nth-child(4) { animation-delay: .56s; }
-    .boot-line:nth-child(5) { animation-delay: .73s; }
-    .boot-line:nth-child(6) { animation-delay: .9s; }
-    .boot-skip {
-      position: absolute;
-      left: clamp(22px, 8vw, 100px);
-      bottom: 10vh;
-      color: #708d54;
-      font-size: 19px;
-    }
-    .boot.done { display: none; }
-    @keyframes show { to { opacity: 1; } }
 
-    .topbar {
+    .sidebar {
       position: sticky;
       top: 0;
-      z-index: 90;
+      height: 100vh;
       display: flex;
-      align-items: center;
-      gap: 12px;
-      min-height: 48px;
-      padding: 7px 14px;
-      background: var(--window);
-      border-bottom: 2px solid var(--ink);
-      box-shadow: 0 2px 0 rgba(40, 36, 28, .12);
-      font-family: var(--mono);
-      font-size: 13px;
+      flex-direction: column;
+      gap: 16px;
+      padding: 18px;
+      border-right: 2px solid var(--line);
+      background: rgba(255, 248, 234, .94);
     }
+
     .brand {
-      display: inline-flex;
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 11px;
       align-items: center;
-      gap: 8px;
-      padding: 4px 9px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 800;
-    }
-    .brand:hover { background: var(--olive); color: var(--window); }
-    .brand img { width: 22px; height: 22px; }
-    .topnav { display: flex; gap: 2px; }
-    .topnav a {
-      padding: 5px 9px;
-      border-radius: 7px;
-      color: var(--muted);
+      padding-bottom: 14px;
+      border-bottom: 2px solid rgba(39, 35, 28, .22);
       text-decoration: none;
     }
-    .topnav a:hover { background: var(--olive); color: var(--window); }
-    .top-status {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border: 2px solid var(--line);
+      border-radius: 9px;
+      background: var(--yellow);
+      box-shadow: var(--soft-shadow);
+    }
+    .brand strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1;
+    }
+    .brand span {
+      display: block;
+      margin-top: 4px;
       color: var(--faint);
+      font: 500 11px var(--mono);
+      text-transform: uppercase;
+    }
+
+    .nav-label,
+    .mini-title {
+      color: var(--faint);
+      font: 700 11px var(--mono);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .side-nav,
+    .quick-nav,
+    .social-icons {
+      display: grid;
+      gap: 7px;
+    }
+
+    .nav-item {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      gap: 9px;
+      align-items: center;
+      min-height: 42px;
+      padding: 7px 9px;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      color: var(--muted);
+      font: 700 13px var(--mono);
+      text-decoration: none;
+    }
+    .nav-item:hover {
+      border-color: rgba(39, 35, 28, .28);
+      background: var(--panel);
+    }
+    .nav-item[aria-current="page"] {
+      border-color: var(--line);
+      background: var(--yellow);
+      color: var(--ink);
+      box-shadow: var(--soft-shadow);
+    }
+    .nav-item[aria-current="page"]::after {
+      content: "OPEN";
+      padding: 2px 5px;
+      border: 1.5px solid var(--line);
+      border-radius: 5px;
+      background: var(--surface);
+      font-size: 9px;
+      color: var(--ink);
+    }
+    .nav-item img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+    }
+
+    .quick-nav a {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 9px;
+      align-items: center;
+      padding: 8px 9px;
+      border: 1.5px solid rgba(39, 35, 28, .34);
+      border-radius: 8px;
+      background: rgba(248, 239, 216, .7);
+      color: var(--muted);
+      font: 600 12px var(--mono);
+      text-decoration: none;
+    }
+    .quick-nav a:hover {
+      background: var(--surface);
+      color: var(--ink);
+      border-color: var(--line);
+    }
+    .quick-nav img {
+      width: 25px;
+      height: 25px;
+      object-fit: contain;
+    }
+
+    .sidebar-foot {
+      margin-top: auto;
+      display: grid;
+      gap: 12px;
+    }
+    .proof-stack {
+      display: grid;
+      gap: 6px;
+    }
+    .proof-pill {
+      padding: 6px 8px;
+      border: 1.5px solid rgba(39, 35, 28, .34);
+      border-radius: 999px;
+      background: var(--panel);
+      color: var(--muted);
+      font: 600 11px var(--mono);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .social-icons {
+      grid-template-columns: repeat(5, 1fr);
+    }
+    .social-icons a {
+      display: grid;
+      place-items: center;
+      height: 37px;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: var(--soft-shadow);
+    }
+    .social-icons a:hover { background: var(--yellow); }
+    .social-icons img {
+      width: 23px;
+      height: 23px;
+      object-fit: contain;
+    }
+
+    .workspace {
+      min-width: 0;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .top-utility {
+      position: sticky;
+      top: 0;
+      z-index: 80;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+      min-height: 58px;
+      padding: 10px 22px;
+      border-bottom: 2px solid var(--line);
+      background: rgba(255, 248, 234, .94);
+      backdrop-filter: blur(8px);
+    }
+    .crumb {
+      min-width: 0;
+      color: var(--muted);
+      font: 700 12px var(--mono);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .live {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      font: 700 12px var(--mono);
       white-space: nowrap;
     }
     .status-dot {
       width: 9px;
       height: 9px;
-      border-radius: 50%;
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
       background: var(--green);
-      border: 1.5px solid var(--ink);
-      animation: blink 2s steps(1) infinite;
+      animation: blink 1.8s steps(1) infinite;
     }
+    @keyframes blink { 50% { opacity: .35; } }
 
-    .wrap {
-      width: min(1120px, calc(100% - 32px));
-      margin: 0 auto;
-    }
-    section { scroll-margin-top: 72px; }
-
-    .window {
-      background: var(--window);
-      border: 2px solid var(--ink);
-      border-radius: var(--radius);
+    .pane-frame {
+      width: min(1180px, calc(100% - 44px));
+      margin: 22px auto 84px;
+      border: 2px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
       box-shadow: var(--shadow);
       overflow: hidden;
     }
-    .titlebar {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-height: 40px;
-      padding: 8px 12px;
-      background: var(--olive);
-      color: var(--window);
-      border-bottom: 2px solid var(--ink);
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 700;
-    }
-    .lights { display: inline-flex; gap: 6px; }
-    .lights span {
-      width: 12px;
-      height: 12px;
-      display: block;
-      border-radius: 50%;
-      border: 1.5px solid var(--ink);
-    }
-    .l-red { background: var(--red); }
-    .l-yellow { background: var(--yellow); }
-    .l-green { background: var(--green); }
-    .title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .chrome { margin-left: auto; display: inline-flex; gap: 5px; }
-    .chrome i {
-      width: 18px;
-      height: 18px;
-      display: grid;
-      place-items: center;
-      border: 1.5px solid var(--ink);
-      border-radius: 4px;
-      background: var(--window);
-      color: var(--ink);
-      font-style: normal;
-      font-size: 11px;
-      line-height: 1;
-    }
-    .bar-orange { background: var(--orange); }
-    .bar-blue { background: var(--blue); }
-    .bar-pink { background: var(--pink); }
-    .bar-yellow { background: var(--yellow); color: var(--ink); }
-    .bar-dark { background: var(--dark); }
 
+    .pane-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      min-height: 45px;
+      padding: 8px 13px;
+      border-bottom: 2px solid var(--line);
+      background: var(--olive);
+      color: var(--surface);
+      font: 700 13px var(--mono);
+    }
+    .window-controls {
+      display: inline-flex;
+      gap: 6px;
+    }
+    .window-controls span {
+      width: 13px;
+      height: 13px;
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+    }
+    .c-red { background: var(--red); }
+    .c-yellow { background: var(--yellow); }
+    .c-green { background: var(--green); }
+
+    .pane {
+      display: none;
+      min-height: calc(100vh - 151px);
+      padding: 22px;
+    }
+    .pane.active { display: block; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) 330px;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .intro-card,
+    .utility-card,
+    .module,
+    .contact-box {
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      overflow: hidden;
+    }
+    .intro-card {
+      display: grid;
+      grid-template-columns: 132px minmax(0, 1fr);
+      gap: 22px;
+      align-items: center;
+      padding: 24px;
+      background: var(--surface);
+    }
+    .portrait {
+      width: 132px;
+      height: 132px;
+      border: 3px solid var(--line);
+      border-radius: 22px;
+      object-fit: cover;
+      background: var(--orange);
+      box-shadow: var(--soft-shadow);
+    }
+    .eyebrow {
+      margin: 0 0 9px;
+      color: var(--faint);
+      font: 700 12px var(--mono);
+      text-transform: uppercase;
+    }
+    h1, h2, h3, p { letter-spacing: 0; }
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 64px);
+      line-height: .95;
+    }
+    h1 span { color: var(--orange); }
+    .lead {
+      max-width: 58rem;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.55;
+    }
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
     .btn {
       display: inline-flex;
       align-items: center;
@@ -214,1152 +384,731 @@
       gap: 8px;
       min-height: 39px;
       padding: 8px 13px;
-      border: 2px solid var(--ink);
+      border: 2px solid var(--line);
       border-radius: 8px;
-      background: var(--window);
+      background: var(--surface);
+      box-shadow: var(--soft-shadow);
       color: var(--ink);
-      box-shadow: var(--shadow-soft);
-      font-family: var(--mono);
-      font-size: 12px;
-      font-weight: 700;
-      line-height: 1.2;
+      font: 700 12px var(--mono);
       text-decoration: none;
       cursor: pointer;
-      transition: transform .1s ease, box-shadow .1s ease, background .1s ease;
     }
-    .btn:hover { transform: translate(1px, 1px); box-shadow: 2px 2px 0 rgba(40, 36, 28, .95); }
-    .btn:active { transform: translate(3px, 3px); box-shadow: none; }
-    .btn-primary { background: var(--orange); }
-    .btn-olive { background: var(--olive); color: var(--window); }
-    .btn-yellow { background: var(--yellow); }
+    .btn:hover { background: var(--yellow); transform: translate(1px, 1px); box-shadow: 1px 1px 0 rgba(39, 35, 28, .9); }
+    .btn.primary { background: var(--orange); }
+    .btn.dark { background: var(--olive); color: var(--surface); }
+    .btn img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
 
+    .utility-card {
+      display: grid;
+      align-content: start;
+      gap: 12px;
+      padding: 18px;
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .metric {
+      min-height: 82px;
+      padding: 11px;
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+    .metric b {
+      display: block;
+      font: 400 33px/1 var(--crt);
+    }
+    .metric span {
+      color: var(--faint);
+      font: 700 10px var(--mono);
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin: 0 0 14px;
+      font: 700 12px var(--mono);
+      color: var(--faint);
+      text-transform: uppercase;
+    }
+    .section-title img {
+      width: 25px;
+      height: 25px;
+      object-fit: contain;
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .module {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 245px;
+      background: var(--surface);
+    }
+    .module-top {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 2px solid var(--line);
+      background: var(--panel);
+    }
+    .module-top img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      filter: drop-shadow(2px 2px 0 rgba(39, 35, 28, .2));
+    }
+    .module h2,
+    .module h3 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.08;
+    }
+    .module-body {
+      padding: 15px;
+    }
+    .module p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 13px;
+    }
     .chip {
       display: inline-flex;
       align-items: center;
       min-height: 24px;
-      padding: 3px 9px;
-      border: 1.5px solid var(--ink);
+      padding: 3px 8px;
+      border: 1.5px solid var(--line);
       border-radius: 999px;
       background: var(--panel);
-      font-family: var(--mono);
-      font-size: 11px;
       color: var(--muted);
+      font: 700 10px var(--mono);
       white-space: nowrap;
     }
-
-    .desktop {
-      position: relative;
-      padding: 38px 0 18px;
+    .module-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 13px 15px 15px;
+      border-top: 1.5px solid rgba(39, 35, 28, .25);
     }
-    .hero-grid {
+
+    .split-grid {
       display: grid;
-      grid-template-columns: 128px minmax(0, 1fr) 128px;
-      gap: 18px;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 14px;
       align-items: start;
     }
-    .icon-rail {
-      display: flex;
-      flex-direction: column;
-      gap: 17px;
-      padding-top: 11px;
+    .workbench-list {
+      display: grid;
+      gap: 10px;
     }
-    .icon-rail.right { align-items: flex-end; }
-    .desktop-icon {
-      width: 98px;
-      display: flex;
-      flex-direction: column;
+    .row-card {
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr) auto;
+      gap: 13px;
       align-items: center;
-      gap: 6px;
-      padding: 7px 5px;
+      padding: 13px;
+      border: 2px solid var(--line);
       border-radius: 8px;
-      color: var(--muted);
-      text-align: center;
-      text-decoration: none;
-      font-family: var(--mono);
-      font-size: 11px;
-      line-height: 1.2;
-      transition: transform .12s ease, background .12s ease;
+      background: var(--surface);
     }
-    .desktop-icon:hover {
-      background: rgba(95, 107, 60, .14);
-      transform: translateY(-2px);
-    }
-    .desktop-icon img {
-      width: 52px;
-      height: 52px;
-      object-fit: contain;
-      filter: drop-shadow(2px 2px 0 rgba(40, 36, 28, .35));
-    }
-
-    .welcome {
-      max-width: 660px;
-      margin: 0 auto;
-      transform: rotate(-.25deg);
-    }
-    .welcome-body {
-      display: grid;
-      grid-template-columns: 140px minmax(0, 1fr);
-      gap: 24px;
-      padding: 27px 30px 24px;
-      align-items: center;
-    }
-    .portrait {
-      width: 140px;
-      height: 140px;
-      border: 3px solid var(--ink);
-      border-radius: 28px;
-      background: var(--orange);
-      object-fit: cover;
-      box-shadow: var(--shadow-soft);
-      transform: rotate(1.5deg);
-    }
-    .eyebrow {
-      margin: 0 0 8px;
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--faint);
-    }
-    h1 {
-      margin: 0;
-      font-size: clamp(31px, 5.2vw, 58px);
-      line-height: .98;
-      letter-spacing: 0;
-    }
-    h1 span {
-      display: inline-block;
-      color: var(--orange);
-      transform: rotate(-1deg);
-    }
-    .lead {
-      margin: 14px 0 0;
-      max-width: 48rem;
-      color: var(--muted);
-      font-size: clamp(15px, 1.8vw, 18px);
-      line-height: 1.55;
-    }
-    .welcome-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding: 15px 30px 18px;
-      border-top: 2px solid var(--ink);
-      background: var(--panel);
-    }
-    .proofline {
-      max-width: 660px;
-      margin: 15px auto 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .social-dock {
-      max-width: 660px;
-      margin: 17px auto 0;
-      padding: 12px;
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 9px;
-      background: rgba(255, 248, 234, .7);
-      border: 2px dashed rgba(40, 36, 28, .44);
-      border-radius: 16px;
-    }
-    .social-dock a {
-      display: grid;
-      justify-items: center;
-      gap: 6px;
-      padding: 8px 5px;
-      border: 2px solid var(--ink);
-      border-radius: 10px;
-      background: var(--window);
-      box-shadow: var(--shadow-soft);
-      text-decoration: none;
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--muted);
-      transition: transform .1s ease, box-shadow .1s ease, background .1s ease;
-    }
-    .social-dock a:hover {
-      transform: translate(1px, 1px);
-      box-shadow: 2px 2px 0 rgba(40, 36, 28, .95);
-      background: var(--yellow);
-      color: var(--ink);
-    }
-    .social-dock img {
-      width: 34px;
-      height: 34px;
-      object-fit: contain;
-    }
-
-    .ticker {
-      margin: 42px 0 0;
-      overflow: hidden;
-      border-top: 2px solid var(--ink);
-      border-bottom: 2px solid var(--ink);
-      background: var(--olive);
-      color: var(--window);
-      font-family: var(--mono);
-      font-size: 13px;
-      letter-spacing: .03em;
-      white-space: nowrap;
-    }
-    .ticker div {
-      display: inline-block;
-      padding: 10px 0;
-      animation: marquee 34s linear infinite;
-    }
-    .ticker:hover div { animation-play-state: paused; }
-    @keyframes marquee { to { transform: translateX(-50%); } }
-
-    .section-head {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 66px 0 24px;
-    }
-    .section-head .path {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 12px;
-      border: 2px solid var(--ink);
-      border-radius: 9px;
-      background: var(--yellow);
-      box-shadow: var(--shadow-soft);
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 800;
-    }
-    .section-head img { width: 24px; height: 24px; object-fit: contain; }
-    .section-head .rule {
-      flex: 1;
-      border-top: 2px dashed rgba(40, 36, 28, .34);
-    }
-    .section-head .count {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--faint);
-    }
-
-    .project {
-      margin-bottom: 28px;
-    }
-    .project-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.25fr) 300px;
-    }
-    .project-copy { padding: 26px 28px 28px; }
-    .kickers { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
-    h2, h3 { letter-spacing: 0; }
-    .project h3 {
-      margin: 0 0 9px;
-      font-size: clamp(24px, 3vw, 34px);
-      line-height: 1.04;
-    }
-    .project p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.6;
-    }
-    .project-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    .project-side {
-      display: grid;
-      grid-template-rows: 1fr auto;
-      background: var(--panel);
-      border-left: 2px solid var(--ink);
-    }
-    .project-art {
-      min-height: 205px;
-      display: grid;
-      place-items: center;
-      padding: 24px;
-    }
-    .project-art img {
-      width: min(158px, 78%);
-      filter: drop-shadow(4px 4px 0 rgba(40, 36, 28, .28));
-    }
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border-top: 2px solid var(--ink);
-    }
-    .stats.two { grid-template-columns: repeat(2, 1fr); }
-    .stat {
-      min-width: 0;
-      padding: 12px 8px;
-      text-align: center;
-      border-right: 2px solid var(--ink);
-    }
-    .stat:last-child { border-right: 0; }
-    .stat b {
-      display: block;
-      font-family: var(--crt);
-      font-size: 30px;
-      line-height: .9;
-      font-weight: 400;
-    }
-    .stat span {
-      display: block;
-      margin-top: 4px;
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--faint);
-      text-transform: uppercase;
-    }
-
-    .proof-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-    .proof-card {
-      min-height: 100%;
-    }
-    .proof-card .card-body {
-      padding: 22px;
-    }
-    .proof-card img {
-      width: 58px;
-      height: 58px;
-      margin-bottom: 14px;
-      filter: drop-shadow(2px 2px 0 rgba(40, 36, 28, .28));
-    }
-    .proof-card h3 {
-      margin: 0 0 8px;
-      font-size: 19px;
-      line-height: 1.14;
-    }
-    .proof-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .explorer-toolbar {
-      display: flex;
-      gap: 9px;
-      align-items: center;
-      padding: 10px 12px;
-      border-bottom: 2px solid var(--ink);
-      background: var(--panel);
-      font-family: var(--mono);
-      font-size: 12px;
-    }
-    .small-btns { display: inline-flex; gap: 5px; }
-    .small-btns span {
-      width: 25px;
-      height: 25px;
-      display: grid;
-      place-items: center;
-      border: 1.5px solid var(--ink);
-      border-radius: 6px;
-      background: var(--window);
-    }
-    .address {
-      flex: 1;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      padding: 6px 10px;
-      border: 1.5px solid var(--ink);
-      border-radius: 7px;
-      background: var(--window);
-      color: var(--muted);
-    }
-    .folder-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: var(--ink);
-    }
-    .folder {
-      min-height: 184px;
-      padding: 22px;
-      background: var(--window);
-    }
-    .folder:hover { background: #f9e5c8; }
-    .folder img {
+    .row-card img {
       width: 46px;
       height: 46px;
       object-fit: contain;
-      margin-bottom: 12px;
     }
-    .folder h3 {
-      margin: 0 0 8px;
-      font-family: var(--mono);
-      font-size: 14px;
+    .row-card h3 {
+      margin: 0 0 4px;
+      font-size: 18px;
+      line-height: 1.12;
     }
-    .folder p {
+    .row-card p {
       margin: 0;
       color: var(--muted);
       font-size: 13px;
-      line-height: 1.5;
+      line-height: 1.42;
     }
-    .folder .meta {
-      display: block;
-      margin-top: 10px;
-      color: var(--faint);
-      font-family: var(--mono);
-      font-size: 10px;
+    .row-card code {
+      padding: 4px 7px;
+      border: 1.5px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--muted);
+      font: 700 11px var(--mono);
+      white-space: nowrap;
     }
 
     .terminal {
+      border: 2px solid var(--line);
+      border-radius: 8px;
       background: var(--dark);
       color: #d4dfaa;
+      overflow: hidden;
     }
-    .terminal .titlebar { background: var(--dark); }
-    .term-body {
-      padding: 26px 28px 30px;
-      font-family: var(--crt);
-      font-size: clamp(18px, 2.1vw, 22px);
-      line-height: 1.45;
+    .terminal-bar {
+      padding: 9px 12px;
+      border-bottom: 2px solid var(--line);
+      background: #29271f;
+      color: var(--surface);
+      font: 700 12px var(--mono);
+    }
+    .terminal-body {
+      padding: 18px;
+      font: 400 clamp(18px, 2vw, 22px)/1.42 var(--crt);
     }
     .ps1 { color: #93bf6c; }
     .cmd { color: #fff0c8; }
     .out {
       display: block;
-      margin: 5px 0 18px;
-      color: #d4dfaa;
+      margin: 4px 0 16px;
       white-space: pre-wrap;
-    }
-    .hl { color: var(--yellow); }
-    .cursor {
-      display: inline-block;
-      width: .6em;
-      height: 1.05em;
-      background: #d4dfaa;
-      vertical-align: -.15em;
-      animation: blink 1.05s steps(1) infinite;
-    }
-    @keyframes blink { 50% { opacity: .35; } }
-
-    .note {
-      margin-top: 22px;
-      transform: rotate(.45deg);
-    }
-    .note .body {
-      display: grid;
-      grid-template-columns: 58px minmax(0, 1fr);
-      gap: 14px;
-      align-items: center;
-      padding: 18px 20px;
-      background: var(--panel);
-    }
-    .note img { width: 54px; height: 54px; object-fit: contain; }
-    .note p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
     }
 
     .contact-grid {
       display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 24px;
-      align-items: start;
-    }
-    .form-body {
-      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(280px, .95fr);
       gap: 14px;
-      padding: 24px 26px 26px;
     }
-    .form-body p {
-      margin: 0;
+    .contact-box {
+      padding: 18px;
+      background: var(--surface);
+    }
+    .contact-box h2 {
+      margin: 0 0 8px;
+      font-size: 27px;
+      line-height: 1.05;
+    }
+    .contact-box p {
+      margin: 0 0 16px;
       color: var(--muted);
-      font-size: 14px;
       line-height: 1.55;
+    }
+    form {
+      display: grid;
+      gap: 12px;
     }
     label {
       display: block;
       margin: 0 0 5px;
       color: var(--muted);
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .04em;
+      font: 700 11px var(--mono);
+      letter-spacing: .05em;
       text-transform: uppercase;
     }
     input, textarea {
       width: 100%;
-      border: 2px solid var(--ink);
+      border: 2px solid var(--line);
       border-radius: 8px;
       background: var(--panel);
       color: var(--ink);
       padding: 11px 12px;
       font: 15px var(--body);
-      outline: none;
     }
-    input:focus, textarea:focus { background: #fffdf5; box-shadow: var(--shadow-soft); }
-    textarea { min-height: 128px; resize: vertical; }
+    textarea { min-height: 126px; resize: vertical; }
+    input:focus, textarea:focus {
+      outline: 2px solid var(--yellow);
+      background: #fffdf5;
+    }
+
     .social-list {
       display: grid;
-      gap: 10px;
-      padding: 22px;
+      gap: 9px;
     }
     .social-row {
       display: grid;
       grid-template-columns: 34px 1fr auto;
-      gap: 11px;
+      gap: 10px;
       align-items: center;
       min-height: 52px;
-      padding: 8px 12px;
-      border: 2px solid var(--ink);
-      border-radius: 10px;
+      padding: 8px 10px;
+      border: 2px solid var(--line);
+      border-radius: 8px;
       background: var(--panel);
-      box-shadow: var(--shadow-soft);
+      box-shadow: var(--soft-shadow);
       color: var(--ink);
-      font-family: var(--mono);
-      font-size: 13px;
+      font: 700 13px var(--mono);
       text-decoration: none;
-      transition: transform .1s ease, box-shadow .1s ease, background .1s ease;
     }
-    .social-row:hover {
-      transform: translate(1px, 1px);
-      box-shadow: 2px 2px 0 rgba(40, 36, 28, .95);
-      background: var(--yellow);
+    .social-row:hover { background: var(--yellow); }
+    .social-row img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
     }
-    .social-row img { width: 34px; height: 34px; object-fit: contain; }
     .handle {
       color: var(--faint);
       font-size: 11px;
       white-space: nowrap;
     }
 
-    .parking {
-      margin-top: 22px;
-      padding: 18px 20px;
-      border: 2px dashed rgba(40, 36, 28, .4);
-      border-radius: 14px;
-      background: rgba(255, 248, 234, .62);
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-    .parking b { color: var(--ink); }
-
-    .footer {
-      margin: 62px 0 28px;
-      color: var(--faint);
-      text-align: center;
-      font-family: var(--mono);
-      font-size: 11px;
-      line-height: 1.5;
-    }
-
-    .taskbar {
+    .mobile-tabs {
+      display: none;
       position: fixed;
       left: 0;
       right: 0;
       bottom: 0;
-      z-index: 95;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      height: 56px;
-      padding: 7px 12px;
-      background: var(--window);
-      border-top: 2px solid var(--ink);
+      z-index: 120;
+      grid-template-columns: repeat(5, 1fr);
+      border-top: 2px solid var(--line);
+      background: var(--surface);
     }
-    .start {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      height: 38px;
-      padding: 5px 12px;
-      border: 2px solid var(--ink);
-      border-radius: 10px;
-      background: var(--olive);
-      color: var(--window);
-      box-shadow: 2px 2px 0 rgba(40, 36, 28, .95);
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 800;
-      text-decoration: none;
-    }
-    .start img { width: 24px; height: 24px; }
-    .task-links { display: flex; gap: 4px; }
-    .task-links a {
-      padding: 7px 10px;
-      border-radius: 7px;
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 12px;
-      text-decoration: none;
-    }
-    .task-links a:hover { background: var(--panel); box-shadow: inset 0 0 0 1.5px var(--ink); }
-    .task-socials {
-      display: flex;
-      gap: 6px;
-      margin-left: auto;
-    }
-    .task-socials a {
-      width: 36px;
-      height: 36px;
+    .mobile-tabs a {
       display: grid;
-      place-items: center;
-      border: 2px solid var(--ink);
-      border-radius: 10px;
-      background: var(--panel);
-      transition: transform .1s ease, background .1s ease;
-    }
-    .task-socials a:hover { transform: translateY(-3px); background: var(--yellow); }
-    .task-socials img { width: 24px; height: 24px; object-fit: contain; }
-    .clock {
-      min-width: 62px;
-      padding: 7px 8px;
-      border: 1.5px solid rgba(40, 36, 28, .36);
-      border-radius: 8px;
+      justify-items: center;
+      gap: 3px;
+      min-height: 58px;
+      padding: 6px 2px 5px;
+      border-right: 1.5px solid rgba(39, 35, 28, .24);
       color: var(--muted);
-      font-family: var(--mono);
-      font-size: 12px;
-      text-align: center;
+      font: 700 10px var(--mono);
+      text-decoration: none;
+    }
+    .mobile-tabs a:last-child { border-right: 0; }
+    .mobile-tabs a[aria-current="page"] {
+      background: var(--yellow);
+      color: var(--ink);
+      box-shadow: inset 0 4px 0 var(--line);
+    }
+    .mobile-tabs img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
     }
 
-    .rv { opacity: 1; transform: none; transition: opacity .48s ease, transform .48s ease; }
-    .rv.on { opacity: 1; transform: none; }
-    .welcome.rv,
-    .social-dock.rv,
-    .proofline.rv {
-      opacity: 1;
-      transform: none;
-    }
-
-    @media (max-width: 920px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .icon-rail {
-        order: 2;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 4px;
-        padding-top: 0;
+    @media (max-width: 1040px) {
+      .shell { grid-template-columns: 212px minmax(0, 1fr); }
+      .module-grid { grid-template-columns: 1fr; }
+      .hero-grid,
+      .split-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
       }
-      .icon-rail.right { align-items: center; }
-      .desktop-icon { width: 88px; }
-      .welcome { transform: none; }
-      .project-grid { grid-template-columns: 1fr; }
-      .project-side { border-left: 0; border-top: 2px solid var(--ink); }
-      .proof-grid { grid-template-columns: 1fr; }
-      .folder-grid { grid-template-columns: repeat(2, 1fr); }
-      .contact-grid { grid-template-columns: 1fr; }
+      .utility-card { grid-template-columns: 1fr 1fr; }
     }
 
-    @media (max-width: 680px) {
+    @media (max-width: 760px) {
       body { padding-bottom: 58px; }
-      .topbar { gap: 8px; }
-      .topnav, .top-status .where { display: none; }
-      .desktop { padding-top: 24px; }
-      .welcome-body { grid-template-columns: 1fr; text-align: center; justify-items: center; padding: 22px 20px; }
-      .welcome-actions { justify-content: center; padding: 14px 18px 17px; }
-      .social-dock { grid-template-columns: repeat(3, 1fr); }
-      .ticker { margin-top: 28px; }
-      .section-head { margin-top: 48px; flex-wrap: wrap; }
-      .section-head .rule { min-width: 100%; order: 3; }
-      .section-head .count { margin-left: auto; }
-      .folder-grid { grid-template-columns: 1fr; }
-      .stats { grid-template-columns: 1fr; }
-      .stats.two { grid-template-columns: 1fr; }
-      .stat { border-right: 0; border-bottom: 2px solid var(--ink); }
-      .stat:last-child { border-bottom: 0; }
-      .task-links, .clock, .start span { display: none; }
-      .task-socials { margin-left: auto; }
-      .task-socials a { width: 35px; }
+      .shell { display: block; }
+      .sidebar { display: none; }
+      .top-utility {
+        grid-template-columns: 1fr;
+        min-height: 48px;
+        padding: 9px 14px;
+      }
+      .live { display: none; }
+      .pane-frame {
+        width: calc(100% - 22px);
+        margin: 11px auto 74px;
+        box-shadow: 2px 2px 0 rgba(39, 35, 28, .95);
+      }
+      .pane-head {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+      .window-controls { display: none; }
+      .pane {
+        min-height: calc(100vh - 137px);
+        padding: 14px;
+      }
+      .intro-card {
+        grid-template-columns: 1fr;
+        justify-items: start;
+        padding: 18px;
+      }
+      .portrait {
+        width: 102px;
+        height: 102px;
+      }
+      h1 { font-size: 38px; }
+      .lead { font-size: 15px; }
+      .utility-card { grid-template-columns: 1fr; }
+      .row-card {
+        grid-template-columns: 42px minmax(0, 1fr);
+      }
+      .row-card code { display: none; }
+      .social-row {
+        grid-template-columns: 32px 1fr;
+      }
       .handle { display: none; }
+      .mobile-tabs { display: grid; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation-duration: .001s !important; transition-duration: .001s !important; }
-      .rv { opacity: 1; transform: none; }
     }
   </style>
 </head>
 <body>
   <a class="skip-link" href="#work">Skip to work</a>
 
-  <div class="boot" id="boot" aria-hidden="true">
-    <div class="boot-line">VATSAL_OS 4.0 starting...</div>
-    <div class="boot-line">Mounting /fakeout/feed... OK</div>
-    <div class="boot-line">Mounting /cloidberg/agent... OK</div>
-    <div class="boot-line">Mounting /homelab/services... OK</div>
-    <div class="boot-line">Trust lens loaded as plugin, not identity... OK</div>
-    <div class="boot-line">Opening desktop <span class="cursor"></span></div>
-    <div class="boot-skip">click anywhere to skip</div>
-  </div>
-
-  <header class="topbar">
-    <a class="brand" href="#home">
-      <img src="assets/icons/vatsalos-mark.png" alt="">
-      <span>VatsalOS</span>
-    </a>
-    <nav class="topnav" aria-label="Primary navigation">
-      <a href="#work">Work</a>
-      <a href="#systems">Systems</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <div class="top-status"><span class="status-dot"></span><span>online</span><span class="where">Dublin, Ireland</span></div>
-  </header>
-
-  <main id="home">
-    <div class="wrap desktop">
-      <section class="hero-grid" aria-label="VatsalOS desktop">
-        <div class="icon-rail">
-          <a class="desktop-icon" href="#fakeout">
-            <img src="assets/icons/fakeout-feed.png" alt="">
-            <span>fakeout.feed</span>
-          </a>
-          <a class="desktop-icon" href="#cloidberg">
-            <img src="assets/icons/cloidberg-agent.png" alt="">
-            <span>cloidberg.sh</span>
-          </a>
-          <a class="desktop-icon" href="#systems">
-            <img src="assets/icons/homelab-rack.png" alt="">
-            <span>homelab/</span>
-          </a>
-        </div>
-
+  <div class="shell">
+    <aside class="sidebar" aria-label="Workbench sidebar">
+      <a class="brand" href="#home">
+        <img src="assets/icons/vatsalos-mark.png" alt="">
         <div>
-          <section class="window welcome rv">
-            <div class="titlebar">
-              <span class="lights"><span class="l-red"></span><span class="l-yellow"></span><span class="l-green"></span></span>
-              <span class="title">C:\VATSAL\welcome.txt</span>
-              <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
-            </div>
-            <div class="welcome-body">
-              <img class="portrait" src="Vatsal.jpg" alt="Vatsal Mishra" width="140" height="140">
-              <div>
-                <p class="eyebrow">generalist builder | Google Dublin | self-hosted chaos, organized</p>
-                <h1>Vatsal builds <span>useful systems</span></h1>
-                <p class="lead">I ship AI-enabled apps, automation, and personal infrastructure. Trust & Safety is the lens from my Google work. The identity is builder: curious, practical, and allergic to unused dashboards.</p>
-              </div>
-            </div>
-            <div class="welcome-actions">
-              <a class="btn btn-primary" href="#work">Open work</a>
-              <a class="btn" href="#systems">Open systems</a>
-              <a class="btn btn-olive" href="#contact">Contact</a>
-            </div>
-          </section>
-
-          <nav class="social-dock rv" aria-label="Featured social links">
-            <a href="https://github.com/vatsal28" target="_blank" rel="noopener">
-              <img src="assets/icons/social-github.png" alt="">
-              <span>GitHub</span>
-            </a>
-            <a href="https://www.linkedin.com/in/vatsal-mishra-549481119/" target="_blank" rel="noopener">
-              <img src="assets/icons/social-linkedin.png" alt="">
-              <span>LinkedIn</span>
-            </a>
-            <a href="https://twitter.com/cryptikcell" target="_blank" rel="noopener">
-              <img src="assets/icons/social-x.png" alt="">
-              <span>X</span>
-            </a>
-            <a href="https://youtube.com/@techwithvatsal" target="_blank" rel="noopener">
-              <img src="assets/icons/social-youtube.png" alt="">
-              <span>YouTube</span>
-            </a>
-            <a href="https://instagram.com/watt.cell" target="_blank" rel="noopener">
-              <img src="assets/icons/social-instagram.png" alt="">
-              <span>Instagram</span>
-            </a>
-            <a href="#contact">
-              <img src="assets/icons/social-email.png" alt="">
-              <span>Email</span>
-            </a>
-          </nav>
-
-          <div class="proofline rv">
-            <span class="chip">Engineering Analyst, Google T&S Ads</span>
-            <span class="chip">FakeOut: 16K+ downloads</span>
-            <span class="chip">OpenClaw on self-hosted hardware</span>
-            <span class="chip">PKMS, agents, automations</span>
-          </div>
+          <strong>VatsalOS</strong>
+          <span>builder workbench</span>
         </div>
+      </a>
 
-        <div class="icon-rail right">
-          <a class="desktop-icon" href="#pkms">
-            <img src="assets/icons/pkms-folder.png" alt="">
-            <span>pkms.md</span>
-          </a>
-          <a class="desktop-icon" href="#content">
-            <img src="assets/icons/content-lab.png" alt="">
-            <span>content.lab</span>
-          </a>
-          <a class="desktop-icon" href="#about">
-            <img src="assets/icons/trust-lens.png" alt="">
-            <span>trust.lens</span>
-          </a>
-        </div>
-      </section>
-    </div>
-
-    <div class="ticker" aria-hidden="true">
       <div>
-        GENERALIST TECH BUILDER * FAKEOUT FEED-FIRST * 16K+ DOWNLOADS * 100+ TRUSTED FACT-CHECKERS * SELF-HOSTED AGENT STACK * HOMELAB AUTOMATION * X @CRYPTIKCELL * INSTAGRAM @WATT.CELL * DUBLIN *
-        GENERALIST TECH BUILDER * FAKEOUT FEED-FIRST * 16K+ DOWNLOADS * 100+ TRUSTED FACT-CHECKERS * SELF-HOSTED AGENT STACK * HOMELAB AUTOMATION * X @CRYPTIKCELL * INSTAGRAM @WATT.CELL * DUBLIN *
+        <p class="nav-label">Sections</p>
+        <nav class="side-nav" aria-label="Primary navigation">
+          <a class="nav-item" href="#home" data-route="home"><img src="assets/icons/start-button.png" alt="">Home</a>
+          <a class="nav-item" href="#work" data-route="work"><img src="assets/icons/fakeout-feed.png" alt="">Work</a>
+          <a class="nav-item" href="#systems" data-route="systems"><img src="assets/icons/homelab-rack.png" alt="">Systems</a>
+          <a class="nav-item" href="#about" data-route="about"><img src="assets/icons/trust-lens.png" alt="">About</a>
+          <a class="nav-item" href="#contact" data-route="contact"><img src="assets/icons/social-email.png" alt="">Contact</a>
+        </nav>
       </div>
-    </div>
 
-    <div class="wrap">
-      <section id="work">
-        <div class="section-head rv">
-          <span class="path"><img src="assets/icons/fakeout-feed.png" alt=""> C:\VATSAL\work</span>
-          <span class="rule"></span>
-          <span class="count">3 active proof points</span>
+      <div>
+        <p class="nav-label">Fast Access</p>
+        <nav class="quick-nav" aria-label="Project shortcuts">
+          <a href="#work" data-focus="fakeout"><img src="assets/icons/fakeout-feed.png" alt="">FakeOut feed</a>
+          <a href="#work" data-focus="cloidberg"><img src="assets/icons/cloidberg-agent.png" alt="">Cloidberg/OpenClaw</a>
+          <a href="#work" data-focus="pkms"><img src="assets/icons/pkms-folder.png" alt="">PKMS loop</a>
+          <a href="#systems" data-focus="homelab"><img src="assets/icons/homelab-rack.png" alt="">Homelab</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-foot">
+        <div>
+          <p class="mini-title">Proof Chips</p>
+          <div class="proof-stack">
+            <span class="proof-pill">Engineering Analyst, Google T&S Ads</span>
+            <span class="proof-pill">FakeOut: 16K+ downloads</span>
+            <span class="proof-pill">OpenClaw on self-hosted hardware</span>
+            <span class="proof-pill">PKMS, agents, automations</span>
+          </div>
+        </div>
+        <nav class="social-icons" aria-label="Pinned socials">
+          <a href="https://github.com/vatsal28" target="_blank" rel="noopener" aria-label="GitHub"><img src="assets/icons/social-github.png" alt=""></a>
+          <a href="https://www.linkedin.com/in/vatsal-mishra-549481119/" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="assets/icons/social-linkedin.png" alt=""></a>
+          <a href="https://twitter.com/cryptikcell" target="_blank" rel="noopener" aria-label="X"><img src="assets/icons/social-x.png" alt=""></a>
+          <a href="https://youtube.com/@techwithvatsal" target="_blank" rel="noopener" aria-label="YouTube"><img src="assets/icons/social-youtube.png" alt=""></a>
+          <a href="https://instagram.com/watt.cell" target="_blank" rel="noopener" aria-label="Instagram"><img src="assets/icons/social-instagram.png" alt=""></a>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="workspace" id="main">
+      <header class="top-utility">
+        <div class="crumb" id="crumb">C:\VATSAL\WORKBENCH\HOME</div>
+        <div class="live"><span class="status-dot"></span><span>online in Dublin</span><span id="clock">--:--</span></div>
+      </header>
+
+      <div class="pane-frame">
+        <div class="pane-head">
+          <span id="pane-title">home.dashboard</span>
+          <span class="window-controls" aria-hidden="true"><span class="c-red"></span><span class="c-yellow"></span><span class="c-green"></span></span>
         </div>
 
-        <article class="window project rv" id="fakeout">
-          <div class="titlebar bar-orange">
-            <span class="lights"><span class="l-red"></span><span class="l-yellow"></span><span class="l-green"></span></span>
-            <span class="title">fakeout.feed - misinformation app</span>
-            <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
-          </div>
-          <div class="project-grid">
-            <div class="project-copy">
-              <div class="kickers">
-                <span class="chip">feed-first</span>
-                <span class="chip">Android + iOS</span>
-                <span class="chip">AI scan tools one tab away</span>
+        <section class="pane active" id="pane-home" data-pane="home" data-title="home.dashboard" aria-labelledby="home-title">
+          <div class="hero-grid">
+            <div class="intro-card">
+              <img class="portrait" src="Vatsal.jpg" alt="Vatsal Mishra" width="132" height="132">
+              <div>
+                <p class="eyebrow">generalist builder | Google Dublin | self-hosted systems</p>
+                <h1 id="home-title">Vatsal builds <span>useful systems</span>.</h1>
+                <p class="lead">I ship AI-enabled apps, automation, and personal infrastructure. Trust & Safety is the lens from my Google work. The identity is builder: curious, practical, and allergic to unused dashboards.</p>
+                <div class="action-row">
+                  <a class="btn primary" href="#work"><img src="assets/icons/fakeout-feed.png" alt="">Open work</a>
+                  <a class="btn" href="#systems"><img src="assets/icons/homelab-rack.png" alt="">Open systems</a>
+                  <a class="btn dark" href="#contact"><img src="assets/icons/social-email.png" alt="">Contact</a>
+                </div>
               </div>
-              <h3>FakeOut is now a daily debunk feed, not just a scanner.</h3>
-              <p>FakeOut helps people check viral claims before they share. The home screen is a daily feed of trending debunks from 100+ trusted fact-checkers. AI image/video scanning and claim checks stay one tab away as tools, not the whole product.</p>
-              <div class="project-links">
-                <a class="btn btn-primary" href="https://fakeout.io" target="_blank" rel="noopener">Visit fakeout.io</a>
+            </div>
+
+            <aside class="utility-card" aria-label="Proof summary">
+              <div>
+                <p class="section-title"><img src="assets/icons/vatsalos-mark.png" alt="">Current Signal</p>
+                <div class="metric-grid">
+                  <div class="metric"><b>16K+</b><span>FakeOut downloads</span></div>
+                  <div class="metric"><b>100+</b><span>fact-checkers</span></div>
+                  <div class="metric"><b>24/7</b><span>agent host</span></div>
+                  <div class="metric"><b>MD</b><span>PKMS source</span></div>
+                </div>
+              </div>
+              <div>
+                <p class="section-title"><img src="assets/icons/content-lab.png" alt="">Pinned Channels</p>
+                <nav class="social-list" aria-label="Home social shortcuts">
+                  <a class="social-row" href="https://github.com/vatsal28" target="_blank" rel="noopener"><img src="assets/icons/social-github.png" alt=""><span>GitHub</span><span class="handle">@vatsal28</span></a>
+                  <a class="social-row" href="https://www.linkedin.com/in/vatsal-mishra-549481119/" target="_blank" rel="noopener"><img src="assets/icons/social-linkedin.png" alt=""><span>LinkedIn</span><span class="handle">Vatsal Mishra</span></a>
+                  <a class="social-row" href="https://twitter.com/cryptikcell" target="_blank" rel="noopener"><img src="assets/icons/social-x.png" alt=""><span>X</span><span class="handle">@cryptikcell</span></a>
+                </nav>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="pane" id="pane-work" data-pane="work" data-title="work.queue" aria-labelledby="work-title">
+          <p class="section-title"><img src="assets/icons/fakeout-feed.png" alt="">Shipped and active work</p>
+          <div class="module-grid">
+            <article class="module" id="fakeout">
+              <div class="module-top">
+                <img src="assets/icons/fakeout-feed.png" alt="">
+                <h2 id="work-title">FakeOut</h2>
+              </div>
+              <div class="module-body">
+                <p>FakeOut helps people check viral claims before they share. The home screen is a daily feed of trending debunks from 100+ trusted fact-checkers. AI image/video scanning and claim checks stay one tab away as tools, not the whole product.</p>
+                <div class="tag-row">
+                  <span class="chip">feed-first</span>
+                  <span class="chip">Android + iOS</span>
+                  <span class="chip">16K+ downloads</span>
+                </div>
+              </div>
+              <div class="module-actions">
+                <a class="btn primary" href="https://fakeout.io" target="_blank" rel="noopener">fakeout.io</a>
                 <a class="btn" href="https://play.google.com/store/apps/details?id=com.misinfo.bustr" target="_blank" rel="noopener">Play Store</a>
                 <a class="btn" href="https://apps.apple.com/ie/app/fakeout-misinfo-detector/id6748231739" target="_blank" rel="noopener">App Store</a>
               </div>
-            </div>
-            <div class="project-side">
-              <div class="project-art"><img src="assets/icons/fakeout-feed.png" alt=""></div>
-              <div class="stats">
-                <div class="stat"><b>16K+</b><span>downloads</span></div>
-                <div class="stat"><b>100+</b><span>fact-checkers</span></div>
-                <div class="stat"><b>Feed</b><span>is home</span></div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="window project rv" id="cloidberg">
-          <div class="titlebar bar-blue">
-            <span class="lights"><span class="l-red"></span><span class="l-yellow"></span><span class="l-green"></span></span>
-            <span class="title">cloidberg.sh - self-hosted agent layer</span>
-            <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
-          </div>
-          <div class="project-grid">
-            <div class="project-copy">
-              <div class="kickers">
-                <span class="chip">OpenClaw</span>
-                <span class="chip">Telegram + Discord</span>
-                <span class="chip">local-first memory</span>
-              </div>
-              <h3>Cloidberg is a personal AI operating layer on owned hardware.</h3>
-              <p>A self-hosted agent stack running on an Ubuntu N100 mini-PC. It keeps memory, maintains a Markdown PKMS, runs scheduled automations, searches local context, and talks through Telegram and Discord. It is a real system, not a demo prompt.</p>
-              <div class="project-links">
-                <a class="btn btn-primary" href="#systems">Open system folder</a>
-                <a class="btn" href="#about">$ whoami</a>
-              </div>
-            </div>
-            <div class="project-side">
-              <div class="project-art"><img src="assets/icons/cloidberg-agent.png" alt=""></div>
-              <div class="stats">
-                <div class="stat"><b>24/7</b><span>agent host</span></div>
-                <div class="stat"><b>PKMS</b><span>file memory</span></div>
-                <div class="stat"><b>Local</b><span>by default</span></div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="window project rv" id="pkms">
-          <div class="titlebar bar-pink">
-            <span class="lights"><span class="l-red"></span><span class="l-yellow"></span><span class="l-green"></span></span>
-            <span class="title">builder-brain.md - PKMS, content, automation</span>
-            <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
-          </div>
-          <div class="project-grid">
-            <div class="project-copy">
-              <div class="kickers">
-                <span class="chip">Obsidian-compatible</span>
-                <span class="chip">content engine</span>
-                <span class="chip">agent-maintained</span>
-              </div>
-              <h3>A personal knowledge system that turns links into leverage.</h3>
-              <p>Articles, X bookmarks, project notes, ideas, learning resources, and decisions are processed into a plain-Markdown wiki. The interesting bit is the loop: agent tools extract context, update maps, and bring the right shelf back when it is time to build or write.</p>
-              <div class="project-links">
-                <a class="btn btn-primary" href="#contact">Talk systems</a>
-                <a class="btn" href="#content">Open content lab</a>
-              </div>
-            </div>
-            <div class="project-side">
-              <div class="project-art"><img src="assets/icons/pkms-folder.png" alt=""></div>
-              <div class="stats">
-                <div class="stat"><b>MD</b><span>source of truth</span></div>
-                <div class="stat"><b>Maps</b><span>retrieval layer</span></div>
-                <div class="stat"><b>Ideas</b><span>to projects</span></div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <div class="parking rv">
-          <b>Parked experiments:</b> Redo AI and older buildathon apps still exist as learning artifacts, but they are not the headline right now. The stronger current proof is FakeOut, Cloidberg/OpenClaw, the homelab, and the content/PKMS loop.
-        </div>
-      </section>
-
-      <section id="systems">
-        <div class="section-head rv">
-          <span class="path"><img src="assets/icons/homelab-rack.png" alt=""> C:\VATSAL\systems</span>
-          <span class="rule"></span>
-          <span class="count">self-hosted stack</span>
-        </div>
-
-        <div class="window rv">
-          <div class="titlebar bar-yellow">
-            <span class="lights"><span class="l-red"></span><span class="l-yellow"></span><span class="l-green"></span></span>
-            <span class="title">File Explorer</span>
-            <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
-          </div>
-          <div class="explorer-toolbar">
-            <span class="small-btns"><span>&lt;</span><span>&gt;</span><span>*</span></span>
-            <span class="address">C:\VATSAL\systems\owned-infra\</span>
-          </div>
-          <div class="folder-grid">
-            <article class="folder">
-              <img src="assets/icons/cloidberg-agent.png" alt="">
-              <h3>openclaw-cloidberg/</h3>
-              <p>Personal agent on an Ubuntu N100 mini-PC, with memory, tools, schedules, Telegram, Discord, and local automation.</p>
-              <span class="meta">agents · crons · memory</span>
             </article>
-            <article class="folder">
-              <img src="assets/icons/pkms-folder.png" alt="">
-              <h3>pkms/</h3>
-              <p>Markdown wiki for sources, insights, projects, topics, questions, maps, and learning resources.</p>
-              <span class="meta">obsidian · git · retrieval</span>
+
+            <article class="module" id="cloidberg">
+              <div class="module-top">
+                <img src="assets/icons/cloidberg-agent.png" alt="">
+                <h2>Cloidberg / OpenClaw</h2>
+              </div>
+              <div class="module-body">
+                <p>A self-hosted agent stack running on an Ubuntu N100 mini-PC. It keeps memory, maintains a Markdown PKMS, runs scheduled automations, searches local context, and talks through Telegram and Discord.</p>
+                <div class="tag-row">
+                  <span class="chip">OpenClaw</span>
+                  <span class="chip">Telegram + Discord</span>
+                  <span class="chip">local-first memory</span>
+                </div>
+              </div>
+              <div class="module-actions">
+                <a class="btn primary" href="#systems">Open system map</a>
+                <a class="btn" href="#about">Whoami</a>
+              </div>
             </article>
-            <article class="folder">
-              <img src="assets/icons/homelab-rack.png" alt="">
-              <h3>homelab/</h3>
-              <p>Owned infrastructure for storage, dashboards, DNS, media, remote access, and local experimentation.</p>
-              <span class="meta">ubuntu · docker · nextcloud</span>
-            </article>
-            <article class="folder">
-              <img src="assets/icons/trust-lens.png" alt="">
-              <h3>trust-lens/</h3>
-              <p>Eight-plus years in Trust & Safety Ads informs privacy, data handling, and failure-mode thinking.</p>
-              <span class="meta">lens · not box</span>
-            </article>
-            <article class="folder" id="content">
-              <img src="assets/icons/content-lab.png" alt="">
-              <h3>content-lab/</h3>
-              <p>X and LinkedIn for builder notes. YouTube and Instagram for Hinglish tech explainers. Instagram is @watt.cell.</p>
-              <span class="meta">x · linkedin · youtube · instagram</span>
-            </article>
-            <article class="folder">
-              <img src="assets/icons/fakeout-feed.png" alt="">
-              <h3>ship-log/</h3>
-              <p>Bias toward shipped projects: FakeOut, agent workflows, dashboards, and automation that survives real use.</p>
-              <span class="meta">shipping · iteration · proof</span>
+
+            <article class="module" id="pkms">
+              <div class="module-top">
+                <img src="assets/icons/pkms-folder.png" alt="">
+                <h2>PKMS Loop</h2>
+              </div>
+              <div class="module-body">
+                <p>Articles, X bookmarks, project notes, ideas, learning resources, and decisions are processed into a plain-Markdown wiki. Agent tools extract context, update maps, and bring the right shelf back when it is time to build or write.</p>
+                <div class="tag-row">
+                  <span class="chip">Obsidian-compatible</span>
+                  <span class="chip">content engine</span>
+                  <span class="chip">agent-maintained</span>
+                </div>
+              </div>
+              <div class="module-actions">
+                <a class="btn primary" href="#contact">Talk systems</a>
+                <a class="btn" href="#systems">Open files</a>
+              </div>
             </article>
           </div>
-        </div>
+        </section>
 
-        <aside class="window note rv">
-          <div class="titlebar bar-dark">
-            <span class="title">system notice</span>
-            <span class="chrome"><i>x</i></span>
-          </div>
-          <div class="body">
-            <img src="assets/icons/start-button.png" alt="">
-            <p><b>Warning:</b> free time critically low. Active processes include FakeOut, Cloidberg/OpenClaw, PKMS maintenance, content, and a suspicious number of homelab services.</p>
-          </div>
-        </aside>
-      </section>
+        <section class="pane" id="pane-systems" data-pane="systems" data-title="systems.map" aria-labelledby="systems-title">
+          <div class="split-grid">
+            <div>
+              <p class="section-title"><img src="assets/icons/homelab-rack.png" alt="">Owned infrastructure</p>
+              <div class="workbench-list">
+                <article class="row-card" id="homelab">
+                  <img src="assets/icons/homelab-rack.png" alt="">
+                  <div>
+                    <h2 id="systems-title">homelab/</h2>
+                    <p>Owned infrastructure for storage, dashboards, DNS, media, remote access, and local experimentation.</p>
+                  </div>
+                  <code>ubuntu / docker</code>
+                </article>
+                <article class="row-card">
+                  <img src="assets/icons/cloidberg-agent.png" alt="">
+                  <div>
+                    <h3>openclaw-cloidberg/</h3>
+                    <p>Personal agent with memory, tools, schedules, Telegram, Discord, and local automation.</p>
+                  </div>
+                  <code>agents / cron</code>
+                </article>
+                <article class="row-card">
+                  <img src="assets/icons/pkms-folder.png" alt="">
+                  <div>
+                    <h3>pkms/</h3>
+                    <p>Markdown wiki for sources, insights, projects, topics, questions, maps, and learning resources.</p>
+                  </div>
+                  <code>git / retrieval</code>
+                </article>
+                <article class="row-card">
+                  <img src="assets/icons/content-lab.png" alt="">
+                  <div>
+                    <h3>content-lab/</h3>
+                    <p>X and LinkedIn for builder notes. YouTube and Instagram for Hinglish tech explainers. Instagram is @watt.cell.</p>
+                  </div>
+                  <code>write / explain</code>
+                </article>
+              </div>
+            </div>
 
-      <section id="about">
-        <div class="section-head rv">
-          <span class="path"><img src="assets/icons/trust-lens.png" alt=""> C:\VATSAL\about</span>
-          <span class="rule"></span>
-          <span class="count">terminal session</span>
-        </div>
-
-        <div class="window terminal rv">
-          <div class="titlebar">
-            <span class="lights"><span class="l-red"></span><span class="l-yellow"></span><span class="l-green"></span></span>
-            <span class="title">vatsal@homelab:~</span>
-            <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
+            <aside class="utility-card">
+              <p class="section-title"><img src="assets/icons/start-button.png" alt="">System notice</p>
+              <p class="lead">Free time is critically low. Active processes include FakeOut, Cloidberg/OpenClaw, PKMS maintenance, content, and a suspicious number of homelab services.</p>
+              <div class="tag-row">
+                <span class="chip">self-hosted</span>
+                <span class="chip">privacy-aware</span>
+                <span class="chip">real workflows</span>
+                <span class="chip">local context</span>
+              </div>
+            </aside>
           </div>
-          <div class="term-body">
-            <div><span class="ps1">vatsal@homelab:~$</span> <span class="cmd">whoami</span></div>
-            <span class="out">Self-taught builder. Engineering Analyst. Data and automation person.
+        </section>
+
+        <section class="pane" id="pane-about" data-pane="about" data-title="about.terminal" aria-labelledby="about-title">
+          <div class="terminal">
+            <div class="terminal-bar">vatsal@homelab:~</div>
+            <div class="terminal-body">
+              <div><span class="ps1">vatsal@homelab:~$</span> <span class="cmd">whoami</span></div>
+              <span class="out" id="about-title">Self-taught builder. Engineering Analyst. Data and automation person.
 I like systems that make messy work easier.</span>
 
-            <div><span class="ps1">vatsal@homelab:~$</span> <span class="cmd">cat day-job.txt</span></div>
-            <span class="out">Google Dublin, Trust &amp; Safety Ads.
+              <div><span class="ps1">vatsal@homelab:~$</span> <span class="cmd">cat day-job.txt</span></div>
+              <span class="out">Google Dublin, Trust &amp; Safety Ads.
 I work around data, workflows, monitoring, and quality systems at scale.
 That background shapes how I think about privacy, reliability, and misuse.</span>
 
-            <div><span class="ps1">vatsal@homelab:~$</span> <span class="cmd">cat builder-stack.txt</span></div>
-            <span class="out">FakeOut: feed-first debunk app with 16K+ downloads and 100+ trusted fact-checkers.
+              <div><span class="ps1">vatsal@homelab:~$</span> <span class="cmd">cat builder-stack.txt</span></div>
+              <span class="out">FakeOut: feed-first debunk app with 16K+ downloads and 100+ trusted fact-checkers.
 Cloidberg/OpenClaw: self-hosted agent layer with memory, tools, cron, and chat surfaces.
 Homelab + PKMS: owned infrastructure, Markdown knowledge maps, and automation loops.</span>
-
-            <div><span class="ps1">vatsal@homelab:~$</span> <span class="cmd"></span><span class="cursor"></span></div>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact">
-        <div class="section-head rv">
-          <span class="path"><img src="assets/icons/social-email.png" alt=""> C:\VATSAL\contact</span>
-          <span class="rule"></span>
-          <span class="count">socials pinned</span>
-        </div>
-
-        <div class="contact-grid">
-          <div class="window rv">
-            <div class="titlebar bar-orange">
-              <span class="lights"><span class="l-red"></span><span class="l-yellow"></span><span class="l-green"></span></span>
-              <span class="title">new-message.exe</span>
-              <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
             </div>
-            <form class="form-body" action="https://formspree.io/f/xrbpzjyz" method="POST">
+          </div>
+        </section>
+
+        <section class="pane" id="pane-contact" data-pane="contact" data-title="contact.panel" aria-labelledby="contact-title">
+          <div class="contact-grid">
+            <div class="contact-box">
+              <h2 id="contact-title">Send a note.</h2>
               <p>Building something useful? Want to talk FakeOut, agents, automation, homelab, or practical AI systems? Send a note.</p>
-              <div>
-                <label for="name">Name</label>
-                <input id="name" name="name" autocomplete="name" required>
-              </div>
-              <div>
-                <label for="email">Email</label>
-                <input id="email" type="email" name="email" autocomplete="email" required>
-              </div>
-              <div>
-                <label for="message">Message</label>
-                <textarea id="message" name="message" required></textarea>
-              </div>
-              <button class="btn btn-olive" type="submit">Send message</button>
-            </form>
-          </div>
-
-          <div class="window rv">
-            <div class="titlebar bar-blue">
-              <span class="lights"><span class="l-red"></span><span class="l-yellow"></span><span class="l-green"></span></span>
-              <span class="title">find-me-online/</span>
-              <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
+              <form action="https://formspree.io/f/xrbpzjyz" method="POST">
+                <div>
+                  <label for="name">Name</label>
+                  <input id="name" name="name" autocomplete="name" required>
+                </div>
+                <div>
+                  <label for="email">Email</label>
+                  <input id="email" type="email" name="email" autocomplete="email" required>
+                </div>
+                <div>
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" required></textarea>
+                </div>
+                <button class="btn dark" type="submit"><img src="assets/icons/social-email.png" alt="">Send message</button>
+              </form>
             </div>
-            <nav class="social-list" aria-label="Social links">
-              <a class="social-row" href="https://github.com/vatsal28" target="_blank" rel="noopener">
-                <img src="assets/icons/social-github.png" alt="">
-                <span>GitHub</span>
-                <span class="handle">@vatsal28</span>
-              </a>
-              <a class="social-row" href="https://www.linkedin.com/in/vatsal-mishra-549481119/" target="_blank" rel="noopener">
-                <img src="assets/icons/social-linkedin.png" alt="">
-                <span>LinkedIn</span>
-                <span class="handle">Vatsal Mishra</span>
-              </a>
-              <a class="social-row" href="https://twitter.com/cryptikcell" target="_blank" rel="noopener">
-                <img src="assets/icons/social-x.png" alt="">
-                <span>X</span>
-                <span class="handle">@cryptikcell</span>
-              </a>
-              <a class="social-row" href="https://youtube.com/@techwithvatsal" target="_blank" rel="noopener">
-                <img src="assets/icons/social-youtube.png" alt="">
-                <span>YouTube</span>
-                <span class="handle">@techwithvatsal</span>
-              </a>
-              <a class="social-row" href="https://instagram.com/watt.cell" target="_blank" rel="noopener">
-                <img src="assets/icons/social-instagram.png" alt="">
-                <span>Instagram</span>
-                <span class="handle">@watt.cell</span>
-              </a>
-            </nav>
+
+            <div class="contact-box">
+              <p class="section-title"><img src="assets/icons/content-lab.png" alt="">Find me online</p>
+              <nav class="social-list" aria-label="Social links">
+                <a class="social-row" href="https://github.com/vatsal28" target="_blank" rel="noopener"><img src="assets/icons/social-github.png" alt=""><span>GitHub</span><span class="handle">@vatsal28</span></a>
+                <a class="social-row" href="https://www.linkedin.com/in/vatsal-mishra-549481119/" target="_blank" rel="noopener"><img src="assets/icons/social-linkedin.png" alt=""><span>LinkedIn</span><span class="handle">Vatsal Mishra</span></a>
+                <a class="social-row" href="https://twitter.com/cryptikcell" target="_blank" rel="noopener"><img src="assets/icons/social-x.png" alt=""><span>X</span><span class="handle">@cryptikcell</span></a>
+                <a class="social-row" href="https://youtube.com/@techwithvatsal" target="_blank" rel="noopener"><img src="assets/icons/social-youtube.png" alt=""><span>YouTube</span><span class="handle">@techwithvatsal</span></a>
+                <a class="social-row" href="https://instagram.com/watt.cell" target="_blank" rel="noopener"><img src="assets/icons/social-instagram.png" alt=""><span>Instagram</span><span class="handle">@watt.cell</span></a>
+              </nav>
+            </div>
           </div>
-        </div>
-      </section>
-
-      <footer class="footer">
-        VatsalOS 4.0 | Hand-built static site | Dublin, Ireland | uptime: <span id="uptime">calculating</span>
-      </footer>
-    </div>
-  </main>
-
-  <div class="taskbar" aria-label="VatsalOS taskbar">
-    <a class="start" href="#home"><img src="assets/icons/start-button.png" alt=""><span>Start</span></a>
-    <nav class="task-links" aria-label="Taskbar navigation">
-      <a href="#work">work</a>
-      <a href="#systems">systems</a>
-      <a href="#about">about</a>
-      <a href="#contact">contact</a>
-    </nav>
-    <nav class="task-socials" aria-label="Pinned social links">
-      <a href="https://github.com/vatsal28" target="_blank" rel="noopener" aria-label="GitHub"><img src="assets/icons/social-github.png" alt=""></a>
-      <a href="https://www.linkedin.com/in/vatsal-mishra-549481119/" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="assets/icons/social-linkedin.png" alt=""></a>
-      <a href="https://twitter.com/cryptikcell" target="_blank" rel="noopener" aria-label="X"><img src="assets/icons/social-x.png" alt=""></a>
-      <a href="https://youtube.com/@techwithvatsal" target="_blank" rel="noopener" aria-label="YouTube"><img src="assets/icons/social-youtube.png" alt=""></a>
-      <a href="https://instagram.com/watt.cell" target="_blank" rel="noopener" aria-label="Instagram"><img src="assets/icons/social-instagram.png" alt=""></a>
-    </nav>
-    <span class="clock" id="clock">--:--</span>
+        </section>
+      </div>
+    </main>
   </div>
+
+  <nav class="mobile-tabs" aria-label="Mobile section tabs">
+    <a href="#home" data-route="home"><img src="assets/icons/start-button.png" alt="">Home</a>
+    <a href="#work" data-route="work"><img src="assets/icons/fakeout-feed.png" alt="">Work</a>
+    <a href="#systems" data-route="systems"><img src="assets/icons/homelab-rack.png" alt="">Systems</a>
+    <a href="#about" data-route="about"><img src="assets/icons/trust-lens.png" alt="">About</a>
+    <a href="#contact" data-route="contact"><img src="assets/icons/social-email.png" alt="">Contact</a>
+  </nav>
 
   <script>
     (function () {
-      var boot = document.getElementById('boot');
-      var seen = false;
-      try { seen = sessionStorage.getItem('vatsalos-booted') === '1'; } catch (e) {}
-      if (seen || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        boot.classList.add('done');
-        return;
-      }
-      function dismiss() {
-        boot.classList.add('done');
-        try { sessionStorage.setItem('vatsalos-booted', '1'); } catch (e) {}
-      }
-      boot.addEventListener('click', dismiss);
-      window.setTimeout(dismiss, 1350);
-    })();
-
-    (function () {
+      var routes = ['home', 'work', 'systems', 'about', 'contact'];
+      var panes = Array.prototype.slice.call(document.querySelectorAll('.pane'));
+      var navLinks = Array.prototype.slice.call(document.querySelectorAll('[data-route]'));
+      var crumb = document.getElementById('crumb');
+      var paneTitle = document.getElementById('pane-title');
       var clock = document.getElementById('clock');
+
+      function routeFromHash() {
+        var raw = window.location.hash.replace('#', '');
+        return routes.indexOf(raw) >= 0 ? raw : 'home';
+      }
+
+      function activate(route) {
+        panes.forEach(function (pane) {
+          var active = pane.getAttribute('data-pane') === route;
+          pane.classList.toggle('active', active);
+          pane.toggleAttribute('hidden', !active);
+          if (active) {
+            paneTitle.textContent = pane.getAttribute('data-title') || route;
+            crumb.textContent = 'C:\\VATSAL\\WORKBENCH\\' + route.toUpperCase();
+          }
+        });
+        navLinks.forEach(function (link) {
+          var active = link.getAttribute('data-route') === route;
+          if (active) {
+            link.setAttribute('aria-current', 'page');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      function openRoute(route) {
+        activate(route);
+        window.setTimeout(function () { window.scrollTo(0, 0); }, 0);
+      }
+
       function tick() {
         var now = new Date();
         clock.textContent = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
       }
+
+      Array.prototype.slice.call(document.querySelectorAll('[data-focus]')).forEach(function (link) {
+        link.addEventListener('click', function () {
+          var id = link.getAttribute('data-focus');
+          window.setTimeout(function () {
+            var target = document.getElementById(id);
+            if (target) {
+              target.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            }
+          }, 40);
+        });
+      });
+
+      window.addEventListener('hashchange', function () { openRoute(routeFromHash()); });
+      if (!window.location.hash) {
+        history.replaceState(null, '', '#home');
+      }
+      openRoute(routeFromHash());
       tick();
       window.setInterval(tick, 30000);
-    })();
-
-    (function () {
-      var uptime = document.getElementById('uptime');
-      var start = new Date('2023-06-01T00:00:00Z').getTime();
-      var days = Math.max(0, Math.floor((Date.now() - start) / 86400000));
-      uptime.textContent = days + ' days';
-    })();
-
-    (function () {
-      var nodes = Array.prototype.slice.call(document.querySelectorAll('.rv'));
-      if (!('IntersectionObserver' in window)) {
-        nodes.forEach(function (node) { node.classList.add('on'); });
-        return;
-      }
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('on');
-            io.unobserve(entry.target);
-          }
-        });
-      }, { threshold: .12 });
-      nodes.forEach(function (node) { io.observe(node); });
     })();
   </script>
 </body>
