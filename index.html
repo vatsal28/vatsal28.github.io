@@ -275,20 +275,6 @@
     .btn-olive { background: var(--olive); color: var(--window); }
     .btn-yellow { background: var(--yellow); }
 
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      min-height: 24px;
-      padding: 3px 9px;
-      border: 1.5px solid var(--ink);
-      border-radius: 999px;
-      background: var(--panel);
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
     .desktop {
       position: relative;
       padding: 38px 0 18px;
@@ -656,73 +642,45 @@
     }
     .systems-proof {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 2px;
       background: var(--ink);
     }
     .system-lane {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
       min-width: 0;
-      padding: 18px;
+      padding: 16px 18px;
+      border: 0;
+      border-radius: 0;
       background: var(--panel);
+      color: var(--ink);
+      cursor: pointer;
+      text-align: left;
+    }
+    .system-lane:hover,
+    .system-lane.is-active {
+      background: var(--yellow);
+    }
+    .system-lane:focus-visible {
+      outline: 3px solid var(--blue);
+      outline-offset: -5px;
     }
     .system-lane img {
       width: 42px;
       height: 42px;
       object-fit: contain;
-      margin-bottom: 10px;
       filter: drop-shadow(2px 2px 0 rgba(40, 36, 28, .25));
     }
     .system-lane b {
       display: block;
-      margin-bottom: 6px;
       font-family: var(--mono);
       font-size: 13px;
     }
-    .system-lane span {
-      display: block;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.45;
-    }
     .project-browser {
       border-top: 2px solid var(--ink);
-    }
-    .project-tabs {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 2px;
-      background: var(--ink);
-    }
-    .project-tab {
-      display: grid;
-      grid-template-columns: 34px 1fr;
-      gap: 9px;
-      align-items: center;
-      min-width: 0;
-      padding: 13px 14px;
-      border: 0;
-      border-radius: 0;
-      background: var(--window);
-      color: var(--muted);
-      cursor: pointer;
-      font: 800 12px var(--mono);
-      text-align: left;
-    }
-    .project-tab:hover,
-    .project-tab.is-active {
-      background: var(--yellow);
-      color: var(--ink);
-    }
-    .project-tab img {
-      width: 30px;
-      height: 30px;
-      object-fit: contain;
-    }
-    .project-tab span {
-      display: block;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
     .project-category {
       display: none;
@@ -787,24 +745,23 @@
     .project-mini .mini-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 10px;
+      gap: 12px;
+      margin-top: 8px;
     }
-    .mini-pill {
-      display: inline-flex;
-      align-items: center;
-      min-height: 22px;
-      padding: 3px 8px;
-      border: 1.5px solid var(--ink);
-      border-radius: 999px;
-      background: var(--window);
-      color: var(--faint);
-      font: 800 10px var(--mono);
-    }
-    .mini-pill.link {
-      color: var(--ink);
+    .mini-link {
+      color: var(--orange);
       text-decoration: none;
-      background: #f9e5c8;
+      font: 800 11px var(--mono);
+    }
+    .mini-link:hover {
+      color: var(--blue);
+      text-decoration: underline;
+    }
+    .project-action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 14px;
     }
 
     .proof-grid {
@@ -869,7 +826,7 @@
     }
     .folder-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 2px;
       background: var(--ink);
     }
@@ -1156,10 +1113,11 @@
       .proof-grid { grid-template-columns: 1fr; }
       .systems-intro { grid-template-columns: 1fr; }
       .systems-proof { grid-template-columns: 1fr; }
-      .project-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .project-index-grid { grid-template-columns: 1fr; }
       .folder-grid { grid-template-columns: repeat(2, 1fr); }
       .contact-grid { grid-template-columns: 1fr; }
+      .contact-grid .window:first-child { order: 2; }
+      .contact-grid .window:last-child { order: 1; }
     }
 
     @media (max-width: 680px) {
@@ -1196,18 +1154,6 @@
       .systems-intro,
       .project-category {
         padding: 18px;
-      }
-      .systems-intro .chip {
-        width: max-content;
-      }
-      .project-tab {
-        grid-template-columns: 28px 1fr;
-        padding: 11px 10px;
-        font-size: 11px;
-      }
-      .project-tab img {
-        width: 26px;
-        height: 26px;
       }
       .project-category-head {
         display: grid;
@@ -1419,7 +1365,7 @@
         </div>
 
         <div class="icon-rail right">
-          <a class="desktop-icon" href="#work">
+          <a class="desktop-icon" href="#projects">
             <img src="assets/icons/pkms-folder.png" alt="">
             <span>pkms.md</span>
           </a>
@@ -1449,186 +1395,46 @@
           <span class="rule"></span>
         </div>
 
-        <article class="window project rv" id="fakeout">
-          <div class="titlebar bar-orange">
-            <span class="lights"><span class="l-red"></span><span class="l-yellow"></span><span class="l-green"></span></span>
-            <span class="title">fakeout.feed - misinformation app</span>
-            <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
-          </div>
-          <div class="project-grid">
-            <div class="project-copy">
-              <div class="kickers">
-                <span class="chip">feed-first</span>
-                <span class="chip">Android + iOS</span>
-                <span class="chip">AI scan tools one tab away</span>
-              </div>
-              <h3>FakeOut is now a daily debunk feed, not just a scanner.</h3>
-              <p>FakeOut helps people check viral claims before they share. The home screen is a daily feed of trending debunks from 100+ trusted fact-checkers. AI image/video scanning and claim checks stay one tab away as tools, not the whole product.</p>
-              <div class="project-links">
-                <a class="btn btn-primary" href="https://fakeout.io" target="_blank" rel="noopener">Visit fakeout.io</a>
-                <a class="btn" href="https://play.google.com/store/apps/details?id=com.misinfo.bustr" target="_blank" rel="noopener">Play Store</a>
-                <a class="btn" href="https://apps.apple.com/ie/app/fakeout-misinfo-detector/id6748231739" target="_blank" rel="noopener">App Store</a>
-              </div>
-            </div>
-            <div class="project-side">
-              <div class="project-art"><img src="assets/icons/fakeout-feed.png" alt=""></div>
-              <div class="stats">
-                <div class="stat"><b>16K+</b><span>downloads</span></div>
-                <div class="stat"><b>100+</b><span>fact-checkers</span></div>
-                <div class="stat"><b>Feed</b><span>is home</span></div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="window project rv" id="cloidberg">
-          <div class="titlebar bar-blue">
-            <span class="lights"><span class="l-red"></span><span class="l-yellow"></span><span class="l-green"></span></span>
-            <span class="title">cloidberg.sh - self-hosted agent layer</span>
-            <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
-          </div>
-          <div class="project-grid">
-            <div class="project-copy">
-              <div class="kickers">
-                <span class="chip">OpenClaw</span>
-                <span class="chip">Telegram + Discord</span>
-                <span class="chip">local-first memory</span>
-              </div>
-              <h3>Cloidberg is a personal AI operating layer on owned hardware.</h3>
-              <p>A self-hosted agent stack running on an Ubuntu N100 mini-PC. It keeps memory, maintains a Markdown PKMS, runs scheduled automations, searches local context, and talks through Telegram and Discord. It is a real system, not a demo prompt.</p>
-              <div class="project-links">
-                <a class="btn btn-primary" href="#systems">Open system folder</a>
-                <a class="btn" href="#about">$ whoami</a>
-              </div>
-            </div>
-            <div class="project-side">
-              <div class="project-art"><img src="assets/icons/cloidberg-agent.png" alt=""></div>
-              <div class="stats">
-                <div class="stat"><b>24/7</b><span>agent host</span></div>
-                <div class="stat"><b>PKMS</b><span>file memory</span></div>
-                <div class="stat"><b>Local</b><span>by default</span></div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="window project rv" id="pkms">
-          <div class="titlebar bar-pink">
-            <span class="lights"><span class="l-red"></span><span class="l-yellow"></span><span class="l-green"></span></span>
-            <span class="title">builder-brain.md - PKMS, content, automation</span>
-            <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
-          </div>
-          <div class="project-grid">
-            <div class="project-copy">
-              <div class="kickers">
-                <span class="chip">Obsidian-compatible</span>
-                <span class="chip">content engine</span>
-                <span class="chip">agent-maintained</span>
-              </div>
-              <h3>A personal knowledge system that turns links into useful context.</h3>
-              <p>Articles, X bookmarks, project notes, ideas, learning resources, and decisions are processed into a plain-Markdown wiki. The interesting bit is the loop: agent tools extract context, update maps, and bring the right shelf back when it is time to build or write.</p>
-              <div class="project-links">
-                <a class="btn btn-primary" href="#contact">Talk systems</a>
-                <a class="btn" href="#projects">Open project map</a>
-              </div>
-            </div>
-            <div class="project-side">
-              <div class="project-art"><img src="assets/icons/pkms-folder.png" alt=""></div>
-              <div class="stats">
-                <div class="stat"><b>MD</b><span>source of truth</span></div>
-                <div class="stat"><b>Maps</b><span>retrieval layer</span></div>
-                <div class="stat"><b>Ideas</b><span>to projects</span></div>
-              </div>
-            </div>
-          </div>
-        </article>
-
         <article class="window systems-built rv" id="projects">
           <div class="titlebar bar-yellow">
             <span class="lights"><span class="l-red"></span><span class="l-yellow"></span><span class="l-green"></span></span>
-            <span class="title" style="color:var(--ink)">systems-i-built.exe - project explorer</span>
+            <span class="title" style="color:var(--ink)">builds-index.exe - project library</span>
             <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
           </div>
           <div class="systems-intro">
             <div>
-              <div class="kickers">
-                <span class="chip">products</span>
-                <span class="chip">agents</span>
-                <span class="chip">personal OS</span>
-              </div>
-              <h3>Systems I built, not just projects I listed.</h3>
-              <p>I build practical AI products, resident agents, local-first tools, and infrastructure that solve real workflow problems. The individual repos matter, but the bigger signal is the system around them.</p>
+              <h3>Project Library</h3>
+              <p>Links and demos for projects I've built.</p>
             </div>
-            <span class="chip">11 builds mapped</span>
           </div>
-          <div class="systems-proof" aria-label="Project category summary">
-            <div class="system-lane">
+          <div class="systems-proof" role="tablist" aria-label="Project category summary">
+            <button class="system-lane is-active" type="button" role="tab" aria-selected="true" data-project-tab="fakeout">
               <img src="assets/icons/fakeout-feed.png" alt="">
-              <b>FakeOut ecosystem</b>
-              <span>Cross-platform product proof: Android, iOS, and web around misinformation literacy.</span>
-            </div>
-            <div class="system-lane">
+              <b>FakeOut</b>
+            </button>
+            <button class="system-lane" type="button" role="tab" aria-selected="false" data-project-tab="agents">
               <img src="assets/icons/cloidberg-agent.png" alt="">
-              <b>Agent and homelab stack</b>
-              <span>Cloidberg builds, Gilfoyle/Hermes keeps infra alive, and OpenClaw ties it together.</span>
-            </div>
-            <div class="system-lane">
+              <b>AI & Agents</b>
+            </button>
+            <button class="system-lane" type="button" role="tab" aria-selected="false" data-project-tab="os">
               <img src="assets/icons/pkms-folder.png" alt="">
-              <b>Personal operating systems</b>
-              <span>Local-first tools for content, household state, and Markdown knowledge management.</span>
-            </div>
+              <b>Life OS & tools</b>
+            </button>
+            <button class="system-lane" type="button" role="tab" aria-selected="false" data-project-tab="experiments">
+              <img src="assets/icons/ai-app-spark.png" alt="">
+              <b>Experiments</b>
+            </button>
           </div>
           <div class="project-browser">
-            <div class="project-tabs" role="tablist" aria-label="Project folders">
-              <button class="project-tab is-active" type="button" role="tab" aria-selected="true" data-project-tab="fakeout">
-                <img src="assets/icons/fakeout-feed.png" alt="">
-                <span>FakeOut/</span>
-              </button>
-              <button class="project-tab" type="button" role="tab" aria-selected="false" data-project-tab="agents">
-                <img src="assets/icons/cloidberg-agent.png" alt="">
-                <span>Agents/</span>
-              </button>
-              <button class="project-tab" type="button" role="tab" aria-selected="false" data-project-tab="os">
-                <img src="assets/icons/pkms-folder.png" alt="">
-                <span>OS tools/</span>
-              </button>
-              <button class="project-tab" type="button" role="tab" aria-selected="false" data-project-tab="experiments">
-                <img src="assets/icons/ai-app-spark.png" alt="">
-                <span>Experiments/</span>
-              </button>
-            </div>
-
             <div class="project-category is-active" data-project-panel="fakeout">
               <div class="project-category-head">
                 <div>
-                  <h4>FakeOut ecosystem</h4>
-                  <p>One product surface across Android, iOS, and web: misinformation literacy, AI media checks, fact-check search, feeds, subscriptions, and public trust.</p>
-                </div>
-                <span class="chip">product builder</span>
-              </div>
-              <div class="project-index-grid">
-                <div class="project-mini">
-                  <img src="assets/icons/fakeout-feed.png" alt="">
-                  <div>
-                    <h5>FakeOut Android</h5>
-                    <p>Android misinformation app with AI media checks, fact-check search, credits, caching, and Firebase functions.</p>
-                    <div class="mini-meta"><span class="mini-pill">Kotlin</span><span class="mini-pill">Firebase</span><a class="mini-pill link" href="https://play.google.com/store/apps/details?id=com.misinfo.bustr" target="_blank" rel="noopener">Play Store</a></div>
-                  </div>
-                </div>
-                <div class="project-mini">
-                  <img src="assets/icons/fakeout-feed.png" alt="">
-                  <div>
-                    <h5>FakeOut iOS</h5>
-                    <p>SwiftUI FakeOut app with feed, verification tools, StoreKit, share extension, and Firebase-backed credits.</p>
-                    <div class="mini-meta"><span class="mini-pill">SwiftUI</span><span class="mini-pill">StoreKit</span><a class="mini-pill link" href="https://apps.apple.com/ie/app/fakeout-misinfo-detector/id6748231739" target="_blank" rel="noopener">App Store</a></div>
-                  </div>
-                </div>
-                <div class="project-mini">
-                  <img src="assets/icons/social-email.png" alt="">
-                  <div>
-                    <h5>FakeoutWeb</h5>
-                    <p>High-trust FakeOut web presence built to explain the product and convert visitors into app downloads.</p>
-                    <div class="mini-meta"><span class="mini-pill">Astro</span><span class="mini-pill">Tailwind</span><a class="mini-pill link" href="https://fakeout.io" target="_blank" rel="noopener">Live site</a></div>
+                  <h4>FakeOut</h4>
+                  <p>FakeOut helps people check viral claims before they share. The home screen is a daily feed of trending debunks from 100+ trusted fact-checkers. AI image/video scanning and claim checks stay one tab away as tools, not the whole product.</p>
+                  <div class="project-action-row">
+                    <a class="mini-link" href="https://play.google.com/store/apps/details?id=com.misinfo.bustr" target="_blank" rel="noopener">Play Store</a>
+                    <a class="mini-link" href="https://apps.apple.com/ie/app/fakeout-misinfo-detector/id6748231739" target="_blank" rel="noopener">App Store</a>
+                    <a class="mini-link" href="https://fakeout.io" target="_blank" rel="noopener">Website</a>
                   </div>
                 </div>
               </div>
@@ -1637,10 +1443,9 @@
             <div class="project-category" data-project-panel="agents">
               <div class="project-category-head">
                 <div>
-                  <h4>Agent and homelab stack</h4>
-                  <p>A resident agent layer on owned hardware: Cloidberg handles memory and work, while Gilfoyle/Hermes handles infra, deployments, monitoring, and server maintenance.</p>
+                  <h4>AI & Agents</h4>
+                  <p>Openable outputs from the agent stack: demo decks, field notes, and repo-friendly proof. The resident agent architecture belongs in Systems.</p>
                 </div>
-                <span class="chip">agentic AI</span>
               </div>
               <div class="project-index-grid">
                 <div class="project-mini">
@@ -1648,15 +1453,7 @@
                   <div>
                     <h5>OpenClaw demo decks</h5>
                     <p>Interactive public decks showing how Cloidberg runs workflows, background jobs, memory, media, and project work.</p>
-                    <div class="mini-meta"><span class="mini-pill">HTML</span><span class="mini-pill">public demo</span><a class="mini-pill link" href="https://vatsal28.github.io/openclaw-demo-decks/roles-version.html" target="_blank" rel="noopener">Open deck</a></div>
-                  </div>
-                </div>
-                <div class="project-mini">
-                  <img src="assets/icons/automation-gears.png" alt="">
-                  <div>
-                    <h5>Agent OS</h5>
-                    <p>Mission Control dashboard for personal agents, cron jobs, usage, context, and homelab operations.</p>
-                    <div class="mini-meta"><span class="mini-pill">React</span><span class="mini-pill">Vite</span><span class="mini-pill">private build</span></div>
+                    <div class="mini-meta"><a class="mini-link" href="https://vatsal28.github.io/openclaw-demo-decks/roles-version.html" target="_blank" rel="noopener">Open deck</a></div>
                   </div>
                 </div>
                 <div class="project-mini">
@@ -1664,15 +1461,7 @@
                   <div>
                     <h5>Cloidberg Field Notes</h5>
                     <p>Agent-written field notes from Cloidberg, built as a tiny static blog with a strict no-slop build guard.</p>
-                    <div class="mini-meta"><span class="mini-pill">static blog</span><span class="mini-pill">zero deps</span><a class="mini-pill link" href="https://cloidberg-log.pages.dev" target="_blank" rel="noopener">Read</a></div>
-                  </div>
-                </div>
-                <div class="project-mini">
-                  <img src="assets/icons/homelab-rack.png" alt="">
-                  <div>
-                    <h5>Gilfoyle / Hermes</h5>
-                    <p>Infra and DevOps agent for homelab administration, deployments, process monitoring, architecture reviews, and server maintenance.</p>
-                    <div class="mini-meta"><span class="mini-pill">sysadmin agent</span><span class="mini-pill">homelab</span><span class="mini-pill">ops</span></div>
+                    <div class="mini-meta"><a class="mini-link" href="https://cloidberg-log.pages.dev" target="_blank" rel="noopener">Read</a></div>
                   </div>
                 </div>
               </div>
@@ -1681,10 +1470,9 @@
             <div class="project-category" data-project-panel="os">
               <div class="project-category-head">
                 <div>
-                  <h4>Personal operating systems</h4>
+                  <h4>Life OS & tools</h4>
                   <p>Tools for daily life and creator workflows, designed around fast capture, structured state, and agent-readable context.</p>
                 </div>
-                <span class="chip">systems thinker</span>
               </div>
               <div class="project-index-grid">
                 <div class="project-mini">
@@ -1692,7 +1480,6 @@
                   <div>
                     <h5>Content OS</h5>
                     <p>Local-first creator workflow OS for ideas, scripts, pipeline tracking, and publishing decisions.</p>
-                    <div class="mini-meta"><span class="mini-pill">React</span><span class="mini-pill">PWA</span><span class="mini-pill">local-first</span></div>
                   </div>
                 </div>
                 <div class="project-mini">
@@ -1700,7 +1487,6 @@
                   <div>
                     <h5>Home OS</h5>
                     <p>Mobile-first household cockpit for shared daily state, shopping, meals, laundry, and reminders.</p>
-                    <div class="mini-meta"><span class="mini-pill">PWA</span><span class="mini-pill">household ops</span><span class="mini-pill">private</span></div>
                   </div>
                 </div>
                 <div class="project-mini">
@@ -1708,7 +1494,6 @@
                   <div>
                     <h5>Vatsal PKMS</h5>
                     <p>Obsidian-compatible Markdown PKMS where an agent turns sources into durable, linked knowledge.</p>
-                    <div class="mini-meta"><span class="mini-pill">Markdown</span><span class="mini-pill">agent-maintained</span><span class="mini-pill">private</span></div>
                   </div>
                 </div>
               </div>
@@ -1717,10 +1502,9 @@
             <div class="project-category" data-project-panel="experiments">
               <div class="project-category-head">
                 <div>
-                  <h4>Applied AI experiments</h4>
+                  <h4>Experiments</h4>
                   <p>Smaller product explorations that show creative applied AI thinking without crowding the main headline.</p>
                 </div>
-                <span class="chip">prototype lab</span>
               </div>
               <div class="project-index-grid">
                 <div class="project-mini">
@@ -1728,7 +1512,7 @@
                   <div>
                     <h5>Civic Vision / Redo AI</h5>
                     <p>Gemini-powered before/after visualizations for rooms, streets, and urban improvement ideas.</p>
-                    <div class="mini-meta"><span class="mini-pill">Gemini</span><span class="mini-pill">React</span><a class="mini-pill link" href="https://civic-vision-tawny.vercel.app" target="_blank" rel="noopener">Live demo</a></div>
+                    <div class="mini-meta"><a class="mini-link" href="https://civic-vision-tawny.vercel.app" target="_blank" rel="noopener">Live demo</a></div>
                   </div>
                 </div>
               </div>
@@ -1746,31 +1530,37 @@
         <div class="window rv">
           <div class="titlebar bar-yellow">
             <span class="lights"><span class="l-red"></span><span class="l-yellow"></span><span class="l-green"></span></span>
-            <span class="title">File Explorer</span>
+            <span class="title">control-panel.exe - operating layer</span>
             <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
           </div>
           <div class="explorer-toolbar">
             <span class="small-btns"><span>&lt;</span><span>&gt;</span><span>*</span></span>
-            <span class="address">C:\VATSAL\systems\owned-infra\</span>
+            <span class="address">C:\VATSAL\systems\operating-layer\</span>
           </div>
           <div class="folder-grid">
             <article class="folder">
               <img src="assets/icons/cloidberg-agent.png" alt="">
-              <h3>openclaw-cloidberg/</h3>
-              <p>Personal agent on an Ubuntu N100 mini-PC, with memory, tools, schedules, Telegram, Discord, and local automation.</p>
-              <span class="meta">agents · crons · memory</span>
+              <h3>cloidberg.agent</h3>
+              <p>Personal work and memory agent. It captures context, runs workflows, talks through chat surfaces, and helps turn loose work into durable files.</p>
+              <span class="meta">memory · workflows · chat</span>
+            </article>
+            <article class="folder">
+              <img src="assets/icons/automation-gears.png" alt="">
+              <h3>gilfoyle-hermes.ops</h3>
+              <p>System admin, infra, and DevOps agent for the homelab: deployments, monitoring, process checks, maintenance, and architecture reviews.</p>
+              <span class="meta">infra · devops · monitoring</span>
             </article>
             <article class="folder">
               <img src="assets/icons/pkms-folder.png" alt="">
-              <h3>pkms/</h3>
-              <p>Markdown wiki for sources, insights, projects, topics, questions, maps, and learning resources.</p>
-              <span class="meta">obsidian · git · retrieval</span>
+              <h3>pkms.memory</h3>
+              <p>Durable Markdown context layer for sources, insights, projects, prompts, workflows, ideas, and agent handoffs.</p>
+              <span class="meta">markdown · retrieval · prompts</span>
             </article>
             <article class="folder">
               <img src="assets/icons/homelab-rack.png" alt="">
-              <h3>homelab/</h3>
-              <p>Owned infrastructure for storage, dashboards, DNS, media, remote access, and local experimentation.</p>
-              <span class="meta">ubuntu · docker · nextcloud</span>
+              <h3>homelab.runtime</h3>
+              <p>Owned hardware and services that keep the agent stack, storage, dashboards, media, local AI, and experiments running.</p>
+              <span class="meta">ubuntu · docker · owned runtime</span>
             </article>
           </div>
         </div>
@@ -1801,18 +1591,8 @@
           </div>
           <div class="term-body">
             <div><span class="ps1">vatsal@homelab:~$</span> <span class="cmd">whoami</span></div>
-            <span class="out">Self-taught builder. Engineering Analyst. Data and automation person.
-I like systems that make messy work easier.</span>
-
-            <div><span class="ps1">vatsal@homelab:~$</span> <span class="cmd">cat day-job.txt</span></div>
-            <span class="out">Google Dublin, Trust &amp; Safety Ads.
-I work around data, workflows, monitoring, and quality systems at scale.
-That background shapes how I think about privacy, reliability, and misuse.</span>
-
-            <div><span class="ps1">vatsal@homelab:~$</span> <span class="cmd">cat builder-stack.txt</span></div>
-            <span class="out">FakeOut: feed-first debunk app with 16K+ downloads and 100+ trusted fact-checkers.
-Cloidberg/OpenClaw: self-hosted agent layer with memory, tools, cron, and chat surfaces.
-Homelab + PKMS: owned infrastructure, Markdown knowledge maps, and automation loops.</span>
+            <span class="out">Self-taught builder and Engineering Analyst at Google Dublin, working across data, workflows, monitoring, and trust systems.
+I ship practical tools like FakeOut, Cloidberg/OpenClaw, PKMS, and homelab systems to make messy work easier.</span>
 
             <div><span class="ps1">vatsal@homelab:~$</span> <span class="cmd"></span><span class="cursor"></span></div>
           </div>
