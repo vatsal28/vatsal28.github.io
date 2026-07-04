@@ -13,7 +13,7 @@
     :root {
       --ink: #28241c;
       --muted: #675f4c;
-      --faint: #918873;
+      --faint: #706958;
       --paper: #efe7d0;
       --window: #fff8ea;
       --panel: #f7efd9;
@@ -674,9 +674,12 @@
       filter: drop-shadow(2px 2px 0 rgba(40, 36, 28, .25));
     }
     .system-lane b {
-      display: block;
+      display: flex;
+      align-items: center;
+      min-height: 2.6em;
       font-family: var(--mono);
       font-size: 13px;
+      line-height: 1.3;
     }
     .project-browser {
       border-top: 2px solid var(--ink);
@@ -744,23 +747,28 @@
     .project-mini .mini-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 8px;
+      align-items: center;
+      gap: 4px;
+      margin: 8px -14px -14px;
     }
     .mini-link {
-      color: var(--orange);
+      display: inline-flex;
+      align-items: center;
+      color: #a5511c;
       text-decoration: none;
-      font: 800 11px var(--mono);
+      font: 800 13px/1.3 var(--mono);
+      padding: 14px 14px;
     }
     .mini-link:hover {
-      color: var(--blue);
+      color: #456991;
       text-decoration: underline;
     }
     .project-action-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 14px;
+      align-items: center;
+      gap: 4px;
+      margin: 14px -14px -14px;
     }
 
     .proof-grid {
@@ -870,6 +878,8 @@
       font-family: var(--crt);
       font-size: clamp(18px, 2.1vw, 22px);
       line-height: 1.45;
+      max-width: 76ch;
+      margin: 0 auto;
     }
     .ps1 { color: #93bf6c; }
     .cmd { color: #fff0c8; }
@@ -1539,10 +1549,6 @@
             <span class="lights"><span class="l-red"></span><span class="l-yellow"></span><span class="l-green"></span></span>
             <span class="title">control-panel.exe - operating layer</span>
             <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
-          </div>
-          <div class="explorer-toolbar">
-            <span class="small-btns"><span>&lt;</span><span>&gt;</span><span>*</span></span>
-            <span class="address">C:\VATSAL\systems\operating-layer\</span>
           </div>
           <div class="systems-proof" role="tablist" aria-label="System summary">
             <button class="system-lane is-active" type="button" role="tab" aria-selected="true" data-project-tab="cloidberg">
