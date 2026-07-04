@@ -300,17 +300,27 @@
     }
     .window-controls {
       display: inline-flex;
-      gap: 6px;
+      gap: 5px;
     }
     .window-controls span {
-      width: 13px;
-      height: 13px;
+      width: 18px;
+      height: 18px;
+      display: grid;
+      place-items: center;
       border: 1.5px solid var(--line);
-      border-radius: 999px;
+      border-radius: 4px;
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 11px;
+      line-height: 1;
     }
-    .c-red { background: var(--red); }
-    .c-yellow { background: var(--yellow); }
-    .c-green { background: var(--green); }
+    .window-controls span::before {
+      font-family: var(--mono);
+      font-weight: 700;
+    }
+    .c-close::before { content: "x"; }
+    .c-min::before { content: "-"; }
+    .c-max::before { content: "[]"; }
 
     .pane {
       display: none;
@@ -822,7 +832,7 @@
       <div class="pane-frame">
         <div class="pane-head">
           <span id="pane-title">home.dashboard</span>
-          <span class="window-controls" aria-hidden="true"><span class="c-red"></span><span class="c-yellow"></span><span class="c-green"></span></span>
+          <span class="window-controls" aria-hidden="true"><span class="c-min"></span><span class="c-max"></span><span class="c-close"></span></span>
         </div>
 
         <section class="pane active" id="pane-home" data-pane="home" data-title="home.dashboard" aria-labelledby="home-title">
