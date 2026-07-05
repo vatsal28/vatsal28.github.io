@@ -41,32 +41,8 @@
       color: var(--ink);
       font-family: var(--body);
       background-color: var(--paper);
-      background-image: var(--wallpaper);
-      background-position: var(--wallpaper-position);
-      background-repeat: var(--wallpaper-repeat);
-      background-size: var(--wallpaper-size);
       padding-bottom: 60px;
       -webkit-font-smoothing: antialiased;
-    }
-
-    body.wallpaper-pixel {
-      --wallpaper:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='620' viewBox='0 0 1000 620'%3E%3Cg shape-rendering='crispEdges' opacity='.2'%3E%3Crect x='0' y='0' width='1000' height='620' fill='none'/%3E%3Crect x='76' y='88' width='84' height='84' fill='%23efc94c' opacity='.38'/%3E%3Crect x='76' y='172' width='28' height='28' fill='%23efc94c' opacity='.28'/%3E%3Crect x='712' y='126' width='34' height='34' fill='%235b84b1' opacity='.22'/%3E%3Crect x='746' y='160' width='34' height='34' fill='%235b84b1' opacity='.18'/%3E%3Crect x='780' y='194' width='34' height='34' fill='%235b84b1' opacity='.14'/%3E%3Crect x='106' y='438' width='120' height='44' fill='%235f6b3c'/%3E%3Crect x='226' y='390' width='72' height='92' fill='%235f6b3c'/%3E%3Crect x='298' y='422' width='112' height='60' fill='%235f6b3c'/%3E%3Crect x='444' y='358' width='72' height='124' fill='%235f6b3c'/%3E%3Crect x='516' y='406' width='96' height='76' fill='%235f6b3c'/%3E%3Crect x='646' y='378' width='64' height='104' fill='%235f6b3c'/%3E%3Crect x='710' y='432' width='146' height='50' fill='%235f6b3c'/%3E%3Crect x='880' y='416' width='36' height='66' fill='%235f6b3c'/%3E%3Crect x='150' y='452' width='18' height='14' fill='%23efe7d0' opacity='.7'/%3E%3Crect x='248' y='414' width='14' height='14' fill='%23efe7d0' opacity='.65'/%3E%3Crect x='470' y='386' width='14' height='14' fill='%23efe7d0' opacity='.65'/%3E%3Crect x='544' y='432' width='18' height='14' fill='%23efe7d0' opacity='.6'/%3E%3Crect x='666' y='406' width='14' height='14' fill='%23efe7d0' opacity='.65'/%3E%3Crect x='738' y='450' width='18' height='14' fill='%23efe7d0' opacity='.6'/%3E%3Crect x='392' y='494' width='210' height='12' fill='%2328241c' opacity='.7'/%3E%3Crect x='430' y='438' width='136' height='56' fill='%2328241c' opacity='.82'/%3E%3Crect x='444' y='452' width='108' height='28' fill='%237ba05b' opacity='.58'/%3E%3Crect x='462' y='468' width='52' height='6' fill='%23efe7d0' opacity='.72'/%3E%3Crect x='608' y='416' width='88' height='76' fill='%23fff8ea' opacity='.86'/%3E%3Crect x='620' y='430' width='64' height='12' fill='%235b84b1' opacity='.65'/%3E%3Crect x='620' y='454' width='64' height='12' fill='%23dd7736' opacity='.62'/%3E%3Crect x='620' y='478' width='64' height='12' fill='%237ba05b' opacity='.62'/%3E%3Crect x='606' y='492' width='92' height='10' fill='%2328241c' opacity='.64'/%3E%3Crect x='0' y='482' width='1000' height='8' fill='%2328241c' opacity='.18'/%3E%3Crect x='0' y='510' width='1000' height='4' fill='%23dd7736' opacity='.1'/%3E%3Crect x='0' y='540' width='1000' height='4' fill='%235b84b1' opacity='.1'/%3E%3C/g%3E%3C/svg%3E"),
-        radial-gradient(circle at 14% 11%, rgba(239, 201, 76, .18), transparent 23rem),
-        radial-gradient(circle at 92% 16%, rgba(91, 132, 177, .14), transparent 26rem);
-      --wallpaper-position: center 42px, 14% 11%, 92% 16%;
-      --wallpaper-repeat: no-repeat, no-repeat, no-repeat;
-      --wallpaper-size: min(1000px, 118vw) auto, auto, auto;
-    }
-
-    body.wallpaper-icons {
-      --wallpaper:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='168' height='168' viewBox='0 0 168 168'%3E%3Cg fill='none' stroke='%235f6b3c' stroke-width='2' opacity='.16' shape-rendering='crispEdges'%3E%3Cpath d='M18 36h34l8 10h44v42H18z' fill='%23efc94c' fill-opacity='.22'/%3E%3Crect x='108' y='20' width='34' height='28' rx='3' fill='%23fff8ea' fill-opacity='.34'/%3E%3Cpath d='M116 30l7 5-7 5M128 41h8'/%3E%3Crect x='28' y='112' width='44' height='28' rx='4' fill='%23fff8ea' fill-opacity='.34'/%3E%3Ccircle cx='38' cy='126' r='3' fill='%237ba05b' stroke='none'/%3E%3Cpath d='M50 126h14M96 108h38v38H96z' fill='%23dd7736' fill-opacity='.18'/%3E%3Cpath d='M108 118h14M108 128h18M108 138h10M126 74l8 16h-16z' fill='%235b84b1' fill-opacity='.18'/%3E%3Cpath d='M135 95h20M145 85v20'/%3E%3C/g%3E%3C/svg%3E"),
-        radial-gradient(circle at 20% 12%, rgba(239, 201, 76, .16), transparent 22rem),
-        radial-gradient(circle at 82% 18%, rgba(217, 108, 142, .1), transparent 24rem);
-      --wallpaper-position: 14px 62px, 20% 12%, 82% 18%;
-      --wallpaper-repeat: repeat, no-repeat, no-repeat;
-      --wallpaper-size: 168px 168px, auto, auto;
     }
 
     a { color: inherit; }
@@ -157,30 +133,6 @@
       gap: 8px;
       color: var(--faint);
       white-space: nowrap;
-    }
-    .wallpaper-toggle {
-      display: inline-flex;
-      gap: 3px;
-      padding: 3px;
-      border: 1.5px solid rgba(40, 36, 28, .32);
-      border-radius: 8px;
-      background: rgba(255, 248, 234, .64);
-    }
-    .wallpaper-toggle button {
-      min-width: 54px;
-      padding: 4px 8px;
-      border: 0;
-      border-radius: 6px;
-      background: transparent;
-      color: var(--muted);
-      font: 700 11px var(--mono);
-      cursor: pointer;
-    }
-    .wallpaper-toggle button:hover,
-    .wallpaper-toggle button[aria-pressed="true"] {
-      background: var(--yellow);
-      color: var(--ink);
-      box-shadow: inset 0 0 0 1.5px var(--ink);
     }
     .status-dot {
       width: 9px;
@@ -1234,7 +1186,7 @@
     }
   </style>
 </head>
-<body class="wallpaper-pixel">
+<body>
   <a class="skip-link" href="#work">Skip to work</a>
 
   <div class="boot" id="boot" aria-hidden="true">
@@ -1260,10 +1212,6 @@
       <a href="#contact">Contact</a>
     </nav>
     <div class="top-status">
-      <div class="wallpaper-toggle" aria-label="Wallpaper style">
-        <button type="button" data-wallpaper="pixel" aria-pressed="true">Pixel</button>
-        <button type="button" data-wallpaper="icons" aria-pressed="false">Icons</button>
-      </div>
       <span class="status-dot"></span><span>online</span><span class="where">Dublin, Ireland</span>
     </div>
   </header>
@@ -1746,37 +1694,6 @@ Outside work I build things like Fakeout, agentic systems using OpenClaw & Herme
       var start = new Date('2023-06-01T00:00:00Z').getTime();
       var days = Math.max(0, Math.floor((Date.now() - start) / 86400000));
       uptime.textContent = days + ' days';
-    })();
-
-    (function () {
-      var valid = ['pixel', 'icons'];
-      var buttons = Array.prototype.slice.call(document.querySelectorAll('[data-wallpaper]'));
-      if (!buttons.length) return;
-
-      function selectedWallpaper() {
-        var params = new URLSearchParams(window.location.search);
-        var fromUrl = params.get('wallpaper');
-        return valid.indexOf(fromUrl) > -1 ? fromUrl : 'pixel';
-      }
-
-      function applyWallpaper(name, updateUrl) {
-        document.body.classList.toggle('wallpaper-pixel', name === 'pixel');
-        document.body.classList.toggle('wallpaper-icons', name === 'icons');
-        buttons.forEach(function (button) {
-          button.setAttribute('aria-pressed', button.getAttribute('data-wallpaper') === name ? 'true' : 'false');
-        });
-        if (!updateUrl) return;
-        var next = new URL(window.location.href);
-        next.searchParams.set('wallpaper', name);
-        window.history.replaceState({}, '', next);
-      }
-
-      buttons.forEach(function (button) {
-        button.addEventListener('click', function () {
-          applyWallpaper(button.getAttribute('data-wallpaper'), true);
-        });
-      });
-      applyWallpaper(selectedWallpaper(), false);
     })();
 
     (function () {
