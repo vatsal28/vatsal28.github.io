@@ -1039,6 +1039,227 @@
       transform: none;
     }
 
+    .desktop-only-window,
+    .desktop-widget {
+      display: none;
+    }
+    .task-desktop-label { display: none; }
+
+    @media (min-width: 1200px) {
+      body.app-ready {
+        background-image: radial-gradient(rgba(40, 36, 28, .025) .7px, transparent .8px);
+        background-size: 5px 5px;
+      }
+      .app-ready main > .wrap:last-of-type {
+        width: calc(100% - 244px);
+        max-width: none;
+        height: calc(100vh - 104px);
+        max-height: none;
+        overflow: hidden;
+        padding: 18px 0 72px;
+      }
+      .app-ready .desktop {
+        width: calc(100% - 244px);
+        max-width: none;
+        min-height: calc(100vh - 104px);
+        display: block;
+        padding: 0;
+      }
+      .app-ready .hero-grid {
+        position: relative;
+        display: block;
+        height: calc(100vh - 104px);
+      }
+      .app-ready .hero-grid > div:not(.desktop-only-window) {
+        display: contents;
+      }
+      .app-ready .welcome {
+        position: absolute;
+        top: calc(clamp(190px, 27vh, 330px) - 14px);
+        left: clamp(90px, 18vw, 390px);
+        z-index: 23;
+        width: clamp(660px, 44vw, 960px);
+        max-width: none;
+      }
+      .app-ready .social-dock {
+        position: absolute;
+        z-index: 24;
+        top: calc(clamp(190px, 27vh, 330px) + 314px);
+        left: clamp(90px, 18vw, 390px);
+        width: clamp(660px, 44vw, 960px);
+        max-width: none;
+      }
+      .desktop-only-window {
+        position: absolute;
+        display: block;
+        overflow: hidden;
+      }
+      .home-work-window {
+        top: clamp(72px, 9vh, 116px);
+        left: clamp(250px, 31vw, 690px);
+        z-index: 18;
+        width: clamp(660px, 44vw, 900px);
+      }
+      .home-work-body {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        padding: 16px;
+      }
+      .home-work-body a {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 10px 12px;
+        border: 2px solid var(--ink);
+        border-radius: 8px;
+        background: var(--panel);
+        color: var(--ink);
+        font: 700 12px/1.2 var(--mono);
+        text-decoration: none;
+      }
+      .home-work-body a:hover { background: var(--yellow); }
+      .home-work-body img { width: 30px; height: 30px; object-fit: contain; }
+      .home-about-window {
+        right: clamp(38px, 5vw, 116px);
+        bottom: 26px;
+        z-index: 12;
+        width: clamp(440px, 31vw, 640px);
+      }
+      .home-about-window .term-body {
+        min-height: 150px;
+        padding: 17px 19px;
+        font-size: 13px;
+      }
+      .desktop-widget {
+        position: fixed;
+        z-index: 8;
+        display: block;
+        border: 2px solid var(--ink);
+        border-radius: 9px;
+        background: var(--window);
+        box-shadow: var(--shadow-soft);
+        overflow: hidden;
+        font-family: var(--mono);
+      }
+      .desktop-widget .widget-title {
+        padding: 6px 9px;
+        border-bottom: 2px solid var(--ink);
+        background: var(--blue);
+        color: var(--window);
+        font-size: 11px;
+        font-weight: 800;
+      }
+      .activity-widget { left: 124px; bottom: 78px; width: 292px; }
+      .activity-widget a { display: block; padding: 8px; text-decoration: none; }
+      .activity-widget img { width: 100%; height: auto; }
+      .homelab-widget { right: 124px; top: 178px; width: 210px; }
+      .homelab-widget ul { margin: 0; padding: 10px 12px 11px 27px; font-size: 10px; line-height: 1.65; }
+      .homelab-widget li::marker { color: var(--green); }
+      .note-widget {
+        right: 132px;
+        bottom: 82px;
+        width: 224px;
+        padding: 15px 16px 18px;
+        background: #f9df75;
+        transform: rotate(-1.5deg);
+        font-size: 12px;
+        line-height: 1.5;
+      }
+      .note-widget b { display: block; margin-bottom: 7px; font-size: 11px; }
+      .app-ready:not(.route-home) .desktop-widget { display: none; }
+
+      .app-ready .app-view.is-active {
+        position: relative;
+        height: 100%;
+      }
+      .app-ready .app-view.is-active > .section-head { display: none; }
+      .app-ready .app-view.is-active > .window,
+      .app-ready .app-view.is-active > .contact-grid {
+        width: clamp(660px, 44vw, 960px);
+        max-width: 76ch;
+        margin: 4vh auto 0;
+      }
+      .app-ready .app-view.is-active > .note { margin-top: 28px; }
+
+      .route-work #work > #projects {
+        width: 100%;
+        max-width: none;
+        height: 100%;
+        margin: 0;
+        overflow: visible;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+      }
+      .route-work #projects > .titlebar,
+      .route-work #projects > .systems-intro,
+      .route-work #projects > .systems-proof { display: none; }
+      .route-work #projects > .project-browser {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        height: calc(100vh - 192px);
+        border: 0;
+      }
+      .route-work #projects .project-category {
+        position: relative;
+        display: block !important;
+        min-width: 0;
+        padding: 60px 18px 16px;
+        overflow: auto;
+        border: 2px solid var(--ink);
+        border-radius: var(--radius);
+        background: var(--window);
+        box-shadow: var(--shadow-soft);
+      }
+      .route-work #projects .project-category::before {
+        content: attr(data-desktop-title);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        min-height: 34px;
+        padding: 8px 12px;
+        border-bottom: 2px solid var(--ink);
+        background: var(--olive);
+        color: var(--window);
+        font: 700 12px/1.2 var(--mono);
+      }
+      .route-work #projects .project-category:nth-child(2)::before { background: var(--blue); }
+      .route-work #projects .project-category:nth-child(3)::before { background: var(--orange); }
+      .route-work #projects .project-category:nth-child(4)::before { background: var(--dark); }
+      .route-work #projects .project-category-head { margin-bottom: 10px; }
+      .route-work #projects .project-category-head h4 { display: none; }
+      .route-work #projects .project-category-head p { font-size: 12px; line-height: 1.38; }
+      .route-work #projects .project-index-grid { grid-template-columns: 1fr; gap: 8px; }
+      .route-work #projects .project-mini { padding: 10px; grid-template-columns: 36px 1fr; gap: 9px; }
+      .route-work #projects .project-mini img { width: 34px; height: 34px; }
+      .route-work #projects .project-mini h5 { font-size: 13px; }
+      .route-work #projects .project-mini p { font-size: 11.5px; line-height: 1.35; }
+
+      .titlebar { user-select: none; }
+      @media (pointer: fine) {
+        .desktop-draggable .titlebar,
+        .route-work .project-category::before { cursor: grab; }
+        .desktop-draggable.is-dragging .titlebar,
+        .route-work .project-category.is-dragging::before { cursor: grabbing; }
+      }
+      .desktop-draggable.is-focused { box-shadow: 7px 7px 0 rgba(40, 36, 28, .95); }
+      .task-links { display: flex; min-width: 0; overflow: hidden; }
+      .task-links a { border-color: rgba(40, 36, 28, .35); background: var(--panel); }
+      .task-mobile-label { display: none; }
+      .task-desktop-label { display: inline; }
+    }
+
+    @media (min-width: 1440px) {
+      .app-ready .window { font-size: 15px; }
+      .route-work #projects .project-category-head p { font-size: 13px; }
+      .route-work #projects .project-mini p { font-size: 12px; }
+    }
+
     @media (max-width: 920px) {
       .app-ready .app-shortcuts {
         display: none;
@@ -1281,6 +1502,30 @@
             </div>
           </section>
 
+          <section class="window desktop-only-window home-work-window" data-window-id="work-preview">
+            <div class="titlebar bar-yellow">
+              <span class="title" style="color:var(--ink)">builds-index.exe - project library</span>
+              <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
+            </div>
+            <div class="home-work-body">
+              <a href="#work"><img src="assets/icons/fakeout-feed.png" alt=""><span>FakeOut</span></a>
+              <a href="#work"><img src="assets/icons/cloidberg-agent.png" alt=""><span>AI &amp; Agents</span></a>
+              <a href="#work"><img src="assets/icons/pkms-folder.png" alt=""><span>Life OS &amp; tools</span></a>
+              <a href="#work"><img src="assets/icons/ai-app-spark.png" alt=""><span>Experiments</span></a>
+            </div>
+          </section>
+
+          <section class="window terminal desktop-only-window home-about-window" data-window-id="about-preview">
+            <div class="titlebar bar-dark">
+              <span class="title">about.txt - vatsal@homelab:~</span>
+              <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
+            </div>
+            <div class="term-body">
+              <div><span class="ps1">vatsal@homelab:~$</span> <span class="cmd">whoami</span></div>
+              <span class="out">Self-taught builder. 11 years in tech. Applied AI at Google Dublin. I work on AI models, data, workflows &amp; monitoring systems for keeping people safe online.</span>
+            </div>
+          </section>
+
           <nav class="social-dock rv" aria-label="Featured social links">
             <a href="https://github.com/vatsal28" target="_blank" rel="noopener">
               <img src="assets/icons/social-github.png" alt="">
@@ -1370,7 +1615,7 @@
             </button>
           </div>
           <div class="project-browser">
-            <div class="project-category is-active" data-project-panel="fakeout">
+            <div class="project-category is-active" data-project-panel="fakeout" data-desktop-title="fakeout.app - FakeOut">
               <div class="project-category-head">
                 <div>
                   <h4>FakeOut</h4>
@@ -1384,7 +1629,7 @@
               </div>
             </div>
 
-            <div class="project-category" data-project-panel="agents">
+            <div class="project-category" data-project-panel="agents" data-desktop-title="agents.dir - AI &amp; Agents">
               <div class="project-category-head">
                 <div>
                   <h4>AI & Agents</h4>
@@ -1419,7 +1664,7 @@
               </div>
             </div>
 
-            <div class="project-category" data-project-panel="os">
+            <div class="project-category" data-project-panel="os" data-desktop-title="life-os.dir - Life OS &amp; tools">
               <div class="project-category-head">
                 <div>
                   <h4>Life OS & tools</h4>
@@ -1451,7 +1696,7 @@
               </div>
             </div>
 
-            <div class="project-category" data-project-panel="experiments">
+            <div class="project-category" data-project-panel="experiments" data-desktop-title="experiments.lab - Experiments">
               <div class="project-category-head">
                 <div>
                   <h4>Experiments</h4>
@@ -1644,13 +1889,23 @@ Outside work I build things like Fakeout, agentic systems using OpenClaw & Herme
     </div>
   </main>
 
+  <aside class="desktop-widget activity-widget" aria-label="GitHub activity">
+    <div class="widget-title">activity.mon</div>
+    <a href="https://github.com/vatsal28" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/vatsal28/vatsal28/main/assets/contribs.svg" alt="Vatsal's 2026 GitHub contribution activity"></a>
+  </aside>
+  <aside class="desktop-widget homelab-widget" aria-label="Homelab status">
+    <div class="widget-title">homelab.stat</div>
+    <ul><li>agents online: 2</li><li>uptime: 99.9%</li><li>WireGuard: online</li><li>Nextcloud: online</li><li>Ollama: ready</li></ul>
+  </aside>
+  <aside class="desktop-widget note-widget" aria-label="Current build note"><b>note.txt</b>currently building: FakeOut feed + agent org</aside>
+
   <div class="taskbar" aria-label="VatsalOS taskbar">
     <a class="start" href="#home" data-route-link="home"><img src="assets/icons/start-button.png" alt=""><span>Start</span></a>
     <nav class="task-links" aria-label="Taskbar navigation">
-      <a href="#work" data-route-link="work"><img src="assets/icons/fakeout-feed.png" alt="">work</a>
-      <a href="#systems" data-route-link="systems"><img src="assets/icons/homelab-rack.png" alt="">systems</a>
-      <a href="#about" data-route-link="about"><img src="assets/icons/trust-lens.png" alt="">about</a>
-      <a href="#contact" data-route-link="contact"><img src="assets/icons/social-email.png" alt="">contact</a>
+      <a href="#work" data-route-link="work"><img src="assets/icons/fakeout-feed.png" alt=""><span class="task-mobile-label">work</span><span class="task-desktop-label">builds-index.exe</span></a>
+      <a href="#systems" data-route-link="systems"><img src="assets/icons/homelab-rack.png" alt=""><span class="task-mobile-label">systems</span><span class="task-desktop-label">control-panel.exe</span></a>
+      <a href="#about" data-route-link="about"><img src="assets/icons/trust-lens.png" alt=""><span class="task-mobile-label">about</span><span class="task-desktop-label">about.txt</span></a>
+      <a href="#contact" data-route-link="contact"><img src="assets/icons/social-email.png" alt=""><span class="task-mobile-label">contact</span><span class="task-desktop-label">new-message.exe</span></a>
     </nav>
     <nav class="task-socials" aria-label="Pinned social links">
       <a href="https://github.com/vatsal28" target="_blank" rel="noopener" aria-label="GitHub"><img src="assets/icons/social-github.png" alt=""></a>
@@ -1783,6 +2038,75 @@ Outside work I build things like Fakeout, agentic systems using OpenClaw & Herme
         });
       }, { threshold: .12 });
       nodes.forEach(function (node) { io.observe(node); });
+    })();
+
+    (function () {
+      var desktop = window.matchMedia('(min-width: 1200px)');
+      var z = 30;
+
+      function focusWindow(win) {
+        if (!desktop.matches) return;
+        document.querySelectorAll('.desktop-draggable, .route-work .project-category').forEach(function (node) {
+          node.classList.remove('is-focused');
+        });
+        win.classList.add('is-focused');
+        win.style.zIndex = String(++z);
+      }
+
+      function prepare() {
+        var windows = Array.prototype.slice.call(document.querySelectorAll('.window'));
+        var workTiles = Array.prototype.slice.call(document.querySelectorAll('#projects .project-category'));
+        windows.forEach(function (win) { win.classList.add('desktop-draggable'); });
+        workTiles.forEach(function (win) { win.classList.add('desktop-draggable'); });
+
+        windows.concat(workTiles).forEach(function (win) {
+          if (win.dataset.dragReady === '1') return;
+          win.dataset.dragReady = '1';
+          win.addEventListener('pointerdown', function () { focusWindow(win); });
+
+          var handle = win.querySelector(':scope > .titlebar');
+          if (!handle && win.classList.contains('project-category')) handle = win;
+          if (!handle) return;
+          handle.addEventListener('pointerdown', function (event) {
+            if (!desktop.matches || event.button !== 0) return;
+            if (win.classList.contains('project-category') && event.offsetY > 36) return;
+            if (event.target.closest('a, button, input, textarea')) return;
+            event.preventDefault();
+            focusWindow(win);
+            var rect = win.getBoundingClientRect();
+            var startX = event.clientX;
+            var startY = event.clientY;
+            var startLeft = rect.left;
+            var startTop = rect.top;
+            win.classList.add('is-dragging');
+            handle.setPointerCapture(event.pointerId);
+
+            function move(moveEvent) {
+              var left = Math.max(4, Math.min(window.innerWidth - 120, startLeft + moveEvent.clientX - startX));
+              var top = Math.max(50, Math.min(window.innerHeight - 88, startTop + moveEvent.clientY - startY));
+              win.style.position = 'fixed';
+              win.style.left = left + 'px';
+              win.style.top = top + 'px';
+              win.style.right = 'auto';
+              win.style.bottom = 'auto';
+              win.style.margin = '0';
+            }
+            function end(endEvent) {
+              win.classList.remove('is-dragging');
+              handle.releasePointerCapture(endEvent.pointerId);
+              handle.removeEventListener('pointermove', move);
+              handle.removeEventListener('pointerup', end);
+              handle.removeEventListener('pointercancel', end);
+            }
+            handle.addEventListener('pointermove', move);
+            handle.addEventListener('pointerup', end);
+            handle.addEventListener('pointercancel', end);
+          });
+        });
+      }
+      prepare();
+      var welcome = document.querySelector('.welcome');
+      if (welcome) focusWindow(welcome);
     })();
   </script>
 </body>
