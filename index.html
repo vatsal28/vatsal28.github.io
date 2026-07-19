@@ -11,23 +11,35 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #28241c;
-      --muted: #675f4c;
-      --faint: #706958;
-      --paper: #efe7d0;
-      --window: #fff8ea;
-      --panel: #f7efd9;
-      --olive: #5f6b3c;
-      --green: #7ba05b;
-      --orange: #dd7736;
-      --yellow: #efc94c;
-      --blue: #5b84b1;
-      --pink: #d96c8e;
-      --red: #cf4f38;
-      --dark: #1d1c15;
-      --grid: rgba(95, 107, 60, .15);
-      --shadow: 5px 5px 0 rgba(40, 36, 28, .95);
-      --shadow-soft: 3px 3px 0 rgba(40, 36, 28, .9);
+      /* Blue-Screen Workstation: cool desktop chrome with hard-edged VatsalOS character. */
+      --desktop: #0b1739;
+      --window: #f8fafc;
+      --panel: #e7edf5;
+      --ink: #101827;
+      --muted: #475569;
+      --faint: #64748b;
+      --chrome: #1e40af;
+      --accent: #0e7490;
+      --active: #dbeafe;
+      --focus: #f59e0b;
+      --danger: #c2413b;
+      --terminal: #07111f;
+      --terminal-text: #baf7d0;
+      --online: #22c55e;
+      --grid: rgba(56, 189, 248, .12);
+      --shadow: 5px 5px 0 rgba(7, 17, 31, .88);
+      --shadow-soft: 3px 3px 0 rgba(7, 17, 31, .82);
+
+      /* Compatibility aliases keep the existing component system concise. */
+      --paper: var(--desktop);
+      --olive: var(--chrome);
+      --green: var(--online);
+      --orange: var(--focus);
+      --yellow: var(--active);
+      --blue: var(--accent);
+      --pink: #7c3aed;
+      --red: var(--danger);
+      --dark: var(--terminal);
       --radius: 10px;
       --body: "Space Grotesk", system-ui, sans-serif;
       --mono: "JetBrains Mono", ui-monospace, monospace;
@@ -40,7 +52,13 @@
       margin: 0;
       color: var(--ink);
       font-family: var(--body);
-      background-color: var(--paper);
+      background-color: var(--desktop);
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+        radial-gradient(circle at 50% 12%, rgba(30, 64, 175, .34), transparent 58%);
+      background-size: 24px 24px, 24px 24px, 100% 100%;
+      background-attachment: fixed;
       padding-bottom: 60px;
       -webkit-font-smoothing: antialiased;
     }
@@ -68,7 +86,7 @@
       inset: 0;
       z-index: 999;
       background: var(--dark);
-      color: #b6e388;
+      color: var(--terminal-text);
       padding: min(9vh, 72px) clamp(22px, 8vw, 100px);
       font-family: var(--crt);
       font-size: clamp(18px, 2.6vw, 26px);
@@ -86,7 +104,7 @@
       position: absolute;
       left: clamp(22px, 8vw, 100px);
       bottom: 10vh;
-      color: #708d54;
+      color: #7dd3fc;
       font-size: 19px;
     }
     .boot.done { display: none; }
@@ -103,7 +121,7 @@
       padding: 7px 14px;
       background: var(--window);
       border-bottom: 2px solid var(--ink);
-      box-shadow: 0 2px 0 rgba(40, 36, 28, .12);
+      box-shadow: 0 2px 0 rgba(7, 17, 31, .3);
       font-family: var(--mono);
       font-size: 13px;
     }
@@ -190,14 +208,14 @@
     .chrome button:active { transform: translate(1px, 1px); }
 
     :where(a, button, input, textarea, [tabindex]):focus-visible {
-      outline: 3px dotted #15130f;
+      outline: 3px dotted var(--focus);
       outline-offset: 3px;
     }
-    .titlebar :focus-visible { outline-color: #fff8ea; }
-    .bar-orange { background: var(--orange); }
+    .titlebar :focus-visible { outline-color: #ffffff; }
+    .bar-orange { background: #b45309; }
     .bar-blue { background: var(--blue); }
-    .bar-pink { background: var(--pink); }
-    .bar-yellow { background: var(--yellow); color: var(--ink); }
+    .bar-pink { background: #6d28d9; }
+    .bar-yellow { background: #b45309; color: #ffffff; }
     .bar-dark { background: var(--dark); }
 
     .btn {
@@ -220,7 +238,7 @@
       cursor: pointer;
       transition: transform .1s ease, box-shadow .1s ease, background .1s ease;
     }
-    .btn:hover { transform: translate(1px, 1px); box-shadow: 2px 2px 0 rgba(40, 36, 28, .95); }
+    .btn:hover { transform: translate(1px, 1px); box-shadow: 2px 2px 0 rgba(7, 17, 31, .88); }
     .btn:active { transform: translate(3px, 3px); box-shadow: none; }
     .btn-primary { background: var(--orange); }
     .btn-olive { background: var(--olive); color: var(--window); }
@@ -257,8 +275,9 @@
       align-items: flex-end;
     }
     .app-ready .app-shortcuts .desktop-icon {
-      background: rgba(255, 248, 234, .58);
-      border: 2px solid transparent;
+      background: rgba(219, 234, 254, .92);
+      border: 2px solid rgba(125, 211, 252, .72);
+      box-shadow: 2px 2px 0 rgba(7, 17, 31, .5);
     }
     .app-ready .app-shortcuts .desktop-icon.is-active,
     .app-ready .app-shortcuts .desktop-icon[aria-current="page"] {
@@ -333,8 +352,11 @@
       align-items: center;
       gap: 6px;
       padding: 7px 5px;
+      border: 2px solid rgba(125, 211, 252, .72);
       border-radius: 8px;
-      color: var(--muted);
+      background: rgba(219, 234, 254, .92);
+      color: var(--ink);
+      box-shadow: 2px 2px 0 rgba(7, 17, 31, .5);
       text-align: center;
       text-decoration: none;
       font-family: var(--mono);
@@ -343,14 +365,15 @@
       transition: transform .12s ease, background .12s ease;
     }
     .desktop-icon:hover {
-      background: rgba(95, 107, 60, .14);
+      background: rgba(219, 234, 254, .94);
+      border-color: var(--focus);
       transform: translateY(-2px);
     }
     .desktop-icon img {
       width: 52px;
       height: 52px;
       object-fit: contain;
-      filter: drop-shadow(2px 2px 0 rgba(40, 36, 28, .35));
+      filter: drop-shadow(2px 2px 0 rgba(7, 17, 31, .38));
     }
 
     .welcome {
@@ -434,7 +457,7 @@
     }
     .social-dock a:hover {
       transform: translate(1px, 1px);
-      box-shadow: 2px 2px 0 rgba(40, 36, 28, .95);
+      box-shadow: 2px 2px 0 rgba(7, 17, 31, .88);
       background: var(--yellow);
       color: var(--ink);
     }
@@ -503,7 +526,7 @@
     .section-head img { width: 24px; height: 24px; object-fit: contain; }
     .section-head .rule {
       flex: 1;
-      border-top: 2px dashed rgba(40, 36, 28, .34);
+      border-top: 2px dashed rgba(16, 24, 39, .34);
     }
     .section-head .count {
       font-family: var(--mono);
@@ -552,7 +575,7 @@
     }
     .project-art img {
       width: min(158px, 78%);
-      filter: drop-shadow(4px 4px 0 rgba(40, 36, 28, .28));
+      filter: drop-shadow(4px 4px 0 rgba(7, 17, 31, .3));
     }
     .stats {
       display: grid;
@@ -639,7 +662,7 @@
       width: 42px;
       height: 42px;
       object-fit: contain;
-      filter: drop-shadow(2px 2px 0 rgba(40, 36, 28, .25));
+      filter: drop-shadow(2px 2px 0 rgba(7, 17, 31, .28));
     }
     .system-lane b {
       display: flex;
@@ -699,7 +722,7 @@
       width: 42px;
       height: 42px;
       object-fit: contain;
-      filter: drop-shadow(2px 2px 0 rgba(40, 36, 28, .2));
+      filter: drop-shadow(2px 2px 0 rgba(7, 17, 31, .22));
     }
     .project-mini h5 {
       margin: 0 0 5px;
@@ -722,13 +745,13 @@
     .mini-link {
       display: inline-flex;
       align-items: center;
-      color: #a5511c;
+      color: #92400e;
       text-decoration: none;
       font: 800 13px/1.3 var(--mono);
       padding: 14px 14px;
     }
     .mini-link:hover {
-      color: #456991;
+      color: #1d4ed8;
       text-decoration: underline;
     }
     .project-action-row {
@@ -754,7 +777,7 @@
       width: 58px;
       height: 58px;
       margin-bottom: 14px;
-      filter: drop-shadow(2px 2px 0 rgba(40, 36, 28, .28));
+      filter: drop-shadow(2px 2px 0 rgba(7, 17, 31, .3));
     }
     .proof-card h3 {
       margin: 0 0 8px;
@@ -810,7 +833,7 @@
       padding: 22px;
       background: var(--window);
     }
-    .folder:hover { background: #f9e5c8; }
+    .folder:hover { background: var(--active); }
     .folder img {
       width: 46px;
       height: 46px;
@@ -838,7 +861,7 @@
 
     .terminal {
       background: var(--dark);
-      color: #d4dfaa;
+      color: var(--terminal-text);
     }
     .terminal .titlebar { background: var(--dark); }
     .term-body {
@@ -849,12 +872,12 @@
       max-width: 76ch;
       margin: 0 auto;
     }
-    .ps1 { color: #93bf6c; }
-    .cmd { color: #fff0c8; }
+    .ps1 { color: #86efac; }
+    .cmd { color: #e0f2fe; }
     .out {
       display: block;
       margin: 5px 0 18px;
-      color: #d4dfaa;
+      color: var(--terminal-text);
       white-space: pre-wrap;
     }
     .hl { color: var(--yellow); }
@@ -862,7 +885,7 @@
       display: inline-block;
       width: .6em;
       height: 1.05em;
-      background: #d4dfaa;
+      background: var(--terminal-text);
       vertical-align: -.15em;
       animation: blink 1.05s steps(1) infinite;
     }
@@ -925,7 +948,7 @@
       font: 15px var(--body);
       outline: none;
     }
-    input:focus, textarea:focus { background: #fffdf5; box-shadow: var(--shadow-soft); }
+    input:focus, textarea:focus { background: #ffffff; box-shadow: var(--shadow-soft); }
     textarea { min-height: 128px; resize: vertical; }
     .social-list {
       display: grid;
@@ -951,7 +974,7 @@
     }
     .social-row:hover {
       transform: translate(1px, 1px);
-      box-shadow: 2px 2px 0 rgba(40, 36, 28, .95);
+      box-shadow: 2px 2px 0 rgba(7, 17, 31, .88);
       background: var(--yellow);
     }
     .social-row img { width: 34px; height: 34px; object-fit: contain; }
@@ -1041,7 +1064,7 @@
       background: transparent;
       color: var(--ink);
     }
-    .help-dialog::backdrop { background: rgba(29, 28, 21, .42); }
+    .help-dialog::backdrop { background: rgba(7, 17, 31, .58); }
     .help-body { padding: 20px 22px; background: var(--window); font-size: 14px; line-height: 1.6; }
     .help-body kbd { padding: 2px 6px; border: 1.5px solid var(--ink); border-radius: 4px; background: var(--panel); font: 700 12px var(--mono); }
     .start {
@@ -1054,7 +1077,7 @@
       border-radius: 10px;
       background: var(--olive);
       color: var(--window);
-      box-shadow: 2px 2px 0 rgba(40, 36, 28, .95);
+      box-shadow: 2px 2px 0 rgba(7, 17, 31, .88);
       font-family: var(--mono);
       font-size: 13px;
       font-weight: 800;
@@ -1087,7 +1110,7 @@
       color: var(--ink);
       background: var(--yellow);
       border-color: var(--ink);
-      box-shadow: inset 0 -4px 0 rgba(40, 36, 28, .22), var(--shadow-soft);
+      box-shadow: inset 0 -4px 0 rgba(16, 24, 39, .2), var(--shadow-soft);
       transform: translate(1px, 1px);
     }
     .task-socials {
@@ -1110,7 +1133,7 @@
     .clock {
       min-width: 62px;
       padding: 7px 8px;
-      border: 1.5px solid rgba(40, 36, 28, .36);
+      border: 1.5px solid rgba(16, 24, 39, .36);
       border-radius: 8px;
       color: var(--muted);
       font-family: var(--mono);
@@ -1500,7 +1523,7 @@
 
         <article class="window systems-built rv" id="projects">
           <div class="titlebar bar-yellow">
-            <span class="title" style="color:var(--ink)">builds-index.exe - project library</span>
+            <span class="title">builds-index.exe - project library</span>
             <span class="chrome"><i>-</i><i>[]</i><i>x</i></span>
           </div>
           <div class="systems-intro">
