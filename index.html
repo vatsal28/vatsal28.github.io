@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VatsalOS | Vatsal Mishra</title>
   <meta name="description" content="Vatsal Mishra is a generalist builder and Engineering Analyst at Google Dublin. He builds FakeOut, self-hosted AI agents, automation, and personal infrastructure.">
-  <link rel="icon" type="image/png" href="assets/icons/favicon.png">
+  <link rel="icon" type="image/png" href="assets/icons/favicon.png?v=blue-20260719">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet">
@@ -1205,6 +1205,8 @@
     }
 
     @media (max-width: 920px) {
+      /* Navigation already lives in the taskbar and Start menu on touch sizes. */
+      .topnav { display: none; }
       .chrome { display: none; }
       .window-tasks, .discovery-tip { display: none; }
       .app-ready .app-shortcuts {
@@ -1245,46 +1247,26 @@
 
     @media (max-width: 680px) {
       body { padding-bottom: 58px; }
+      .topbar { display: none; }
       .app-ready {
         overflow: hidden;
       }
       .app-ready main {
-        height: calc(100dvh - 106px);
-        min-height: calc(100dvh - 106px);
+        height: calc(100dvh - 58px);
+        min-height: calc(100dvh - 58px);
       }
       .app-ready .desktop {
-        max-height: calc(100dvh - 106px);
-        min-height: calc(100dvh - 106px);
+        max-height: calc(100dvh - 58px);
+        min-height: calc(100dvh - 58px);
         align-items: start;
         overflow: auto;
         padding: 14px 0 76px;
       }
       .app-ready main > .wrap:last-of-type {
         width: calc(100% - 22px);
-        max-height: calc(100dvh - 106px);
+        max-height: calc(100dvh - 58px);
         padding: 12px 0 78px;
       }
-      .topbar {
-        gap: 3px;
-        padding-inline: 6px;
-      }
-      .brand {
-        flex: 0 0 auto;
-        gap: 5px;
-        padding-inline: 5px;
-      }
-      .brand img { width: 20px; height: 20px; }
-      .topnav {
-        min-width: 0;
-        flex: 1 1 auto;
-        justify-content: space-evenly;
-        gap: 0;
-      }
-      .topnav a {
-        padding: 5px 4px;
-        font-size: 10px;
-      }
-      .top-status { display: none; }
       .desktop { padding-top: 24px; }
       .welcome-body { grid-template-columns: 1fr; text-align: center; justify-items: center; padding: 22px 20px; }
       .welcome-actions { justify-content: center; padding: 14px 18px 17px; }
@@ -1358,7 +1340,6 @@
     @media (max-width: 420px) {
       .brand span { display: none; }
       .brand { padding-inline: 4px; }
-      .topnav a { padding-inline: 5px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
