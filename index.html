@@ -1220,6 +1220,12 @@
       .contact-grid .window:last-child { order: 1; }
     }
 
+    /* Desktop navigation lives on the desktop and taskbar. Keep the top bar
+       as lightweight OS chrome instead of repeating every destination. */
+    @media (min-width: 921px) {
+      .topnav { display: none; }
+    }
+
     @media (max-width: 680px) {
       body { padding-bottom: 58px; }
       .app-ready {
@@ -1241,8 +1247,27 @@
         max-height: calc(100dvh - 106px);
         padding: 12px 0 78px;
       }
-      .topbar { gap: 8px; }
-      .topnav, .top-status { display: none; }
+      .topbar {
+        gap: 3px;
+        padding-inline: 6px;
+      }
+      .brand {
+        flex: 0 0 auto;
+        gap: 5px;
+        padding-inline: 5px;
+      }
+      .brand img { width: 20px; height: 20px; }
+      .topnav {
+        min-width: 0;
+        flex: 1 1 auto;
+        justify-content: space-evenly;
+        gap: 0;
+      }
+      .topnav a {
+        padding: 5px 4px;
+        font-size: 10px;
+      }
+      .top-status { display: none; }
       .desktop { padding-top: 24px; }
       .welcome-body { grid-template-columns: 1fr; text-align: center; justify-items: center; padding: 22px 20px; }
       .welcome-actions { justify-content: center; padding: 14px 18px 17px; }
@@ -1309,26 +1334,14 @@
         width: 21px;
         height: 21px;
       }
-      .task-socials {
-        position: fixed;
-        top: 5px;
-        right: 8px;
-        z-index: 96;
-        margin-left: 0;
-        padding: 4px;
-        border: 2px solid var(--ink);
-        border-radius: 10px;
-        background: var(--window);
-        box-shadow: var(--shadow-soft);
-      }
-      .task-socials a {
-        width: 28px;
-        height: 28px;
-        border-width: 1.5px;
-        border-radius: 7px;
-      }
-      .task-socials img { width: 18px; height: 18px; }
+      .task-socials { display: none; }
       .handle { display: none; }
+    }
+
+    @media (max-width: 420px) {
+      .brand span { display: none; }
+      .brand { padding-inline: 4px; }
+      .topnav a { padding-inline: 5px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
