@@ -12,7 +12,7 @@
   <style>
     :root {
       /* Blue-Screen Workstation: cool desktop chrome with hard-edged VatsalOS character. */
-      --desktop: #0b1739;
+      --desktop: #183b6b;
       --window: #f8fafc;
       --panel: #e7edf5;
       --ink: #101827;
@@ -26,7 +26,6 @@
       --terminal: #07111f;
       --terminal-text: #baf7d0;
       --online: #22c55e;
-      --grid: rgba(56, 189, 248, .12);
       --shadow: 5px 5px 0 rgba(7, 17, 31, .88);
       --shadow-soft: 3px 3px 0 rgba(7, 17, 31, .82);
 
@@ -52,12 +51,7 @@
       margin: 0;
       color: var(--ink);
       font-family: var(--body);
-      background-color: var(--desktop);
-      background-image:
-        linear-gradient(var(--grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid) 1px, transparent 1px),
-        radial-gradient(circle at 50% 12%, rgba(30, 64, 175, .34), transparent 58%);
-      background-size: 24px 24px, 24px 24px, 100% 100%;
+      background: var(--desktop);
       background-attachment: fixed;
       padding-bottom: 60px;
       -webkit-font-smoothing: antialiased;
