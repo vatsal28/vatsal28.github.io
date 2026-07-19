@@ -171,7 +171,7 @@
     }
     .title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .chrome { margin-left: auto; display: inline-flex; gap: 5px; }
-    .chrome i {
+    .chrome i, .chrome button {
       width: 18px;
       height: 18px;
       display: grid;
@@ -183,7 +183,17 @@
       font-style: normal;
       font-size: 11px;
       line-height: 1;
+      padding: 0;
+      cursor: pointer;
+      font-family: inherit;
     }
+    .chrome button:active { transform: translate(1px, 1px); }
+
+    :where(a, button, input, textarea, [tabindex]):focus-visible {
+      outline: 3px dotted #15130f;
+      outline-offset: 3px;
+    }
+    .titlebar :focus-visible { outline-color: #fff8ea; }
     .bar-orange { background: var(--orange); }
     .bar-blue { background: var(--blue); }
     .bar-pink { background: var(--pink); }
@@ -435,6 +445,7 @@
     }
 
     .ticker {
+      position: relative;
       margin: 42px 0 0;
       overflow: hidden;
       border-top: 2px solid var(--ink);
@@ -452,6 +463,22 @@
       animation: marquee 34s linear infinite;
     }
     .ticker:hover div { animation-play-state: paused; }
+    .ticker.is-paused div { animation-play-state: paused; }
+    .ticker-control {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      z-index: 2;
+      min-width: 42px;
+      min-height: 30px;
+      transform: translateY(-50%);
+      border: 2px solid var(--window);
+      border-radius: 6px;
+      background: var(--dark);
+      color: var(--window);
+      font: 700 11px var(--mono);
+      cursor: pointer;
+    }
     @keyframes marquee { to { transform: translateX(-50%); } }
 
     .section-head {
@@ -957,6 +984,66 @@
       background: var(--window);
       border-top: 2px solid var(--ink);
     }
+    .start-menu {
+      position: fixed;
+      left: 12px;
+      bottom: 62px;
+      z-index: 120;
+      width: min(300px, calc(100vw - 24px));
+      padding: 8px;
+      border: 2px solid var(--ink);
+      border-radius: 10px;
+      background: var(--window);
+      box-shadow: var(--shadow);
+    }
+    .start-menu[hidden] { display: none; }
+    .start-menu-title { padding: 7px 10px 9px; color: var(--muted); font: 700 11px var(--mono); }
+    .start-menu a, .start-menu button {
+      width: 100%;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--ink);
+      text-align: left;
+      text-decoration: none;
+      font: 700 13px var(--mono);
+      cursor: pointer;
+    }
+    .start-menu a:hover, .start-menu button:hover { background: var(--olive); color: var(--window); }
+    .start-menu img { width: 28px; height: 28px; object-fit: contain; }
+    .window.is-minimized { display: none; }
+    .window-task {
+      min-height: 38px;
+      max-width: 210px;
+      padding: 5px 10px;
+      overflow: hidden;
+      border: 2px solid var(--ink);
+      border-radius: 7px;
+      background: var(--yellow);
+      color: var(--ink);
+      font: 700 11px var(--mono);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .window-tasks { display: flex; gap: 6px; min-width: 0; }
+    .discovery-tip { margin-left: 4px; color: var(--muted); font: 11px var(--mono); white-space: nowrap; }
+    .help-dialog {
+      width: min(520px, calc(100% - 28px));
+      border: 0;
+      padding: 0;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--ink);
+    }
+    .help-dialog::backdrop { background: rgba(29, 28, 21, .42); }
+    .help-body { padding: 20px 22px; background: var(--window); font-size: 14px; line-height: 1.6; }
+    .help-body kbd { padding: 2px 6px; border: 1.5px solid var(--ink); border-radius: 4px; background: var(--panel); font: 700 12px var(--mono); }
     .start {
       display: inline-flex;
       align-items: center;
@@ -1101,6 +1188,8 @@
     }
 
     @media (max-width: 920px) {
+      .chrome { display: none; }
+      .window-tasks, .discovery-tip { display: none; }
       .app-ready .app-shortcuts {
         display: none;
       }
@@ -1159,6 +1248,8 @@
       .welcome-actions { justify-content: center; padding: 14px 18px 17px; }
       .social-dock { grid-template-columns: repeat(3, 1fr); }
       .ticker { margin-top: 28px; }
+      .ticker div { animation: none; transform: none; padding: 0 66px 0 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .start-menu { left: 8px; right: 8px; bottom: 66px; width: auto; }
       .section-head { margin-top: 48px; flex-wrap: wrap; }
       .section-head .rule { min-width: 100%; order: 3; }
       .section-head .count { margin-left: auto; }
@@ -1248,7 +1339,7 @@
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#work">Skip to work</a>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <div class="boot" id="boot" aria-hidden="true">
     <div class="boot-line">VATSAL_OS 4.0 starting...</div>
@@ -1303,7 +1394,7 @@
     </a>
   </nav>
 
-  <main id="home">
+  <main id="home"><span id="main-content" tabindex="-1"></span>
     <div class="wrap desktop">
       <section class="hero-grid" aria-label="VatsalOS desktop">
         <div class="icon-rail">
@@ -1384,6 +1475,7 @@
         GENERALIST BUILDER * FAKEOUT * 16K+ DOWNLOADS * 100+ TRUSTED FACT-CHECKERS * SELF-HOSTED AGENT STACK * HOMELAB AUTOMATION * X @CRYPTIKCELL * INSTAGRAM @WATT.CELL * DUBLIN *
         GENERALIST BUILDER * FAKEOUT * 16K+ DOWNLOADS * 100+ TRUSTED FACT-CHECKERS * SELF-HOSTED AGENT STACK * HOMELAB AUTOMATION * X @CRYPTIKCELL * INSTAGRAM @WATT.CELL * DUBLIN *
       </div>
+      <button class="ticker-control" type="button" aria-label="Pause scrolling status" aria-pressed="false">Pause</button>
     </div>
 
     <div class="wrap">
@@ -1698,7 +1790,9 @@ Outside work I build things like Fakeout, agentic systems using OpenClaw & Herme
   </main>
 
   <div class="taskbar" aria-label="VatsalOS taskbar">
-    <a class="start" href="#home" data-route-link="home"><img src="assets/icons/start-button.png" alt=""><span>Start</span></a>
+    <button class="start" id="start-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="start-menu"><img src="assets/icons/start-button.png" alt=""><span>Start</span></button>
+    <div class="window-tasks" id="window-tasks" aria-label="Minimized windows"></div>
+    <span class="discovery-tip" id="discovery-tip">tip: this desktop works... try Start or press ?</span>
     <nav class="task-links" aria-label="Taskbar navigation">
       <a href="#work" data-route-link="work"><img src="assets/icons/fakeout-feed.png" alt="">work</a>
       <a href="#systems" data-route-link="systems"><img src="assets/icons/homelab-rack.png" alt="">systems</a>
@@ -1712,6 +1806,23 @@ Outside work I build things like Fakeout, agentic systems using OpenClaw & Herme
     </nav>
     <span class="clock" id="clock">--:--</span>
   </div>
+
+  <nav class="start-menu" id="start-menu" aria-label="Start menu" hidden>
+    <div class="start-menu-title">VatsalOS programs</div>
+    <a href="#home" role="menuitem"><img src="assets/icons/start-button.png" alt="">Home</a>
+    <a href="#work" role="menuitem"><img src="assets/icons/fakeout-feed.png" alt="">Work</a>
+    <a href="#systems" role="menuitem"><img src="assets/icons/homelab-rack.png" alt="">Systems</a>
+    <a href="#about" role="menuitem"><img src="assets/icons/trust-lens.png" alt="">About</a>
+    <a href="#contact" role="menuitem"><img src="assets/icons/social-email.png" alt="">Contact</a>
+    <button type="button" role="menuitem" data-open-help><img src="assets/icons/folder-document.png" alt="">Keyboard help</button>
+  </nav>
+
+  <dialog class="help-dialog" id="keyboard-help" aria-labelledby="help-title">
+    <div class="window">
+      <div class="titlebar"><span class="title" id="help-title">keyboard.sys</span><span class="chrome"><button type="button" data-close-help aria-label="Close keyboard help">x</button></span></div>
+      <div class="help-body"><p><kbd>1</kbd> to <kbd>5</kbd> open Home, Work, Systems, About, and Contact.</p><p><kbd>?</kbd> opens this help. <kbd>Esc</kbd> closes menus and dialogs.</p><button class="btn" type="button" data-close-help>Close</button></div>
+    </div>
+  </dialog>
 
   <script>
     (function () {
@@ -1745,6 +1856,97 @@ Outside work I build things like Fakeout, agentic systems using OpenClaw & Herme
       var start = new Date('2023-06-01T00:00:00Z').getTime();
       var days = Math.max(0, Math.floor((Date.now() - start) / 86400000));
       uptime.textContent = days + ' days';
+    })();
+
+    (function () {
+      var startButton = document.getElementById('start-button');
+      var menu = document.getElementById('start-menu');
+      var help = document.getElementById('keyboard-help');
+      var tip = document.getElementById('discovery-tip');
+      var taskArea = document.getElementById('window-tasks');
+      var desktopQuery = window.matchMedia('(min-width: 921px)');
+
+      function discover() {
+        if (!tip) return;
+        tip.hidden = true;
+        try { localStorage.setItem('vatsalos-discovered', '1'); } catch (e) {}
+      }
+      try { if (localStorage.getItem('vatsalos-discovered') === '1') tip.hidden = true; } catch (e) {}
+
+      function closeMenu(restoreFocus) {
+        menu.hidden = true;
+        startButton.setAttribute('aria-expanded', 'false');
+        if (restoreFocus) startButton.focus();
+      }
+      function openMenu() {
+        menu.hidden = false;
+        startButton.setAttribute('aria-expanded', 'true');
+        discover();
+        var first = menu.querySelector('[role="menuitem"]');
+        if (first) first.focus();
+      }
+      startButton.addEventListener('click', function () { menu.hidden ? openMenu() : closeMenu(true); });
+      menu.addEventListener('click', function (event) { if (event.target.closest('a')) closeMenu(false); });
+      menu.addEventListener('keydown', function (event) {
+        var items = Array.prototype.slice.call(menu.querySelectorAll('[role="menuitem"]'));
+        var index = items.indexOf(document.activeElement);
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          var step = event.key === 'ArrowDown' ? 1 : -1;
+          items[(index + step + items.length) % items.length].focus();
+        }
+      });
+
+      function openHelp() { closeMenu(false); discover(); help.showModal(); help.querySelector('[data-close-help]').focus(); }
+      document.querySelector('[data-open-help]').addEventListener('click', openHelp);
+      help.querySelectorAll('[data-close-help]').forEach(function (button) { button.addEventListener('click', function () { help.close(); }); });
+
+      document.querySelectorAll('.window:not(.help-dialog .window)').forEach(function (win, index) {
+        var title = win.querySelector('.title');
+        var chrome = win.querySelector('.chrome');
+        if (!title || !chrome) return;
+        var name = title.textContent.trim();
+        win.dataset.windowId = 'window-' + index;
+        chrome.innerHTML = '<button type="button" data-minimize aria-label="Minimize ' + name.replace(/"/g, '') + '">-</button>';
+        chrome.querySelector('[data-minimize]').addEventListener('click', function () {
+          if (!desktopQuery.matches) return;
+          win.classList.add('is-minimized');
+          var task = document.createElement('button');
+          task.type = 'button';
+          task.className = 'window-task';
+          task.textContent = name;
+          task.setAttribute('aria-label', 'Restore ' + name);
+          task.addEventListener('click', function () { win.classList.remove('is-minimized'); task.remove(); win.scrollIntoView({ block: 'center' }); chrome.querySelector('button').focus(); });
+          taskArea.appendChild(task);
+          discover();
+          task.focus();
+        });
+      });
+
+      document.addEventListener('click', function (event) {
+        if (!menu.hidden && !menu.contains(event.target) && !startButton.contains(event.target)) closeMenu(false);
+      });
+      document.addEventListener('keydown', function (event) {
+        var typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName) || document.activeElement.isContentEditable;
+        if (event.key === 'Escape' && !menu.hidden) closeMenu(true);
+        if (typing || event.altKey || event.ctrlKey || event.metaKey) return;
+        if (event.key === '?' && desktopQuery.matches) { event.preventDefault(); openHelp(); }
+        if (/^[1-5]$/.test(event.key) && desktopQuery.matches) {
+          window.location.hash = ['home', 'work', 'systems', 'about', 'contact'][Number(event.key) - 1];
+          discover();
+        }
+      });
+    })();
+
+    (function () {
+      var ticker = document.querySelector('.ticker');
+      var control = ticker.querySelector('.ticker-control');
+      control.addEventListener('click', function () {
+        var paused = ticker.classList.toggle('is-paused');
+        control.setAttribute('aria-pressed', paused ? 'true' : 'false');
+        control.setAttribute('aria-label', paused ? 'Resume scrolling status' : 'Pause scrolling status');
+        control.textContent = paused ? 'Play' : 'Pause';
+      });
     })();
 
     (function () {
@@ -1796,26 +1998,43 @@ Outside work I build things like Fakeout, agentic systems using OpenClaw & Herme
     })();
 
     (function () {
-      var tabs = Array.prototype.slice.call(document.querySelectorAll('[data-project-tab]'));
-      var panels = Array.prototype.slice.call(document.querySelectorAll('[data-project-panel]'));
-      if (!tabs.length || !panels.length) return;
-
-      function activateProjectFolder(name) {
-        tabs.forEach(function (tab) {
-          var active = tab.getAttribute('data-project-tab') === name;
-          tab.classList.toggle('is-active', active);
-          tab.setAttribute('aria-selected', active ? 'true' : 'false');
+      document.querySelectorAll('[role="tablist"]').forEach(function (tablist, groupIndex) {
+        var tabs = Array.prototype.slice.call(tablist.querySelectorAll('[data-project-tab]'));
+        var browser = tablist.nextElementSibling;
+        var panels = browser ? Array.prototype.slice.call(browser.querySelectorAll(':scope > [data-project-panel]')) : [];
+        if (!tabs.length || !panels.length) return;
+        function activate(tab, focus) {
+          var name = tab.getAttribute('data-project-tab');
+          tabs.forEach(function (item, index) {
+            var active = item === tab;
+            item.classList.toggle('is-active', active);
+            item.setAttribute('aria-selected', active ? 'true' : 'false');
+            item.tabIndex = active ? 0 : -1;
+            item.id = 'tab-' + groupIndex + '-' + index;
+          });
+          panels.forEach(function (panel, index) {
+            var active = panel.getAttribute('data-project-panel') === name;
+            panel.classList.toggle('is-active', active);
+            panel.hidden = !active;
+            panel.setAttribute('role', 'tabpanel');
+            panel.tabIndex = 0;
+            panel.id = 'panel-' + groupIndex + '-' + index;
+            if (active) { panel.setAttribute('aria-labelledby', tab.id); tab.setAttribute('aria-controls', panel.id); }
+          });
+          if (focus) tab.focus();
+        }
+        tabs.forEach(function (tab, index) {
+          tab.addEventListener('click', function () { activate(tab, false); });
+          tab.addEventListener('keydown', function (event) {
+            var next = null;
+            if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = tabs[(index + 1) % tabs.length];
+            if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = tabs[(index - 1 + tabs.length) % tabs.length];
+            if (event.key === 'Home') next = tabs[0];
+            if (event.key === 'End') next = tabs[tabs.length - 1];
+            if (next) { event.preventDefault(); activate(next, true); }
+          });
         });
-        panels.forEach(function (panel) {
-          var active = panel.getAttribute('data-project-panel') === name;
-          panel.classList.toggle('is-active', active);
-        });
-      }
-
-      tabs.forEach(function (tab) {
-        tab.addEventListener('click', function () {
-          activateProjectFolder(tab.getAttribute('data-project-tab'));
-        });
+        activate(tabs.find(function (tab) { return tab.getAttribute('aria-selected') === 'true'; }) || tabs[0], false);
       });
     })();
 
