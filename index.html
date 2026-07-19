@@ -1039,6 +1039,67 @@
       transform: none;
     }
 
+    /* Let the desktop breathe on large monitors without changing laptop/mobile layouts. */
+    @media (min-width: 1440px) and (min-height: 800px) {
+      .app-ready .welcome,
+      .app-ready .social-dock {
+        max-width: clamp(900px, 52vw, 1120px);
+      }
+      .app-ready .welcome-body {
+        grid-template-columns: clamp(170px, 10vw, 210px) minmax(0, 1fr);
+        gap: clamp(30px, 2.4vw, 46px);
+        padding: clamp(34px, 3vh, 46px) clamp(40px, 3.4vw, 64px);
+      }
+      .app-ready .portrait {
+        width: clamp(170px, 10vw, 210px);
+        height: clamp(170px, 10vw, 210px);
+      }
+      .app-ready h1 {
+        font-size: clamp(58px, 3.7vw, 76px);
+      }
+      .app-ready .lead {
+        font-size: clamp(18px, 1.15vw, 22px);
+      }
+      .app-ready .welcome-actions {
+        gap: 14px;
+        padding: 20px clamp(40px, 3.4vw, 64px) 24px;
+      }
+      .app-ready .welcome-actions .btn {
+        min-height: 44px;
+        padding: 10px 16px;
+        font-size: 13px;
+      }
+      .app-ready .social-dock {
+        gap: 13px;
+        margin-top: 24px;
+      }
+      .app-ready .social-dock a {
+        gap: 8px;
+        padding: 12px 7px;
+        font-size: 11px;
+      }
+      .app-ready .social-dock img {
+        width: 42px;
+        height: 42px;
+      }
+      .app-ready .app-shortcuts {
+        left: clamp(24px, 2.5vw, 48px);
+        gap: 20px;
+      }
+      .app-ready .app-shortcuts.secondary {
+        left: auto;
+        right: clamp(24px, 2.5vw, 48px);
+      }
+      .app-ready .app-shortcuts .desktop-icon {
+        width: 112px;
+        font-size: 12px;
+      }
+      .app-ready .app-shortcuts .desktop-icon img {
+        width: 62px;
+        height: 62px;
+      }
+    }
+
     @media (max-width: 920px) {
       .app-ready .app-shortcuts {
         display: none;
