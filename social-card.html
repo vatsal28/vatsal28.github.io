@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vatsal Mishra social card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 1200px; height: 630px; margin: 0; overflow: hidden; }
+    body { background: #183b6b; color: #101827; font-family: "Space Grotesk", sans-serif; padding: 44px; }
+    .desktop-label { display: flex; justify-content: space-between; color: #dbeafe; font: 700 18px "JetBrains Mono", monospace; margin: 0 4px 20px; letter-spacing: .02em; }
+    .window { height: 492px; background: #f8fafc; border: 4px solid #07111f; border-radius: 12px; box-shadow: 10px 10px 0 #07111f; overflow: hidden; }
+    .titlebar { height: 66px; background: #1e40af; color: white; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; font: 700 20px "JetBrains Mono", monospace; }
+    .controls { display: flex; gap: 10px; }
+    .controls i { display: block; width: 24px; height: 24px; background: #e7edf5; border: 3px solid #07111f; border-radius: 4px; }
+    .content { height: 426px; display: grid; grid-template-columns: 1fr 286px; gap: 38px; padding: 45px 48px 40px; }
+    .eyebrow { color: #1e40af; font: 700 21px "JetBrains Mono", monospace; margin: 0 0 17px; text-transform: uppercase; letter-spacing: .06em; }
+    h1 { font-size: 64px; line-height: .98; letter-spacing: -.045em; margin: 0 0 22px; }
+    .position { color: #334155; font-size: 29px; line-height: 1.2; font-weight: 600; margin: 0; max-width: 670px; }
+    .terminal { display: inline-flex; margin-top: 28px; background: #07111f; color: #baf7d0; border: 3px solid #07111f; border-radius: 7px; padding: 12px 17px; font: 600 18px "JetBrains Mono", monospace; }
+    .apps { align-self: center; display: grid; grid-template-columns: repeat(2, 1fr); gap: 17px; position: relative; }
+    .app { height: 126px; background: #e7edf5; border: 3px solid #07111f; border-radius: 8px; display: grid; place-items: center; box-shadow: 4px 4px 0 #07111f; }
+    .app img { width: 78px; height: 78px; object-fit: contain; }
+    .badge { grid-column: 1 / -1; justify-self: end; background: #dbeafe; border: 3px solid #07111f; border-radius: 7px; padding: 9px 13px; font: 700 15px "JetBrains Mono", monospace; margin-top: -4px; }
+  </style>
+</head>
+<body>
+  <div class="desktop-label"><span>VATSALOS / PORTFOLIO</span><span>ONLINE ●</span></div>
+  <main class="window">
+    <div class="titlebar"><span>C:\\VATSAL\\welcome.txt</span><span class="controls"><i></i><i></i><i></i></span></div>
+    <div class="content">
+      <section>
+        <p class="eyebrow">Applied AI at Google</p>
+        <h1>Vatsal Mishra</h1>
+        <p class="position">Building useful AI products, agents and systems.</p>
+        <div class="terminal">&gt; explore the workstation<span>_</span></div>
+      </section>
+      <div class="apps" aria-hidden="true">
+        <span class="app"><img src="assets/icons/ai-app-spark.png" alt=""></span>
+        <span class="app"><img src="assets/icons/cloidberg-agent.png" alt=""></span>
+        <span class="app"><img src="assets/icons/homelab-rack.png" alt=""></span>
+        <span class="app"><img src="assets/icons/automation-gears.png" alt=""></span>
+        <span class="badge">vatsalmishra.org</span>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
