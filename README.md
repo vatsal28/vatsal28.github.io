@@ -1,12 +1,13 @@
 # vatsalmishra.org
 
-Personal site of Vatsal Mishra. Plain static HTML, no build step.
+Personal site of Vatsal Mishra. Plain static HTML, no build step on the hosts. The Builds section is generated locally by `scripts/builds.py` and the output is committed.
 
 ## Layout
 
 - `index.html`: the main page. One scrolling page in the VatsalOS skin: hero, work, writing and video, now.log, about, contact.
 - `os/index.html`: the original drag-the-windows VatsalOS desktop, kept as an opt-in easter egg ("Open VatsalOS"). It is `noindex` and canonicalises to the main page.
 - `assets/icons/w/`: 128px WebP copies of the pixel icons used by the main page. The PNG originals stay for `/os/`.
+- `builds/`: the Builds section ("how I built X" posts). Source is `builds/<slug>/post.md`; `scripts/builds.py build` generates the HTML, `builds/feed.xml`, `sitemap.xml`, `robots.txt` and the `BUILDS:START/END` block on the main page. Never hand-edit those. See `AGENTS.md` and `CONTRIBUTING.md`.
 - `social-card.html`: source for the 1200x630 OG image. Render it at 1200x630 and save as `assets/social/vatsal-mishra-card-YYYYMMDD.jpg`, then update the `og:image` and `twitter:image` tags.
 
 ## Deploys
