@@ -604,6 +604,7 @@ def render_post(root: Path, post: Post, newer: Post | None, older: Post | None, 
     og_alt = meta.get("cover_alt") or "VatsalOS card for Vatsal Mishra"
 
     meta_bits = [
+        '<span>By Vatsal</span>',
         f'<time datetime="{post.date.isoformat()}">{human_date(post.date)}</time>',
     ]
     if post.updated and post.updated != post.date:

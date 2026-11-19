@@ -8,4 +8,16 @@
   <id>https://vatsalmishra.org/builds/</id>
   <updated>2026-11-19T00:00:00Z</updated>
   <author><name>Vatsal Mishra</name><uri>https://vatsalmishra.org/</uri></author>
+  <entry>
+    <title>My AI agent turned 13 photos into a 3D planner of my flat</title>
+    <link href="https://vatsalmishra.org/builds/3d-apartment/"/>
+    <id>https://vatsalmishra.org/builds/3d-apartment/</id>
+    <published>2026-11-19T00:00:00Z</published>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>A floor plan, 13 phone photos and one prompt. About 70 minutes later I had a 3D model and a browser planner where I can drag every piece of furniture around.</summary>
+    <category term="agents"/>
+    <category term="3d"/>
+    <category term="blender"/>
+    <category term="home"/>
+  </entry>
 </feed>

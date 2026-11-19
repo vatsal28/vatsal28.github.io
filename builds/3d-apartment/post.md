@@ -4,11 +4,10 @@ slug: 3d-apartment
 date: 2026-11-19
 summary: "A floor plan, 13 phone photos and one prompt. About 70 minutes later I had a 3D model and a browser planner where I can drag every piece of furniture around."
 tags: [agents, 3d, blender, home]
-status: draft
+status: published
 cover: img/cover.webp
 cover_alt: "3D cutaway render of a living room and kitchen with a teal sofa, a TV unit, a bookshelf, a dining table and a desk, walls cut at waist height."
 cover_caption: "The living room and kitchen, rebuilt from photos and rendered in Blender."
-drafted_by: "Hermes, the agent that built it, with Cloidberg"
 ---
 
 I wanted to try a few furniture layouts without dragging a sofa around the flat. So I sent my AI agent a floor plan and 13 phone photos and asked it to rebuild the place in 3D.
