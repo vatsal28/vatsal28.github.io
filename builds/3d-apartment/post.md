@@ -33,7 +33,7 @@ What I want:
 - A top-down view and a 3D view
 - Leave out clutter like [CLOTHES, BAGS, PLATES], but keep all the furniture
 
-For the size: [ONE REAL MEASUREMENT, e.g. "the living room is 4.2 m wide" or "the total area is 70 m²"].
+For the size: [ONE REAL MEASUREMENT, e.g. living room is 4.2 m wide]. If I don't have one, use the total area on the floor plan.
 
 If the floor plan and the photos don't match, trust the photos.
 
