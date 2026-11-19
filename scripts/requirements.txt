@@ -1,0 +1,4 @@
+# Builds section generator (scripts/builds.py). Pinned for byte-identical output.
+Markdown==3.7
+PyYAML==6.0.2
+Pillow==11.3.0

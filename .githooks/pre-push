@@ -1,0 +1,14 @@
+#!/bin/sh
+# Runs the Builds checks before anything leaves the machine. This repo is PUBLIC:
+# every pushed branch, draft included, is readable by anyone.
+# Enable once per clone:  git config core.hooksPath .githooks
+set -e
+root="$(git rev-parse --show-toplevel)"
+if [ -x "$root/.venv/bin/python" ]; then py="$root/.venv/bin/python"
+elif [ -x "$root/.venv/Scripts/python.exe" ]; then py="$root/.venv/Scripts/python.exe"
+else py="python3"; fi
+echo "pre-push: builds.py check"
+if ! "$py" "$root/scripts/builds.py" check; then
+  echo "pre-push: blocked. Fix the FAILED lines above (run builds.py build if output is stale), then push again." >&2
+  exit 1
+fi
