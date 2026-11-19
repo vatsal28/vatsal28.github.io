@@ -1,0 +1,10 @@
+# Source and tooling for the Builds section: not part of the served site.
+/scripts/
+/builds/*/post.md
+/.github/
+/.githooks/
+/AGENTS.md
+/CONTRIBUTING.md
+/README.md
+/.venv/
+/.preview/
