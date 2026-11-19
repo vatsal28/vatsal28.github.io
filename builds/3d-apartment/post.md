@@ -18,39 +18,39 @@ A lot of you asked how I did it, so here's the prompt. You can paste it straight
 
 ## Give this to your agent
 
-Fill in the bits in brackets, send it, and then send your floor plan and photos.
+Fill in the bits in brackets, send it, and then send your photos (and a floor plan if you have one).
 
 ```prompt title="Turn your home into a 3D planner"
-I'm going to send you a floor plan and photos of my [FLAT / HOUSE / ROOM]. Turn them into an interactive 3D model of my home that I can open in my browser.
+I'm going to send you photos of my [FLAT / HOUSE / ROOM], and a floor plan if I have one. Turn them into an interactive 3D model of my home that I can open in my browser.
 
 Build it as a single HTML page (three.js is fine) and show it to me as a preview if you can.
 
 What I want:
-- Walls, doors and windows from the floor plan
+- Walls, doors and windows in the right places
 - All my furniture from the photos, roughly the right size and in the right place
 - I can drag any furniture around and rotate it, with a mouse or my finger
 - Furniture turns red if it hits a wall or another piece
 - A top-down view and a 3D view
 - Leave out clutter like [CLOTHES, BAGS, PLATES], but keep all the furniture
 
-For the size: [ONE REAL MEASUREMENT, e.g. living room is 4.2 m wide]. If I don't have one, use the total area on the floor plan.
+For the size: [ONE REAL MEASUREMENT, e.g. living room is 4.2 m wide]. If I don't have one, estimate from the photos.
 
-If the floor plan and the photos don't match, trust the photos.
+If there's no floor plan, work out the layout from the photos. Ask me a few quick questions if you're unsure how the rooms connect. If there is one and it doesn't match the photos, trust the photos.
 
-Wait until I've sent the floor plan and all the photos, then build it.
+Wait until I've sent everything, then build it.
 ```
 
 ## What you need
 
-- A floor plan. A screenshot from the listing or your rental ad is fine, even without room sizes.
 - Photos of every room from your phone, one or two angles each. No need to tidy up first.
-- Any AI chat app. Ones that can show a live preview, like Claude or ChatGPT, are the easiest.
+- An AI chat app. Claude and ChatGPT can show the 3D model right there in the chat. In other apps, ask it for the file, save it as `home.html` and open it in your browser.
+- Optional: a floor plan. A screenshot from the listing or your rental ad is fine. It helps the AI get the layout right.
 - Optional: one real measurement, like the length of one wall. It makes the sizes a lot more accurate.
 
 ## Steps
 
 1. Copy the prompt and fill in the brackets.
-2. Send it, then send the floor plan and the photos.
+2. Send it, then send your photos (and the floor plan if you have one).
 3. Open the preview and start moving things around.
 4. If something looks off, just tell it, like "the sofa should be against the other wall", and it'll fix it.
 

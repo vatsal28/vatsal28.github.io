@@ -102,34 +102,34 @@
 <section class="part part-agent" aria-labelledby="give-this-to-your-agent">
 <h2 id="give-this-to-your-agent">Give this to your agent</h2>
 <p class="agent-hint">Copy a prompt and paste it into Claude, ChatGPT, Codex or any coding agent. Swap the highlighted [BRACKETS] for your own details first.</p>
-<p>Fill in the bits in brackets, send it, and then send your floor plan and photos.</p>
+<p>Fill in the bits in brackets, send it, and then send your photos (and a floor plan if you have one).</p>
 <div class="prompt">
 <div class="prompt-bar"><span class="prompt-label" id="prompt-1-label">Turn your home into a 3D planner</span><button class="copy" type="button" data-copy="prompt-1" aria-describedby="prompt-1-label"><svg class="ico ico-copy" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg><svg class="ico ico-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg><span class="copy-label">Copy</span></button></div>
-<pre class="prompt-text" id="prompt-1" tabindex="0"><code>I'm going to send you a floor plan and photos of my <mark class="slot">[FLAT / HOUSE / ROOM]</mark>. Turn them into an interactive 3D model of my home that I can open in my browser.
+<pre class="prompt-text" id="prompt-1" tabindex="0"><code>I'm going to send you photos of my <mark class="slot">[FLAT / HOUSE / ROOM]</mark>, and a floor plan if I have one. Turn them into an interactive 3D model of my home that I can open in my browser.
 
 Build it as a single HTML page (three.js is fine) and show it to me as a preview if you can.
 
 What I want:
-- Walls, doors and windows from the floor plan
+- Walls, doors and windows in the right places
 - All my furniture from the photos, roughly the right size and in the right place
 - I can drag any furniture around and rotate it, with a mouse or my finger
 - Furniture turns red if it hits a wall or another piece
 - A top-down view and a 3D view
 - Leave out clutter like <mark class="slot">[CLOTHES, BAGS, PLATES]</mark>, but keep all the furniture
 
-For the size: <mark class="slot">[ONE REAL MEASUREMENT, e.g. living room is 4.2 m wide]</mark>. If I don't have one, use the total area on the floor plan.
+For the size: <mark class="slot">[ONE REAL MEASUREMENT, e.g. living room is 4.2 m wide]</mark>. If I don't have one, estimate from the photos.
 
-If the floor plan and the photos don't match, trust the photos.
+If there's no floor plan, work out the layout from the photos. Ask me a few quick questions if you're unsure how the rooms connect. If there is one and it doesn't match the photos, trust the photos.
 
-Wait until I've sent the floor plan and all the photos, then build it.</code></pre>
+Wait until I've sent everything, then build it.</code></pre>
 </div>
 </section>
 <section class="part part-needs" aria-labelledby="what-you-need">
 <h2 id="what-you-need">What you need</h2>
 <ul>
-<li>A floor plan. A screenshot from the listing or your rental ad is fine, even without room sizes.</li>
 <li>Photos of every room from your phone, one or two angles each. No need to tidy up first.</li>
-<li>Any AI chat app. Ones that can show a live preview, like Claude or ChatGPT, are the easiest.</li>
+<li>An AI chat app. Claude and ChatGPT can show the 3D model right there in the chat. In other apps, ask it for the file, save it as <code>home.html</code> and open it in your browser.</li>
+<li>Optional: a floor plan. A screenshot from the listing or your rental ad is fine. It helps the AI get the layout right.</li>
 <li>Optional: one real measurement, like the length of one wall. It makes the sizes a lot more accurate.</li>
 </ul>
 </section>
@@ -137,7 +137,7 @@ Wait until I've sent the floor plan and all the photos, then build it.</code></p
 <h2 id="steps">Steps</h2>
 <ol>
 <li>Copy the prompt and fill in the brackets.</li>
-<li>Send it, then send the floor plan and the photos.</li>
+<li>Send it, then send your photos (and the floor plan if you have one).</li>
 <li>Open the preview and start moving things around.</li>
 <li>If something looks off, just tell it, like &ldquo;the sofa should be against the other wall&rdquo;, and it&rsquo;ll fix it.</li>
 </ol>
