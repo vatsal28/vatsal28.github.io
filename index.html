@@ -288,6 +288,7 @@
     /* ---------- content tracks ---------- */
     .tracks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
     .track .card-body { padding-bottom: 16px; }
+    .track:last-child:nth-child(odd) { grid-column: 1 / -1; }
 
     /* ---------- now log + about terminal ---------- */
     .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; align-items: start; margin-top: 64px; }
@@ -637,19 +638,6 @@
               <div class="links">
                 <a href="https://www.youtube.com/@watt_cell" target="_blank" rel="noopener">YouTube</a>
                 <a href="https://www.instagram.com/watt.cell/" target="_blank" rel="noopener">Instagram</a>
-              </div>
-            </div>
-          </article>
-          <article class="window card track">
-            <div class="titlebar"><span class="title">watch/vatsal-builds</span><span class="chrome" aria-hidden="true"><i></i></span></div>
-            <div class="card-body">
-              <div class="card-top">
-                <img src="assets/icons/w/automation-gears.webp" alt="" width="48" height="48" loading="lazy">
-                <div><h3>Vatsal Builds</h3><span class="kind">Long-form video · for builders</span></div>
-              </div>
-              <p>Longer videos about the things I build and how they work. Early days: two videos up, more in production.</p>
-              <div class="links">
-                <a href="https://www.youtube.com/@vatsalbuilds" target="_blank" rel="noopener">YouTube</a>
               </div>
             </div>
           </article>
