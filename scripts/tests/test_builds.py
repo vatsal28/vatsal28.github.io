@@ -84,7 +84,7 @@ class SiteCase(unittest.TestCase):
         (self.tmp / "assets" / "js").mkdir(parents=True)
         (self.tmp / "assets" / "css" / "builds.css").write_text(CSS)
         (self.tmp / "assets" / "js" / "builds.js").write_text("// js\n")
-        for icon in ("automation-gears", "cloidberg-agent", "vatsalos-mark", "start-button"):
+        for icon in ("automation-gears", "cloidberg-agent", "vatsalos-mark", "start-button", "folder-document"):
             p = self.tmp / "assets" / "icons" / "w" / f"{icon}.webp"
             p.parent.mkdir(parents=True, exist_ok=True)
             Image.new("RGB", (8, 8)).save(p, "WEBP")
