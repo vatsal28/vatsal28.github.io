@@ -1,0 +1,34 @@
+name: builds-check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  builds-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned dependencies
+        run: pip install -r scripts/requirements.txt
+      - name: Rebuild and fail on any diff (generated files must be committed and current)
+        run: |
+          python3 scripts/builds.py build
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
+      - name: Check posts, links, images and privacy
+        env:
+          # Private home-location terms. Never commit these; set the Actions secret.
+          # Without it the check prints a WARNING and skips the denylist.
+          PRIVACY_DENYLIST: ${{ secrets.PRIVACY_DENYLIST }}
+        run: python3 scripts/builds.py check
+      - name: Unit tests
+        run: python3 -m unittest discover -s scripts/tests -v
