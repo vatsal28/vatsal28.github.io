@@ -89,6 +89,7 @@ class SiteCase(unittest.TestCase):
             p.parent.mkdir(parents=True, exist_ok=True)
             Image.new("RGB", (8, 8)).save(p, "WEBP")
         (self.tmp / "assets" / "icons" / "favicon.png").write_bytes(b"x")
+        (self.tmp / "assets" / "icons" / "apple-touch-icon.png").write_bytes(b"x")
         (self.tmp / "os").mkdir()
         (self.tmp / "os" / "index.html").write_text("<h1>os</h1>")
         (self.tmp / "index.html").write_text(HOME)
